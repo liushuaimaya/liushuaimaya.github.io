@@ -26,6 +26,11 @@ section.prod div {
   background-color: pink;
 }
 
+section.prod div:hover {
+  background-color: red;
+}
+
+
 section.prod div:nth-child(3n+1) {
   margin: 15px 0;
 }
