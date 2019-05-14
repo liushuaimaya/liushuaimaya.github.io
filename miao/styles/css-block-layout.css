@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+}
+
+nav {
+  color: white;
+  background-color: black;
+}
+nav>div {
+  margin: 0 auto;
+  width: 600px;
+}
+
+main {
+  width: 600px;
+  margin: 0 auto;
+}
+
+section.prod div { 
+  box-sizing: border-box;
+  width: 180px;
+  height: 40px;
+  border: 3px solid;
+  padding: 9px;
+  text-align: center;
+  background-color: pink;
+}
+
+section.prod div:nth-child(3n+1) {
+  margin: 15px 0;
+}
+
+section.prod div:nth-child(3n+2) {
+  margin: -55px 0 15px 210px;
+}
+
+section.prod div:nth-child(3n+3) {
+  margin: -55px 0 15px 420px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li:nth-child(n+2){
+  border-top: 1px dotted;
+}
+
+footer {
+  background-color: #ee82ee;
+}
+
+footer>div {
+  /* width: fit-content; */
+  text-align: center;
+  margin: 0 auto;
+}
