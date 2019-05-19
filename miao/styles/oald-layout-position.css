@@ -1,0 +1,211 @@
+/* * {
+  background-color: rgba(0, 0, 0, 0.08);
+} */
+
+body {
+  margin: 0;
+  font-size: 1.5vw;
+  font-family: "Comic Sans MS";
+  line-height: 1.5;
+}
+
+div.main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+aside,
+main {
+  color: rgb(83, 95, 126);
+  background-color: rgb(234, 238, 243);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+aside {
+  width: 17.39130435vw;
+}
+
+main {
+  width: 87.82608696vw;
+}
+
+aside.word-list {
+  left: 0;
+}
+
+aside.vocabulary {
+  right: 17.39130435vw;
+}
+
+aside.history {
+  right: 0;
+}
+
+main  {
+  left: 17.39130435vw;
+  width: 47.82608696vw;
+  color: #000;
+  background-color: #fff;
+}
+
+main article,
+aside ul {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 9vw;
+  bottom: 0;
+  overflow: auto;
+  margin-top: 0.5em;
+}
+
+
+
+ul {
+  list-style-type: none;
+  padding:0 10%;
+  margin: 0;
+}
+
+ul li {
+  margin: 0;
+}
+
+ul a {
+  text-decoration: none;
+  color: rgb(66,109,201);
+}
+
+h1 {
+  color: #53637D;
+  font-size: 2.260869565vw;
+  text-align: center;
+  line-height: calc(9vw - 2.173913043vw);
+  margin: 0;
+}
+
+
+
+/* header中div, h1元素设置为行内并垂直居中对齐 */
+/* .main-content > header > div, */
+.main-content > header > div > h1,
+.history > header > div:first-child > h1{
+  display: inline-block;
+}
+
+.main-content > header {
+  position: relative;
+
+}
+
+.main-content > header > div:nth-child(2){
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  top: 0;
+  right: 3%;
+  bottom: 0;
+  left: auto;
+  margin: auto;
+}
+
+.history > header > div {
+  position: relative;
+}
+.history > header > div > button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto 3%;
+}
+
+header > div:first-child {
+  padding-left: 3%;
+}
+
+.search-bar {
+  margin-left: 3%;
+}
+
+input[class^="searchbox"] {
+  font-size: calc(2.173913043vw / 1.5);
+  width: 13.2173913vw;
+  height: 2.173913043vw;
+  /* margin: 4px auto; */
+  border: .086956522vw solid gray;
+  border-radius: 999px 0 0 999px ;
+}
+input[class^="searchbox"]:focus {
+  border: calc(0.086956522vw * 2) solid rgb(81, 109, 181);
+}
+
+input[type="submit"] {
+  display: inline-block;
+  width: 3.043478261vw;
+  height: 2.173913043vw;
+  background-color: rgb(77, 138, 244);
+  border-radius: 0 999px 999px 0;
+  vertical-align: bottom;
+  /* For Safari Mac, you'll also need to set border: none in order to see these changes.  */
+  border: none;  
+}
+
+/* shadow */
+aside,
+.main-content > header  {
+  box-shadow: inset -4px 0px 6px #999;
+}
+
+/* Magnifying Glass */
+.magnifying-glass {
+  font-size: 1.2em;
+  display: inline-block;
+  width: 0.4em;
+  box-sizing: content-box;
+  height: 0.4em;
+  border: 0.1em solid white;
+  position: relative;
+  border-radius: 0.35em;
+  margin-left: -1.2em;
+  vertical-align: 0.1em;
+  pointer-events: none;
+}
+.magnifying-glass:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  right: -0.25em;
+  bottom: -0.1em;
+  border-width: 0;
+  background: white;
+  width: 0.35em;
+  height: 0.08em;
+  transform: rotate(45deg);
+}
+/* Magnifying Glass end */
+
+button {
+  font-family: inherit;
+  font-size: calc(2vw / 1.5);
+  width: fit-content;
+  height: 2vw;
+}
+
+header button:first-of-type {
+  border-radius: 999px 0 0 999px;
+}
+
+header button:last-of-type {
+  border-radius: 0 999px 999px 0;
+}
+
+header button:only-of-type {
+  border-radius: 999px;
+}
+

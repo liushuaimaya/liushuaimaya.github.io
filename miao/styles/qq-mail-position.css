@@ -1,0 +1,192 @@
+/* initial */
+body {
+  margin: 0;
+  font-size: 12px;
+  min-width: 800px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #354b66;
+}
+
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 24px;
+  margin: 8px 0;
+}
+
+
+/***** topbar style *****/
+/* tapbar-left */
+.topbar {
+  color: #D7DFEA;
+  background-color: #354b66;  
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 66px;
+}
+.topbar-left{
+  position: absolute;
+  top: 0;
+  bottom: 6px;
+  left: 5px;
+  width: 400px;
+}
+
+.logo-mail {
+  background-image: -webkit-image-set(url(https://rescdn.qqmail.com/zh_CN/htmledition/images/webp/logo/logo_210_01e9c5d.gif) 1x,url(https://rescdn.qqmail.com/zh_CN/htmledition/images/webp/logo/logo_210_0@2X1e9c5d.png) 2x);
+  width: 215px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.user-data {
+  position: absolute;
+  top: 0;
+  left: 220px;
+  right: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: fit-content;
+  width: fit-content;
+}
+
+
+/* tapbar-right */
+.topbar-right {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 400px;
+}
+.topbar-right-tooltip {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.topbar-right-search-bar {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+.topbar-right-search-bar input{
+  font-size: inherit;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 22px;
+  width: 280px;
+  border-radius: 2px;
+  border: none;
+}
+
+
+/***** aside-left *****/
+.aside-left {
+  line-height: 22px;
+  position: absolute;
+  top: 66px;
+  bottom: 0;
+  left: 0;
+  width: 187px; 
+  color: #354b66;
+  background-color:#e7ebf1;
+  overflow: auto;
+}
+
+.aside-left-keywords {
+  line-height: 28px;
+  padding-left: 32px;
+  font-size: 14px;
+  font-style: bold;
+  border-bottom: 1px inset #CCC;
+}
+
+.aside-left-keywords li::before {
+  position: relative;
+  left: -1em;
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  background-image: -webkit-image-set(url(https://rescdn.qqmail.com/zh_CN/htmledition/images/webp/newicon/cca1e9c5d.gif) 1x,url(https://rescdn.qqmail.com/zh_CN/htmledition/images/webp/newicon/cca@2X1e9c5d.png) 2x);
+}
+.aside-left-keywords li:nth-child(2)::before {
+  background-position: 0 -32px;
+}
+
+.aside-left-keywords li:nth-child(3)::before {
+  background-position: 0 -64px;
+}
+
+.aside-left-folder,
+.aside-left-others {
+  border-top: 1px solid #CCC;
+}
+
+/****** aside-right styles ****/
+
+.aside-right {
+  line-height: 22px;
+  position: absolute;
+  top: 66px;
+  bottom: 0;
+  right: 0;
+  width: 300px; 
+}
+
+.aside-right-download-mobile-qq {
+  background-color:#f4f6f8;
+}
+
+/***** main styles *****/
+.main {
+  position: absolute;
+  top: 66px;
+  right: 300px;
+  left: 187px;
+  padding: 0 2em;
+}
+
+.main-content {
+  border-bottom: 1px solid silver;
+}
+
+.main-header {
+  font-size: 16px;
+}
+
+.main-content p {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/***** footer styles *****/
+.footer {
+  margin: 1.5em 0;
+}
+
+.footer > div {
+  margin: 1em 0;
+}
