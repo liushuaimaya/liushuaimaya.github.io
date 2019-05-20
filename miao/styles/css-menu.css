@@ -1,0 +1,72 @@
+/* 1-初始化 */
+* {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+body {
+  margin: 0;
+  font-size: 0;
+}
+.menu > li {
+  font-size: initial;
+}
+
+ul:hover, li:hover {
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  line-height: 1.5;
+  background-color: #EEE;
+  margin: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0 5px;
+  position: relative;
+  white-space: nowrap;
+
+}
+
+/* 设置menu样式 */
+.menu > li {
+  display: inline-block;
+}
+
+/* 各级菜单中 ul 隐藏 */
+li > ul {
+  display: none;
+  box-shadow: 2px 2px 2px black;
+}
+
+li:hover > ul{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+
+.menu > li:hover > ul {
+  top: 1.5em;
+  left: 0;
+}
+
+.menu > li li:hover > ul::before {
+  content: ">";
+  position: absolute;
+  top: 0;
+  left: -1em;
+}
+
+li:hover,
+li:hover > ul::before {
+  color: white;
+  background-color: blue;
+}
+
+li:hover > ul{
+  color: initial;
+}
+
