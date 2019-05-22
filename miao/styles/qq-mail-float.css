@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  color: white;
+}
+
+.topbar {
+  height: 66px;
+  background-color: rgb(53, 75, 102);
+}
+
+.left-aside,
+.main-content,
+.right-aside   {
+  height: calc(100vh - 66px);
+}
+
+.left-aside {
+  float: left;
+  width: 190px;
+  background-color: gold;
+}
+
+.main-content {
+  background-color: silver;
+  overflow-y: scroll; 
+}
+
+.right-aside {
+  float: right;
+  width: 310px;
+  background-color: maroon;
+}

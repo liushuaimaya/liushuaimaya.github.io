@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  list-style-type: none;
+}
+
+
+aside > div
+{
+  width: 200px;
+  height: calc(100vh - 110px);
+  overflow: auto;
+
+}
+
+.main-content > div {
+  height: calc(100vh - 110px);
+  overflow: auto;
+}
+.left-aside {
+  float: left;
+}
+
+.right-aside,
+.second-right-aside {
+  float: right;
+}
+
+.topbar {
+  height: 110px;
+}
+
+.left-aside .topbar {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.right-aside .topbar {
+  background-color: rgba(0, 255, 0, 0.5);
+}
+.second-right-aside .topbar {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+.main-content .topbar {
+  background-color: silver;
+}
+.left-aside .topbar + div {
+  background-color: maroon;
+}
+.right-aside .topbar + div{
+  background-color: mediumpurple;
+}
+.second-right-aside .topbar  + div {
+  background-color: mediumvioletred;
+}
+.main-content .topbar + div{
+  background-color: mediumspringgreen;
+}
