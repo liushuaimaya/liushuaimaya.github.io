@@ -1,0 +1,49 @@
+.outer {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.inner {
+  background-color: rgba(0, 255, 0, 0.2);
+
+}
+
+.position.outer{
+  background-color: rgba(255, 0, 0, 0.2);
+  height: 300px;
+  position: relative;
+}
+.position.inner {
+  background-color: rgba(0, 255, 0, 0.2);
+  clip-path: inset(30% 0);
+  position: absolute;
+  width: 300px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.inline-block.outer {
+  /* width: 500px; */
+  line-height: 150px;
+  min-height: 150px;
+}
+
+.inline-block.inner {
+  display: inline-block;
+  line-height: initial;
+  vertical-align: middle;
+}
+
+.table-cell.outer {
+  width: 500px;
+  height: 150px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table-cell.inner {
+  width: 300px;
+  margin: 0 auto;
+}
