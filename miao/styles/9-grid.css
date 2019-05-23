@@ -1,0 +1,43 @@
+/* 九宫格-浮动 */
+.no1 > div {
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin: 0 -5px -5px 0;
+  border: 5px solid blue;
+  position: relative;
+}
+
+.no1 > div:hover {
+  border-color: red;
+  z-index: 1;
+}
+
+.no1,
+.no2 {
+  width: 170px;
+  padding-bottom: 5px;
+  display: flow-root;
+}
+
+
+/* 九宫格-inline-block */
+
+.no2 {
+  font-size: 0;
+}
+
+.no2 > div {
+  font-size: initial;
+  width: 50px;
+  height: 50px;
+  border: 5px solid blue;
+  display: inline-block;
+  margin:0 -5px -5px 0;
+  position: relative;
+}
+
+.no2 > div:hover {
+  border-color: red;
+  z-index: 1;
+}
