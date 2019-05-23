@@ -1,6 +1,7 @@
 body {
   margin: 0;
   color: white;
+  min-width: 800px;
 }
 
 .topbar {
