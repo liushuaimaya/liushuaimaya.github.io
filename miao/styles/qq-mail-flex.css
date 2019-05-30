@@ -1,0 +1,33 @@
+html,body {
+  margin: 0;
+  height: 100%;
+}
+
+.topbar,
+.content > div {
+  border: 1px solid gold;
+}
+
+.flex-outer {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.topbar {
+  flex: 0 1 200px;
+}
+
+.content {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.left,
+.right {
+  flex: 0 1 200px;
+}
+
+.main {
+  flex: 1 1 auto;
+}
