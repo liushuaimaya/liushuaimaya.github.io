@@ -1,0 +1,350 @@
+/* 设置body外边距为0，设置主体颜色为白色 */
+::selection {
+  background: rgba(226, 61, 14, 0.1);
+}
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft Yahei",
+    "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+}
+ul,
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+a:link,
+a:visited {
+  color: currentColor;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 初始化标签 */
+.hero,
+.flex-img {
+  color: white;
+}
+
+.hero-content {
+  height: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+/* 顶部导航设置 */
+.topbar {
+  max-width: 1080px;
+  height: 37px;
+  margin: 0px auto;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topbar-right {
+  width: 365.36px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  float: right;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topbar-right > li {
+  /* display: inline; */
+  line-height: 37px;
+}
+
+.topbar-right > li > a {
+  vertical-align: middle;
+}
+
+/* 主要标题设置 */
+
+.header {
+  position: absolute;
+  left: 20px;
+  top: 80px;
+  bottom: 42px;
+  height: fit-content;
+  margin: auto 0;
+}
+.header > h1 {
+  font-size: 420%;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0 auto 20px 0;
+}
+@media (max-width: 1080px) {
+  .header > h1 {
+    font-size: 280%;
+  }
+}
+
+.header > a {
+  display: block;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 14px 26px;
+  letter-spacing: 0.1em;
+  border-radius: 6px;
+  box-shadow: rgba(122, 112, 101, 0.6) 0px 6px 30px 0px;
+}
+.hero-footer {
+  line-height: 36px;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 0;
+}
+.hero-footer .icon-new {
+  font-size: 12px;
+  background: linear-gradient(to bottom, #ec614f 0%, #ff2e2e 100%);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 0 8px;
+  vertical-align: middle;
+}
+
+.icon-new-content {
+  vertical-align: middle;
+  font-weight: lighter;
+  margin-left: 0.5em;
+}
+
+/* 主要背景图设置 */
+.hero {
+  background-color: silver;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(https://mobike.com/cn/assets/themes/moby/img/landing/hero-bg-3.jpg);
+}
+
+/* 四图设置 */
+.flex-img {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.flex-img > div {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  height: 260px;
+  width: 100%;
+  padding: 2rem;
+  border-top: 2px solid white;
+}
+
+.flex-img div:nth-child(1) {
+  background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-01.jpg);
+}
+.flex-img div:nth-child(2) {
+  background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-02.jpg);
+}
+.flex-img div:nth-child(3) {
+  background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-03.jpg);
+}
+.flex-img div:nth-child(4) {
+  background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-04.jpg);
+}
+
+.hero {
+  height: 600px;
+}
+
+@media (min-width: 640px) {
+  .flex-img > div {
+    width: 50%;
+  }
+  .flex-img div:nth-child(2n + 2) {
+    border-left: 2px solid white;
+  }
+}
+@media (min-width: 1080px) {
+  .hero {
+    height: 762px;
+  }
+  .flex-img > div {
+    width: 25%;
+  }
+  .flex-img div:nth-child(3) {
+    border-left: 2px solid white;
+  }
+}
+
+.social {
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 1080px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: wrap;
+}
+
+.social-item {
+  padding: 20px 0;
+}
+
+@media (min-width: 640px) {
+  .social {
+    padding: 25px 20px;
+  }
+}
+
+.social-item i {
+  font-size: 2.8em;
+  margin-right: 10px;
+}
+
+.fa-weixin {
+  color: rgb(123, 179, 46);
+}
+.fa-gift {
+  color: orangered;
+}
+.fa-level-up {
+  color: orangered;
+}
+
+.social-item > * {
+  display: inline-block;
+}
+
+/* footer开始 */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 45px 20px;
+  white-space: nowrap;
+}
+
+.footer .main-links {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 40px;
+}
+
+.footer .footer-list-wrap {
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+  .footer .footer-list-wrap {
+    width: 60%;
+  }
+}
+
+.footer .footer-list-wrap .footer-list {
+  width: 80px;
+  margin-right: 40px;
+}
+
+.footer > .main-links {
+  margin-right: 40px;
+}
+
+.footer > .main-links .font-logo {
+  display: block;
+  background-image: url("https://mobike.com/cn/assets/themes/moby/img/logo-text.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 160px;
+  height: 22px;
+  margin-bottom: 10px;
+}
+
+.footer ul {
+  font-weight: lighter;
+}
+
+.footer li {
+  font-size: 15px;
+  line-height: 2em;
+}
+
+.footer-list h3 {
+  margin: 0 0 10px;
+}
+
+.guohui {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-image: url("https://mobike.com/cn/assets/themes/moby/img/beian-icon.png");
+  background-position: center;
+  background-size: contain;
+  vertical-align: -3px;
+}
+
+.footer2 {
+  font-size: 12px;
+  font-weight: 300;
+  color: #aaa;
+  line-height: 2.3;
+  padding: 55px 20px;
+  margin: 0 auto;
+  max-width: 1080px;
+}
+
+p {
+  margin: 0;
+}
+
+.footer-container,
+.footer2-container {
+  border-top: 1px solid #eee;
+}
+
+.footer2 .chengxin {
+  margin: 0 10px;
+  float: right;
+  position: relative;
+}
+
+.chengxin img {
+  width: 50px;
+}
+.chengxin img:hover + .chengxin-desc {
+  display: block;
+}
+.chengxin-desc {
+  position: absolute;
+  display: none;
+  width: max-content;
+  background-color: #333;
+  color: white;
+  padding: 0 0.8em;
+  font-size: 16px;
+  border-radius: 5px;
+  top: -54px;
+  right: -30px;
+}
+
+.chengxin-desc::after {
+  display: block;
+  right: 45px;
+  content: "";
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
+}
