@@ -47,7 +47,7 @@
 <script id="ch0103/06">
   let a = Number(prompt());
   let b = Number(prompt());
-  console.log((100 * b / a ).toFixed(2) + "%");
+  console.log((100 * b / a ).toFixed(3) + "%");
 </script>
 
 <script id="ch0103/07">
@@ -71,9 +71,7 @@
   let diameter = 2 * a;
   let circumference = diameter * Math.PI;
   let area = Math.PI * a * a;
-  console.log(diameter.toFixed(4));
-  console.log(circumference.toFixed(4));
-  console.log(area.toFixed(4));
+  console.log(diameter.toFixed(4) + " " + circumference.toFixed(4) + " " + area.toFixed(4));
 </script>
 
 <script id="ch0103/10">
@@ -86,20 +84,20 @@
 <script id="ch0103/11">
   let a = Number(prompt());
   let b = Number(prompt());
-  let result = ((a / b) - Math.floor(a / b));
+  let result = ((a / b) - Math.floor(a / b) * b);
   console.log(result);
 </script>
 
 <script id="ch0103/12">
   let a = Number(prompt());
-  let result = 4 / 3 * Math.PI * a * a * a;
+  let result = 4 / 3 * Math.PI * 3.14 * 3.14 * 3.14;
   console.log(result.toFixed(2));
 </script>
 
 <script id="ch0103/13">
   let a = Number(prompt());
   let x = Math.floor(a / 100);
-  let y = Maht.floor((a - x * 100) / 10);
+  let y = Math.floor((a - x * 100) / 10);
   let z = a % 100;
   let result = z * 100 + y * 10 + x;
   console.floor(result);
