@@ -62,8 +62,8 @@
 
   <script type="y" id="ch0103/08">
   let a = Number(prompt());
-  let _result = 5 * (a - 32) / 9.0;
-  console.log(_result.toFixed(5));
+  let result = 5 * (a - 32) / 9.0;
+  console.log(result.toFixed(5));
   </script>
 
   <script type="y" id="ch0103/09">
@@ -394,6 +394,13 @@
     }
   </script>
 
+  <script type="y" id="ch0104/21">
+    let n = Number(prompt());
+    let x = Number(prompt());
+    let y = Number(prompt());
+    console.log(n - Math.ceil(y / x));
+  </script>
+
 
   <script type="y" id="ch0105/01">
     let n = Number(prompt());
@@ -421,7 +428,7 @@
       sum += Number(prompt());
     }
     let result = sum / n;
-    console.log(result.toFixed(5));
+    console.log(result.toFixed(4));
   </script>
 
   <script type="y" id="ch0105/04">
@@ -439,22 +446,173 @@
     let max = 0;
     let n = Number(prompt());
     for (let i = 0; i < n; i++) {
-      var current = Number(prompt());
+      let current = Number(prompt());
       max = (max < current ? current : max);
     }
     console.log(max);
   </script>
 
-  <!-- <script id="ch0105/06">
+  <script type="y" id="ch0105/06">
     let max = 0;
+    let min = 0;
     let n = Number(prompt());
     for (let i = 0; i < n; i++) {
-      var current = Number(prompt());
+      let current = Number(prompt());
       max = (max < current ? current : max);
+      min = (min > current ? current : min);
     }
-    console.log(max);
-  </script> -->
+    console.log(max - min);
+  </script>
 
+  <script type="y" id="ch0105/07">
+    let gold = 0;
+    let silver = 0;
+    let copper = 0;
+    let n = Number(prompt());
+    for (let i = 0; i < 3 * n; i++) {
+      let current = Number(prompt());
+      if (i % 3 === 0) {
+        gold += current;
+      } else if (i % 3 === 1) {
+        silver += current;
+      } else if (i % 3 === 2) {
+        copper += current;
+      }
+    }
+    console.log(gold);
+    console.log(silver);
+    console.log(copper);
+    console.log(gold + silver + copper);
+  </script>
+
+  <script type="y" id="ch0105/08">
+    let sum = 0;
+    let n = Number(prompt());
+    for (let i = 0; i < n - 1; i++) {
+      sum +=  Number(prompt());
+    }
+    console.log((n - 2) * 180 - sum);
+  </script>
+
+  <script type="y" id="ch0105/09">
+    let sum = 0;
+    let m = Number(prompt());
+    let n = Number(prompt());
+    for (let i = m; i <= n; i++) {
+      if(i % 2 === 1) {
+        sum += i;
+      }
+    }
+    console.log(sum);
+  </script>
+
+  <script type="y" id="ch0105/10">
+    let sum = 0;
+    let m = Number(prompt());
+    let n = Number(prompt());
+    for (let i = m; i <= n; i++) {
+      if(i % 17 === 0) {
+        sum += i;
+      }
+    }
+    console.log(sum);
+  </script>
+
+  <script type="y" id="ch0105/11">
+    let a = 0, b = 0, c = 0;
+    let n = Number(prompt());
+    for (let i = 0; i < n; i++) {
+    let current = Number(prompt());
+      if (current === 1) {
+        a++;
+      } else if (current === 5) {
+        b++;
+      } else if (current === 10) {
+        c++;
+      }
+    }
+    console.log(a);
+    console.log(b);
+    console.log(c);
+  </script>
+
+  <script type="y" id="ch0105/12">
+    let count = 0;
+    let n = Number(prompt());
+    let m = Number(prompt());
+    for (let i = 0; i < n; i++) {
+      let current = Number(prompt());
+      if (current == m) {
+        count++;
+      }
+    }
+    console.log(count);
+  </script>
+
+  <script type="y" id="ch0105/13">
+    let result = 1;
+    let a = Number(prompt());
+    let n = Number(prompt());
+    for (let i = 0; i < n; i++) {
+      result *= a;
+    }
+    console.log(result);
+  </script>
+
+  <script type="y" id="ch0105/14">
+    let peopleNumber = Number(prompt());
+    let n = Number(prompt());
+    for (let i = 0; i < n; i++) {
+      peopleNumber *= (1 + 0.1 / 100);
+    }
+    console.log(peopleNumber.toFixed(4));
+  </script>
+
+  <script type="y" id="ch0105/15">
+    let r = Number(prompt());
+    let m = Number(prompt());
+    let y = Number(prompt());
+    for (let i = 0; i < y; i++) {
+       m *= (1 + r / 100);
+    }
+    console.log(Math.floor(m));
+  </script>
+
+  <script type="y" id="ch0105/16">
+    debugger;
+    let n = Number(prompt());
+    let k = Number(prompt());
+    let totalSave = 0;
+    let housePrice = 200;
+    for (yearCount = 0; yearCount <= 20 && totalSave < housePrice; yearCount++) {
+      totalSave += n;
+      if (yearCount >= 1) {
+        housePrice *= (1 + k / 100);
+      }
+    }
+    if (yearCount > 20) {
+      console.log("Impossible");
+    } else {
+      console.log(yearCount);
+    }
+  </script>
+
+  <script type="y" id="ch0105/17">
+    let k = Number(prompt());
+    let pre = 1;
+    let current = 1;
+    let temp;
+    if (k === 1 || k === 2) {
+      console.log(1);
+    } else {
+      for (let i = 3; i <= k; i++) {
+        temp = current;
+        current = current + pre;
+        pre = temp;
+      }
+    }
+    console.log(current);
+  </script>
 
 
 </body>
