@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
-  
-</body>
 
-<script id="ch0103/01">
 
+  <script type="y" id="ch0103/01">
   let a = Number(prompt());
   let b = Number(prompt());
   console.log(a + b);
 </script>
 
-<script id="ch0103/02">
+  <script type="y" id="ch0103/02">
   let a = Number(prompt());
   let b = Number(prompt());
   let c = Number(prompt());
   console.log((a + b) * c);
 </script>
 
-<script id="ch0103/03">
+  <script type="y" id="ch0103/03">
   let a = Number(prompt());
   let b = Number(prompt());
   let c = Number(prompt());
   console.log(Math.floor((a + b) / c));
 </script>
 
-<script id="ch0103/04">
+  <script type="y" id="ch0103/04">
   let a = Number(prompt());
   let b = Number(prompt());
   console.log(Math.floor(a / b));
   console.log(a % b);
 </script>
 
-<script id="ch0103/05">
+  <script type="y" id="ch0103/05">
   let a = Number(prompt());
   let b = Number(prompt());
   console.log((a / b).toFixed(9));
 </script>
 
-<script id="ch0103/06">
+  <script type="y" id="ch0103/06">
   let a = Number(prompt());
   let b = Number(prompt());
-  console.log((100 * b / a ).toFixed(3) + "%");
+  console.log((100 * b / a).toFixed(3) + "%");
 </script>
 
-<script id="ch0103/07">
+  <script type="y" id="ch0103/07">
   let x = Number(prompt());
   let a = Number(prompt());
   let b = Number(prompt());
@@ -60,100 +60,111 @@
   console.log(result.toFixed(7));
 </script>
 
-<script id="ch0103/08">
+  <script type="y" id="ch0103/08">
   let a = Number(prompt());
   let _result = 5 * (a - 32) / 9.0;
   console.log(_result.toFixed(5));
 </script>
 
-<script id="ch0103/09">
+  <script type="y" id="ch0103/09">
+  const pi = 3.14159;
   let a = Number(prompt());
   let diameter = 2 * a;
-  let circumference = diameter * Math.PI;
-  let area = Math.PI * a * a;
-  console.log(diameter.toFixed(4) + " " + circumference.toFixed(4) + " " + area.toFixed(4));
+  let circumference = diameter * pi;
+  let area = pi * a * a;
+  console.log(diameter.toFixed(4));
+  console.log(circumference.toFixed(4));
+  console.log(area.toFixed(4));
 </script>
 
-<script id="ch0103/10">
+  <script type="y" id="ch0103/10">
   let a = Number(prompt());
   let b = Number(prompt());
   let result = 1 / (1.0 / a + 1.0 / b);
   console.log(result.toFixed(2));
 </script>
 
-<script id="ch0103/11">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let result = ((a / b) - Math.floor(a / b) * b);
-  console.log(result);
-</script>
+  <script type="y" id="ch0103/11">
+    let a = Number(prompt());
+    let b = Number(prompt());
+    let result = (((a / b) - Math.floor(a / b)) * b);
+    console.log(result.);
+  </script>
 
-<script id="ch0103/12">
+  <script type="y" id="ch0103/12">
   let a = Number(prompt());
-  let result = 4 / 3 * Math.PI * 3.14 * 3.14 * 3.14;
+  let result = 4 / 3 * 3.14 * a ** 3;
   console.log(result.toFixed(2));
 </script>
 
-<script id="ch0103/13">
+  <script type="y" id="ch0103/13">
   let a = Number(prompt());
   let x = Math.floor(a / 100);
   let y = Math.floor((a - x * 100) / 10);
-  let z = a % 100;
+  let z = a % 10;
   let result = z * 100 + y * 10 + x;
-  console.floor(result);
+  console.log(result);
 </script>
 
-<!-- <script id="ch0103/14">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
+  <script type="y" id="ch0103/14">
+
+  const pi = 3.14159;
+  let h = Number(prompt());
+  let r = Number(prompt());
+  let v = pi * r * r * h / 1000;
+  console.log(Math.ceil(20 / v));
+  
 </script>
 
-<script id="ch0103/15">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
+  <script type="y" id="ch0103/15">
+  let n = Number(prompt());
+  let x = Number(prompt());
+  let y = Number(prompt());
+  console.log(n - Math.ceil(y / x));
 </script>
 
-<script id="ch0103/16">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
+  <script type="y" id="ch0103/16">
+  let xa = Number(prompt());
+  let ya = Number(prompt());
+  let xb = Number(prompt());
+  let yb = Number(prompt());
+  var result = Math.sqrt((xa - xb) ** 2 + (ya - yb) ** 2).toFixed(3);
+  console.log(result);
 </script>
 
-<script id="ch0103/17">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
+  <script type="y" id="ch0103/17">
+  let x1 = Number(prompt());
+  let y1 = Number(prompt());
+  let x2 = Number(prompt());
+  let y2 = Number(prompt());
+  let x3 = Number(prompt());
+  let y3 = Number(prompt());
+  var result = 0.5 * (x2 * y3 - x3 * y2 - y1 * x2 + x1 * y2 - x1 * y3 - x3 * y1);
+  console.log(result.toFixed(2));
 </script>
 
-<script id="ch0103/18">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
+  <script type="y" id="ch0103/18">
+  let a1 = Number(prompt());
+  let a2 = Number(prompt());
+  let n = Number(prompt());
+  var result = (a2 - a1) * (n - 1) + a1;
+  console.log(result);
 </script>
 
-<script id="ch0103/19">
+  <script type="y" id="ch0103/19">
   let a = Number(prompt());
   let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
+  console.log(a * b);
 </script>
 
-<script id="ch0103/20">
-  let a = Number(prompt());
-  let b = Number(prompt());
-  let c = Number(prompt());
-  console.log(Math.floor((a + b) / c));
-</script> -->
+  <script type="y" id="ch0103/20">
+  let n = Number(prompt());
+  console.log(2 ** n);
+</script>
 
 
 
+
+</body>
 
 </html>
-
