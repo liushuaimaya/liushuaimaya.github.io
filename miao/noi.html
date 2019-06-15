@@ -742,6 +742,7 @@
         console.log(i.toString(9));
       }
     }
+    console.log("（不提供）"); //=.= wtf
   </script>
 
   <script type="y" id="ch0105/26">
@@ -956,6 +957,7 @@
     let w = Number(prompt());
     let symbol = String(prompt());
     let notEmpty = Boolean(Number(prompt()));
+    result = "";
     for (let i = 0; i < h; i++) {
       let tempRow = "";
       for (let k = 0; k < w; k++) {
@@ -972,8 +974,9 @@
       if (i !== h - 1) {
         tempRow += "\n";
       }
-      console.log(tempRow);
+      result += tempRow;
     }
+    console.log(result);
   </script>
 
   <script type="y" id="ch0105/43">
