@@ -899,10 +899,20 @@
 
   <script type="y" id="ch0105/38">
     let n = Number(prompt());
-    for (i = n; i > 0; i--) {
-      console.log(i * Number(prompt()));
+    // debugger
+    if (n === 0) {
+      Number(prompt());
+      console.log(0);
+    } else {
+      let result = [];
+      for (i = n; i > 0; i--) {
+        result.push(i * Number(prompt()));
+      }
+      Number(prompt());
+      for (let k = 0; k < result.length; k++) {
+       console.log(result[k]);
+      }
     }
-    Number(prompt());
   </script>
 
   <script type="y" id="ch0105/39">
