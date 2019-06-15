@@ -634,7 +634,7 @@
     const speed = 50;
     const wait = 1 + 0.5;
     let totalTime = 0;
-    for (i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
       let x = Number(prompt());
       let y = Number(prompt());
       let peopleCount = Number(prompt());
@@ -673,7 +673,7 @@
     let save = 0;
     let left = 0;
     let overMonth = 0;
-    for (i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
       let budget = Number(prompt());
       let beforeSave = left + 300 - budget;
       if (beforeSave < 0) {
@@ -711,7 +711,7 @@
     // debugger
     let count = 0;
     let maxCount = 0;
-    for (i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
       let a = Number(prompt());
       let b = Number(prompt());
       if (a >= 90 && a <= 140 && b >= 60 && b <= 90) {
@@ -726,7 +726,7 @@
     console.log(maxCount);
   </script>
 
-  <script id="ch0105/25">
+  <script type="y" id="ch0105/25">
     const start = 1 * 7 * 7;
     const end = 9 * 9 * 9 - 1;
     for (i = start; i <= end; i++) {
@@ -747,7 +747,7 @@
   <script type="y" id="ch0105/26">
     let n = Number(prompt());
     let count = 0;
-    for (i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
       let current = Number(prompt());
       let a = Math.floor(current / 1000);
       let b = Math.floor((current - a * 1000) / 100);
@@ -806,65 +806,189 @@
     }
   </script>
 
-  <!-- <script type="y" id="ch0105/31">
+  <script type="y" id="ch0105/31">
+    let n = Number(prompt());
     let m = Number(prompt());
-    console.log();
+    for (let i = 1; i <= n; i++) {
+      let lightStatus = true;
+      for (let k = 1; k <= m; k++) {
+        if (i % k === 0)
+        lightStatus = !lightStatus;
+      }
+      if (!lightStatus) {
+        console.log(i);
+      }
+    }
   </script>
 
   <script type="y" id="ch0105/32">
-    let m = Number(prompt());
-    console.log();
+    let n = Number(prompt());
+    // debugger
+    let p = 1, q = 2, sum = 0;
+    for (let i = 0; i < n; i ++) {
+      sum += q / p;
+      let temp = q;
+      q = q + p;
+      p = temp;     
+    }
+    console.log(sum.toFixed(4));
   </script>
 
   <script type="y" id="ch0105/33">
-    let m = Number(prompt());
-    console.log();
+    let n = Number(prompt());
+    // debugger
+    let sum = 0;
+    for (let i = 1; i <= n; i ++) {
+      sum += -((-1) ** i) / i;
+    }
+    console.log(sum.toFixed(4));
   </script>
 
   <script type="y" id="ch0105/34">
-    let m = Number(prompt());
-    console.log();
+    let n = Number(prompt());
+    let sum = 0;
+    for (let i = 1; i <= n; i ++) {
+      let facI = 1;
+      for (let k = 1; k <= i; k ++) {
+        facI *= k;
+      }
+      sum += facI;
+    }
+    console.log(sum);
   </script>
 
   <script type="y" id="ch0105/35">
-    let m = Number(prompt());
-    console.log();
+    let n = Number(prompt());
+    let sum = 1;
+    for (let i = 1; i <= n; i++) {
+      let current = 1;
+      for (let k = 1; k <= i; k++) {
+        current *= k;
+      }
+      sum += 1 / current;
+    }
+    console.log(sum.toFixed(10));
   </script>
 
   <script type="y" id="ch0105/36">
-    let m = Number(prompt());
-    console.log();
+    let x = Number(prompt());
+    let n = Number(prompt());
+    let sum = 0;
+    for (let i = 0; i <= n; i++) {
+      sum += x ** i;
+    }
+    console.log(sum.toFixed(2));
   </script>
 
-  <script type="y" id="ch0105/37">
-    let m = Number(prompt());
-    console.log();
-  </script>
 
-  <script type="y" id="ch0105/38">
-    let m = Number(prompt());
-    console.log();
-  </script>
 
   <script type="y" id="ch0105/39">
-    let m = Number(prompt());
-    console.log();
+    let n = Number(prompt());
+    let sum = 0;
+    for (let i = 1; i <= n; i++) {
+      if (i % 7 !== 0 && Math.floor(i / 10) !== 7 && (i % 10) !== 7) {
+        sum += i * i;
+      }
+    }
+    console.log(sum);
   </script>
 
   <script type="y" id="ch0105/40">
-    let m = Number(prompt());
-    console.log();
+    let n = Number(prompt());
+    let count = 0;
+    for (let i = 1; i <= n; i++) {
+      for (k = 0; k < String(i).length; k++)
+        if (String(i).charAt(k) === "1") {
+          count++;
+        }
+    }
+    console.log(count);
   </script>
 
   <script type="y" id="ch0105/41">
-    let m = Number(prompt());
-    console.log();
+    let left = Number(prompt());
+    let right = Number(prompt());
+    let count = 0;
+    for (let i = left; i <= right; i++) {
+      for (k = 0; k < String(i).length; k++)
+        if (String(i).charAt(k) === "2") {
+          count++;
+        }
+    }
+    console.log(count);
   </script>
 
   <script type="y" id="ch0105/42">
-    let m = Number(prompt());
+    let h = Number(prompt());
+    let w = Number(prompt());
+    let symbol = String(prompt());
+    let notEmpty = Boolean(Number(prompt()));
+    for (let i = 0; i < h; i++) {
+      let tempRow = "";
+      for (let k = 0; k < w; k++) {
+        if (notEmpty) {
+          tempRow += symbol;
+        } else {
+          if (i === 0 || i === h - 1 || k === 0 || k === w - 1) {
+            tempRow += symbol;
+          } else {
+            tempRow += " ";
+          }
+        }
+      }
+      if (i !== h - 1) {
+        tempRow += "\n";
+      }
+      console.log(tempRow);
+    }
+  </script>
+
+  <script type="y" id="ch0105/43">
+    let p = Number(prompt());
+    for (i = 2; i < Math.floor(Math.sqrt(p)); i++) {
+      if (p % i === 0) {
+        console.log(p / i);
+        break;
+      }
+    }
     console.log();
-  </script> -->
+  </script>
+
+  <script type="y" id="ch0105/44">
+    let n = Number(prompt());
+    let count = 0;
+    let result = 0;
+    for (i = 2; count < n; i++) {
+      let isPrime = true;
+      for (j = 2; j <= Math.floor(Math.sqrt(i)) && isPrime; j++) {
+        if (i % j === 0) {
+          isPrime = false;
+        }
+      }
+      if (isPrime) {
+        count++;
+      }
+      if (count == n) {
+        result = i;
+      }
+    }
+    console.log(result);
+  </script>
+
+  <script type="y" id="ch0105/45">
+    let n = Number(prompt());
+    let total = 0;
+    let currentGold = 1;
+    let day = 0;
+    while (day < n) {
+      for (let index = 0; index < currentGold && day < n; index++) {
+        total += currentGold;
+        day++;
+      }
+      currentGold++;
+    }
+    console.log(total);
+  </script>
 
 
 </body>
