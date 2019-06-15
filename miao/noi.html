@@ -683,7 +683,7 @@
       save = save + beforeSave - left;
     }
     if (overMonth > 0) {
-      console.log("-" + overMonth;
+      console.log("-" + overMonth);
     }
     else {
       save *= (1 + 20 / 100);
@@ -726,7 +726,7 @@
     console.log(maxCount);
   </script>
 
-  <script type="y" id="ch0105/25">
+  <script id="ch0105/25">
     const start = 1 * 7 * 7;
     const end = 9 * 9 * 9 - 1;
     for (i = start; i <= end; i++) {
@@ -738,8 +738,8 @@
       let f = i % 9;
       if (a === f && b === e && c === d) {
         console.log(i);
-        console.log(String(a) + b + c);
-        console.log(String(d) + e + f);
+        console.log(i.toString(7));
+        console.log(i.toString(9));
       }
     }
   </script>
@@ -789,7 +789,7 @@
     console.log(output);
   </script>
 
-  <script id="ch0105/30">
+  <script type="y" id="ch0105/30">
     let m = Number(prompt());
     let k = Number(prompt());
     let count = 0;
