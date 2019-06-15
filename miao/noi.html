@@ -651,8 +651,8 @@
       totalDistance += currentZ * 2;
       currentZ *= 0.5;
     }
-    console.log(totalDistance);
-    console.log(currentZ);
+    console.log(totalDistance.toFixed(4));
+    console.log(currentZ.toFixed(7));
   </script>
 
   <script type="y" id="ch0105/21">
@@ -669,17 +669,21 @@
     console.log("End");
   </script>
 
-  <script type="y" id="ch0105/22">
+  <script id="ch0105/22">
     let save = 0;
     let left = 0;
-    for (i = 0; i < 12 && left >= 0; i++) {
+    let overMonth = 0;
+    for (i = 0; i < 12; i++) {
       let budget = Number(prompt());
-      let beforeSave = left + 300 - budget
+      let beforeSave = left + 300 - budget;
+      if (beforeSave < 0) {
+        overMonth = i + 1;
+      }
       left = beforeSave % 100;
       save = save + beforeSave - left;
     }
-    if (left < 0) {
-      console.log("-" + (i + 1));
+    if (overMonth > 0) {
+      console.log("-" + overMonth);
     }
     else {
       save *= (1 + 20 / 100);
