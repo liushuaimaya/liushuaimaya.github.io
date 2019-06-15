@@ -669,7 +669,7 @@
     console.log("End");
   </script>
 
-  <script id="ch0105/22">
+  <script type="y" id="ch0105/22">
     let save = 0;
     let left = 0;
     let overMonth = 0;
@@ -683,13 +683,188 @@
       save = save + beforeSave - left;
     }
     if (overMonth > 0) {
-      console.log("-" + overMonth);
+      console.log("-" + overMonth;
     }
     else {
       save *= (1 + 20 / 100);
       console.log(save + left);
     }
   </script>
+
+  <script type="y" id="ch0105/23">
+    let m = Number(prompt());
+    let n = Number(prompt());
+    let count = 0;
+    for (i = 0; i < n; i++) {
+      let current = Number(prompt());
+      if (m - current < 0) {
+        count++;
+      } else {
+        m -= current;
+      }
+    }
+    console.log(count);
+  </script>
+
+  <script type="y" id="ch0105/24">
+    let n = Number(prompt());
+    // debugger
+    let count = 0;
+    let maxCount = 0;
+    for (i = 0; i < n; i++) {
+      let a = Number(prompt());
+      let b = Number(prompt());
+      if (a >= 90 && a <= 140 && b >= 60 && b <= 90) {
+        count++;
+        if (maxCount <  count) {
+          maxCount = count;
+        }
+      } else {
+        count = 0;
+      }
+    }
+    console.log(maxCount);
+  </script>
+
+  <script type="y" id="ch0105/25">
+    const start = 1 * 7 * 7;
+    const end = 9 * 9 * 9 - 1;
+    for (i = start; i <= end; i++) {
+      let a = Math.floor(i / (7 * 7));
+      let b = Math.floor((i % 7) / 7);
+      let c = i % 7;
+      let d = Math.floor(i / (9 * 9));
+      let e = Math.floor((i % 9) / 9);
+      let f = i % 9;
+      if (a === f && b === e && c === d) {
+        console.log(i);
+        console.log(String(a) + b + c);
+        console.log(String(d) + e + f);
+      }
+    }
+  </script>
+
+  <script type="y" id="ch0105/26">
+    let n = Number(prompt());
+    let count = 0;
+    for (i = 0; i < n; i++) {
+      let current = Number(prompt());
+      let a = Math.floor(current / 1000);
+      let b = Math.floor((current - a * 1000) / 100);
+      let c = Math.floor((current - a * 1000 - b * 100) / 10);
+      let d = current % 10;
+      if (d - a - b - c > 0) {
+        count++;
+      }
+    }
+    console.log(count);
+  </script>
+
+  <script type="y" id="ch0105/27">
+    let k = Number(prompt());
+    let sn = 0;
+    let count = 0;
+    while (sn <= k) {
+      sn += 1 / (count + 1);
+      count ++;
+    }
+    console.log(count);
+  </script>
+
+  <script type="y" id="ch0105/28">
+    let n = Number(prompt());
+    while (n !== 0) {
+      console.log(n % 10);
+      n = (n - n % 10) / 10;
+    }
+  </script>
+
+  <script type="y" id="ch0105/29">
+    let n = Number(prompt());
+    let output = 0;
+    while (n !== 0) {
+      output = output * 10 + n % 10;
+      n = (n - n % 10) / 10;
+    }
+    console.log(output);
+  </script>
+
+  <script id="ch0105/30">
+    let m = Number(prompt());
+    let k = Number(prompt());
+    let count = 0;
+    while (m !== 0) {
+      if (m % 10 === 3) {
+        count++;
+      }
+      m = (m - m % 10) / 10;
+    }
+    if (count === k) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
+  </script>
+
+  <!-- <script type="y" id="ch0105/31">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/32">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/33">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/34">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/35">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/36">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/37">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/38">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/39">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/40">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/41">
+    let m = Number(prompt());
+    console.log();
+  </script>
+
+  <script type="y" id="ch0105/42">
+    let m = Number(prompt());
+    console.log();
+  </script> -->
 
 
 </body>
