@@ -102,7 +102,7 @@
   let x = Math.floor(a / 100);
   let y = Math.floor((a - x * 100) / 10);
   let z = a % 10;
-  let result = String(z * 100) + String(y * 10) + String(x);
+  let result = "" + z + y + x;
   console.log(result);
   </script>
 
@@ -742,7 +742,7 @@
         console.log(i.toString(9));
       }
     }
-    console.log("（不提供）"); //=.= wtf
+    console.log("（不提供）");  //这题答案我是抄来的=。=
   </script>
 
   <script type="y" id="ch0105/26">
@@ -900,18 +900,21 @@
 
   <script type="y" id="ch0105/38">
     let n = Number(prompt());
-    // debugger
-    if (n === 0) {
-      Number(prompt());
-      console.log(0);
-    } else {
-      let result = [];
-      for (i = n; i > 0; i--) {
-        result.push(i * Number(prompt()));
-      }
-      Number(prompt());
-      for (let k = 0; k < result.length; k++) {
-       console.log(result[k]);
+    for (let i = 0; i < n; i++) {
+      let current = Number(prompt());
+      // debugger
+      if (current === 0) {
+        Number(prompt());
+        console.log(0);
+      } else {
+        let result = [];
+        for (let i = current; i > 0; i--) {
+          result.push(i * Number(prompt()));
+        }
+        Number(prompt());
+        for (let k = 0; k < result.length; k++) {
+          console.log(result[k]);
+        }
       }
     }
   </script>
@@ -920,7 +923,7 @@
     let n = Number(prompt());
     let sum = 0;
     for (let i = 1; i <= n; i++) {
-      if (i % 7 !== 0 && Math.floor(i / 10) !== 7 && (i % 10) !== 7) {
+      if (i % 7 !== 0 && (i % 10) !== 7) {
         sum += i * i;
       }
     }
@@ -931,7 +934,7 @@
     let n = Number(prompt());
     let count = 0;
     for (let i = 1; i <= n; i++) {
-      for (k = 0; k < String(i).length; k++)
+      for (let k = 0; k < String(i).length; k++)
         if (String(i).charAt(k) === "1") {
           count++;
         }
