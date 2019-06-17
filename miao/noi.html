@@ -10,6 +10,184 @@
 
 <body>
 
+  <script type="y" id="7">
+    let a = Number(prompt());
+    console.log(a % 7 === 0 || a % 10 === 7 ? "YES" : "NO");
+  </script>
+
+  <script type="y" id="sort">
+    let a = Number(prompt());
+    let b = Number(prompt());
+    let c = Number(prompt());
+    if (a < b) {
+      let temp = a;
+      a = b;
+      b = temp;
+    }
+    if (a < c) {
+      let temp = a;
+      a = c;
+      c = temp;
+    }
+    if (b < c) {
+      let temp = b;
+      b = c;
+      c = temp;
+    }
+    console.log(c);
+    console.log(b);
+    console.log(a);
+  </script>
+
+
+  <script type="y" id="narcissistic">
+    let a = prompt();
+    let sum = 0;
+    for (let i = 0; i < a.length; i++) {
+      sum += Number(a[i]) ** a.length;
+    }
+    if (Number(a) === sum) {
+      console.log("YES"); 
+    } else {
+      console.log("NO");
+    }
+  </script>
+
+  <script type="y" id="narcissistics">
+    for (let n = 0; n <= 1000; n++) {
+      let sum = 0;
+      for (let i = 0; i < String(n).length; i++) {
+        sum += Number(String(n)[i]) ** String(n).length;
+      }
+      if (n === sum) {
+        console.log(n);
+      }
+    }
+  </script>
+
+  <script type="y" id="palindrom">
+    let a = prompt();
+    let isPalindrom = true;
+    for (let i = 0; i < Math.ceil(a.length / 2); i++) {
+      if (a[i] !== a[a.length - i - 1]) {
+        isPalindrom = false;
+        break;
+      }
+    }
+    if (isPalindrom) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
+  </script>
+
+  <script type="y" id="weekday">
+    let year = Number(prompt("year"));
+    let month = Number(prompt("month"));
+    let c = Math.floor(year / 100); //年份前两位数
+    let y = year % 100; //年份后两位数
+    let m = month <= 2 ? month + 12 : month; //月（m的取值範圍為3至14，即在蔡勒公式中，某年的1、2月要看作上一年的13、14月來計算，比如2003年1月1日要看作2002年的13月1日來計算）
+    let d = 1; //日
+    let result = (y + Math.floor(y / 4) + Math.floor(c / 4) - 2 * c + Math.floor(26 * (m + 1) / 10) + d - 1) % 7;
+    console.log(result);
+  </script>
+
+  <script type="y" id="complete-number">
+      let a = Number(prompt());
+      let sum = 0;
+      for (let i = 1; i <= a / 2; i++) { 
+        if (a % i === 0) {
+          sum += i;
+        }
+      }
+      if (a === sum) {
+        console.log("YES");
+      } else {
+        console.log("NO");
+      }
+    </script>
+
+  <script type="y" id="complete-numbers">
+    for (a = 1; a <= 1000; a++) {
+      let sum = 0;
+      for (let i = 1; i <= a / 2; i++) {
+        if (a % i === 0) {
+          sum += i;
+        }
+      }
+      if (a === sum) {
+        console.log(a);
+      }
+    }
+
+  </script>
+
+
+  <script type="y" id="prime">
+    let n = Number(prompt());
+    let isPrime = true;
+    for (let i = 2; i <= Math.floor(Math.sqrt(n)) && isPrime; i++) {
+      if (n % i === 0) {
+        isPrime = false;
+      }
+    }
+    if (isPrime) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
+  </script>
+
+  <script type="y" id="primes">
+    for (let i = 2; i <= 100; i++) {
+      let isPrime = true;
+      for (let j = 2; j <= Math.floor(Math.sqrt(i)) && isPrime; j++) {
+        if (i % j === 0) {
+          isPrime = false;
+        }
+      }
+      if (isPrime) {
+        console.log(i);
+      }
+    }
+  </script>
+
+  <script type="y" id="itob">
+    console.log(prompt());
+  </script>
+
+  <script type="y" id="lcf&lcm">
+    let a = Numner(prompt());
+    let b = Numner(prompt());
+    m = a > b ? a : b;
+    n = a > b ? b : a;
+    while (m % n !== 0) {
+      let temp = n;
+      n = m % n;
+      m = temp;
+    }
+    console.log(n);
+    console.log(a * b / n);
+  </script>
+
+  <script  type="y" id="sqrt">
+    console.log(Math.sqrt(prompt()).toFixed(3));
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <script type="y" id="ch0103/01">
   let a = Number(prompt());
@@ -579,21 +757,21 @@
   </script>
 
   <script type="y" id="ch0105/16">
-    debugger;
     let n = Number(prompt());
     let k = Number(prompt());
-    let totalSave = 0;
+    let totalSave = n;
     let housePrice = 200;
-    for (yearCount = 0; yearCount <= 20 && totalSave < housePrice; yearCount++) {
-      totalSave += n;
-      if (yearCount >= 1) {
-        housePrice *= (1 + k / 100);
+    let yearCount;
+    for (yearCount = 1; yearCount <= 20; yearCount++) {
+      if (totalSave >= housePrice) {
+        console.log(yearCount);
+        break;
       }
+      housePrice *= (1 + k / 100);
+      totalSave += n;
     }
     if (yearCount > 20) {
-      console.log("Impossible");
-    } else {
-      console.log(yearCount);
+      console.log("impossible!");
     }
   </script>
 
@@ -742,7 +920,6 @@
         console.log(i.toString(9));
       }
     }
-    console.log("（不提供）");  //这题答案我是抄来的=。=
   </script>
 
   <script type="y" id="ch0105/26">
