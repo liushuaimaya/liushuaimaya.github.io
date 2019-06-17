@@ -54,7 +54,7 @@
   </script>
 
   <script type="y" id="narcissistics">
-    for (let n = 0; n <= 1000; n++) {
+    for (let n = 100; n <= 1000; n++) {
       let sum = 0;
       for (let i = 0; i < String(n).length; i++) {
         sum += Number(String(n)[i]) ** String(n).length;
@@ -126,6 +126,9 @@
   <script type="y" id="prime">
     let n = Number(prompt());
     let isPrime = true;
+    if (n === 1) {
+      isPrime = false;
+    }
     for (let i = 2; i <= Math.floor(Math.sqrt(n)) && isPrime; i++) {
       if (n % i === 0) {
         isPrime = false;
@@ -157,8 +160,8 @@
   </script>
 
   <script type="y" id="lcf&lcm">
-    let a = Numner(prompt());
-    let b = Numner(prompt());
+    let a = Number(prompt());
+    let b = Number(prompt());
     m = a > b ? a : b;
     n = a > b ? b : a;
     while (m % n !== 0) {
@@ -170,7 +173,7 @@
     console.log(a * b / n);
   </script>
 
-  <script  type="y" id="sqrt">
+  <script type="y" id="sqrt">
     console.log(Math.sqrt(prompt()).toFixed(3));
   </script>
 
