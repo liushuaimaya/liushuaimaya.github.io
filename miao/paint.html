@@ -99,10 +99,10 @@
   }
 
   // 画一个空心的圆
-  for (let x = 0; x < 400; x += 0.1) {
-    for (let y = 0; y < 300; y += 0.1) {
+  for (let x = 0; x < 400; x++) {
+    for (let y = 0; y < 300; y++) {
       let area = (x - 90) ** 2 + (y - 170) ** 2;
-      if (area < 2501 && area > 2499) {
+      if (area < 2550 && area > 2450) {
         dot(x, y);
       }
     }
