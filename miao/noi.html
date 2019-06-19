@@ -11,18 +11,35 @@
 <body>
 
   <script id="7">
-    let n = prompt();
-    let is7 = "NO";
-    if (n > 0 && n % 7 === 0) {
-      is7 = "YES";
-    } else {
-      for (i = 0; i < n.length; i++) {
-        if (n[i] === "7") {
+    /*     let n = prompt();
+        let is7 = "NO";
+        if (n > 0 && n % 7 === 0) {
           is7 = "YES";
+        } else {
+          for (i = 0; i < n.length; i++) {
+            if (n[i] === "7") {
+              is7 = "YES";
+            }
+          }
         }
+        console.log(is7); */
+
+    var n = +prompt();
+    if (n % 7 === 0) {
+      console.log("YES");
+    } else if (n % 7 != 0) {
+      while (n > 0) {
+        var digit = n % 10;
+        if (digit === 7) {
+          console.log("YES");
+          break;
+        }
+        n = (n - digit) / 10;
+      }
+      if (n === 0) { //当n=0;说明每个数字都判断完毕，直接就输出no
+        console.log("NO");
       }
     }
-    console.log(is7);
   </script>
 
   <script type="y" id="sort">
