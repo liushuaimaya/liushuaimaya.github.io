@@ -15,10 +15,11 @@
     let is7 = "NO";
     if (n > 0 && n % 7 === 0) {
       is7 = "YES";
-    }
-    for (i = 0; i < n.length; i++) {
-      if (n[i] === "7") {
-        is7 = "YES";
+    } else {
+      for (i = 0; i < n.length; i++) {
+        if (n[i] === "7") {
+          is7 = "YES";
+        }
       }
     }
     console.log(is7);
