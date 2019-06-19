@@ -11,8 +11,14 @@
 <body>
 
   <script type="y" id="7">
-    let a = Number(prompt());
-    console.log(a > 0 && (a % 7 === 0 || a % 10 === 7) ? "YES" : "NO");
+    let n = prompt();
+    let is7 = "NO";
+    for (i = 0; i < n.length; i++) {
+      if (n[i] === "7") {
+        is7 = "YES";
+      }
+    }
+    console.log(is7);
   </script>
 
   <script type="y" id="sort">
@@ -159,7 +165,7 @@
     console.log(prompt());
   </script>
 
-  <script id="lcf&lcm">
+  <script type="y" id="lcf&lcm">
     let a = Number(prompt());
     let b = Number(prompt());
     m = a > b ? a : b;
@@ -176,19 +182,6 @@
   <script type="y" id="sqrt">
     console.log(Math.sqrt(prompt()).toFixed(3));
   </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -634,8 +627,8 @@
   </script>
 
   <script type="y" id="ch0105/06">
-    let max = 0;
-    let min = 0;
+    let max = -Infinity;
+    let min = Infinity;
     let n = Number(prompt());
     for (let i = 0; i < n; i++) {
       let current = Number(prompt());
@@ -650,15 +643,10 @@
     let silver = 0;
     let copper = 0;
     let n = Number(prompt());
-    for (let i = 0; i < 3 * n; i++) {
-      let current = Number(prompt());
-      if (i % 3 === 0) {
-        gold += current;
-      } else if (i % 3 === 1) {
-        silver += current;
-      } else if (i % 3 === 2) {
-        copper += current;
-      }
+    for (let i = 0; i < n; i++) {
+      gold += Number(prompt());
+      silver += Number(prompt());
+      copper += Number(prompt());
     }
     console.log(gold);
     console.log(silver);
@@ -703,12 +691,14 @@
     let a = 0, b = 0, c = 0;
     let n = Number(prompt());
     for (let i = 0; i < n; i++) {
-    let current = Number(prompt());
+      let current = Number(prompt());
       if (current === 1) {
         a++;
-      } else if (current === 5) {
+      }
+      if (current === 5) {
         b++;
-      } else if (current === 10) {
+      }
+      if (current === 10) {
         c++;
       }
     }
@@ -749,6 +739,7 @@
     console.log(peopleNumber.toFixed(4));
   </script>
 
+
   <script type="y" id="ch0105/15">
     let r = Number(prompt());
     let m = Number(prompt());
@@ -782,12 +773,11 @@
     let k = Number(prompt());
     let pre = 1;
     let current = 1;
-    let temp;
     if (k === 1 || k === 2) {
       console.log(1);
     } else {
       for (let i = 3; i <= k; i++) {
-        temp = current;
+        let temp = current;
         current = current + pre;
         pre = temp;
       }
@@ -907,7 +897,7 @@
     console.log(maxCount);
   </script>
 
-  <script id="ch0105/25">
+  <script type="y" id="ch0105/25">
     const start = 1 * 7 * 7;
     const end = 9 * 9 * 9 - 1;
     for (i = start; i <= end; i++) {
@@ -918,11 +908,11 @@
       let e = Math.floor((i % 9) / 9);
       let f = i % 9;
       if (a === f && b === e && c === d) {
-        // console.log(i);
-        // console.log(i.toString(7));
-        // console.log(i.toString(9));
-        console.log('（不提供）');
-      }
+          // console.log(i);
+          // console.log(i.toString(7));
+          // console.log(i.toString(9));
+          console.log('（不提供）');
+        }
     }
   </script>
 
@@ -940,6 +930,19 @@
       }
     }
     console.log(count);
+/*     let n = Number(prompt());
+    let count = 0;
+    for (let i = 0; i < n; i++) {
+      let current = prompt();
+      let total = 0;
+      for (let j = 0; j < current.length - 1; j++) {
+        total += Number(current[j]);
+      }
+      if (Number(current[current.length - 1] > total)) {
+        count++;
+      }
+    }
+    console.log(count); */
   </script>
 
   <script type="y" id="ch0105/27">
@@ -974,15 +977,19 @@
   <script type="y" id="ch0105/30">
     let m = Number(prompt());
     let k = Number(prompt());
-    let count = 0;
-    while (m !== 0) {
-      if (m % 10 === 3) {
-        count++;
+    if (n % 19 === 0) {
+      let count = 0;
+      while (m !== 0) {
+        if (m % 10 === 3) {
+          count++;
+        }
+        m = (m - m % 10) / 10;
       }
-      m = (m - m % 10) / 10;
-    }
-    if (count === k) {
-      console.log("YES");
+      if (count === k) {
+        console.log("YES");
+      } else {
+        console.log("NO");
+      }
     } else {
       console.log("NO");
     }
@@ -992,17 +999,17 @@
     let n = Number(prompt());
     let m = Number(prompt());
     let s = "";
-    for (let i = 1; i <= n; i++) {
-      let lightStatus = true;
-      for (let k = 1; k <= m; k++) {
-        if (i % k === 0)
-        lightStatus = !lightStatus;
+    for (let light = 1; light <= n; light++) {
+      let isLightOn = true;
+      for (let person = 1; person <= m; person++) {
+        if (light % person === 0)
+        isLightOn = !isLightOn;
       }
-      if (!lightStatus) {
+      if (!isLightOn) {
         if (s === ""){
-          s += i;
+          s += light;
         } else {
-          s = s + "," + i;
+          s = s + "," + light;
         }
       }
     }
@@ -1011,13 +1018,11 @@
 
   <script type="y" id="ch0105/32">
     let n = Number(prompt());
-    // debugger
     let p = 1, q = 2, sum = 0;
     for (let i = 0; i < n; i ++) {
       sum += q / p;
-      let temp = q;
       q = q + p;
-      p = temp;     
+      p = q - p;
     }
     console.log(sum.toFixed(4));
   </script>
@@ -1104,7 +1109,7 @@
     let n = Number(prompt());
     let sum = 0;
     for (let i = 1; i <= n; i++) {
-      if (i % 7 !== 0 && (i % 10) !== 7) {
+      if (i % 7 !== 0 && i % 10 !== 7 && Math.floor(i / 10) !== 7) {
         sum += i * i;
       }
     }
@@ -1115,10 +1120,11 @@
     let n = Number(prompt());
     let count = 0;
     for (let i = 1; i <= n; i++) {
-      for (let k = 0; k < String(i).length; k++)
+      for (let k = 0; k < String(i).length; k++) {
         if (String(i).charAt(k) === "1") {
           count++;
         }
+      }
     }
     console.log(count);
   </script>
@@ -1171,7 +1177,6 @@
         break;
       }
     }
-    console.log();
   </script>
 
   <script type="y" id="ch0105/44">
@@ -1199,13 +1204,14 @@
     let n = Number(prompt());
     let total = 0;
     let currentGold = 1;
-    let day = 0;
-    while (day < n) {
-      for (let index = 0; index < currentGold && day < n; index++) {
-        total += currentGold;
-        day++;
+    let currentIndex = 0;
+    for (let day = 1; day <= n; day++) {
+      total += currentGold;
+      currentIndex++;
+      if (currentIndex === currentGold) {
+        currentGold++;
+        currentIndex = 0;
       }
-      currentGold++;
     }
     console.log(total);
   </script>
