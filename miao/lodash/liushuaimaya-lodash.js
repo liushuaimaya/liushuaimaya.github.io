@@ -45,7 +45,7 @@ var liushuaimaya = {
     return obj;
   },
   bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
-  flatten: ary => [].cancat(...ary),
+  flatten: ary => [].concat(...ary),
   flattenDeep:  ary => {
     while (ary.some(Array.isArray)) {
       ary = [].concat(...ary);
