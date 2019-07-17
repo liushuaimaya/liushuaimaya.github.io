@@ -13,7 +13,7 @@ var liushuaimaya = {
   flip: f => (...args) => f(...args.reverse()),
   filter: (collection, predicate) => {
     let res = [];
-    for (let index in collection) {
+    for (let index = 0; index < collection.length; index++) {
       if (predicate(collection[index], index, collection)) {
         res.push(collection[index]);
       }
@@ -46,16 +46,17 @@ var liushuaimaya = {
   },
   bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
   flatten: ary => [].concat(...ary),
-  flattenDeep:  ary => {
+  flattenDeep: ary => {
     while (ary.some(Array.isArray)) {
       ary = [].concat(...ary);
     }
     return ary;
   },
-  flattenDepth:  (ary, depth = 1) => {
+  flattenDepth: (ary, depth = 1) => {
     while (depth-- > 0) {
       ary = [].concat(...ary);
     }
     return ary;
-  }
+  },
+  negate: (f, ...args) => () => !f(...args)
 }
