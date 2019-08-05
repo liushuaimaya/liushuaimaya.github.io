@@ -58,5 +58,19 @@ var liushuaimaya = {
     }
     return ary;
   },
-  negate: (f, ...args) => () => !f(...args)
+  negate: (f, ...args) => () => !f(...args),
+  forOwn: function(obj, f) {
+    var hasOwn = Object.prototype.hasOwnProperty;
+    for (let key in obj) {
+      if (hasOwn.call(obj, key)) {
+        f(obj[key], key, obj);
+      }
+    }
+  },
+  difference: function(ary, ary2) {
+    const set2 = new Set(ary2);
+    return ary.filter(x => !set2.has(x));
+  }
 }
+
+console.log(liushuaimaya.difference([1,2, 1],[2,3]))
