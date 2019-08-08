@@ -82,7 +82,8 @@ var liushuaimaya = {
   //     return ary.filter(x => !set.has(x.f))
   //   }
   // },
-  identity: (...args) => args[0]
+  identity: (...args) => args[0],
+  flowRight: fs => (...args) => fs.reverse().reduce((res, f) => [f(...res)], args)[0]
 }
 
 // console.log(liushuaimaya.differenceBy([1,2,3,4,5,6,7,8],[1,3],[4,8],[6]))
