@@ -67,11 +67,7 @@ var liushuaimaya = {
       }
     }
   },
-  difference: function (ary, ...args) {
-    let set = new Set();
-    args.forEach(arg => arg.forEach(val => set.add(val)));
-    return ary.filter(x => !set.has(x));
-  },
+  difference: (ary, ...args) => ary.filter(x => !(new Set(args.reduce((res, a) => res.concat(...a), []))).has(x)),
   // differenceBy: function(ary, ...args) {
   //   let f = args[args.length - 1];
   //   let set = new Set();
@@ -83,7 +79,9 @@ var liushuaimaya = {
   //   }
   // },
   identity: (...args) => args[0],
+
   flowRight: fs => (...args) => fs.reverse().reduce((res, f) => [f(...res)], args)[0]
+
 }
 
 // console.log(liushuaimaya.differenceBy([1,2,3,4,5,6,7,8],[1,3],[4,8],[6]))
