@@ -1,15 +1,6 @@
 var liushuaimaya = {
-  compact: (ary) => {
-    return ary.filter(it => it)
-  },
-  chunk: (ary, size = 1) => {
-    let res = [];
-    for (let i = 0; i < ary.length / size | 0; i++) {
-      res.push([]);
-    };
-    ary.forEach((a, i) => { res[i / size | 0].push(a) });
-    return res;
-  },
+  compact: (ary) => ary.filter(it => it),
+  chunk: (ary, size = 1) => ary.map((_, i) => i % size ? null : ary.slice(i, size)).filter(it => it),
   flip: f => (...args) => f(...args.reverse()),
   filter: (collection, predicate) => {
     let res = [];
@@ -20,12 +11,8 @@ var liushuaimaya = {
     }
     return res;
   },
-  every: (ary, predicate) => {
-    return ary.reduce((res, a, i, ary) => res && predicate(a, i, ary), true);
-  },
-  some: (ary, predicate) => {
-    return ary.reduce((res, a, i, ary) => res || predicate(a, i, ary), false);
-  },
+  every: (ary, predicate) => ary.reduce((res, a, i, ary) => res && predicate(a, i, ary), true),
+  some: (ary, predicate) => ary.reduce((res, a, i, ary) => res || predicate(a, i, ary), false),
   memoize: f => {
     let memo = {};
     return function (...args) {
@@ -36,7 +23,7 @@ var liushuaimaya = {
       }
     }
   },
-  spread: f => (args) => f(...args),
+  spread: f => args => f(...args),
   any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
   mapvalues: (obj, f) => {
     for (key in obj) {
@@ -79,9 +66,6 @@ var liushuaimaya = {
   //   }
   // },
   identity: (...args) => args[0],
-
   flowRight: fs => (...args) => fs.reverse().reduce((res, f) => [f(...res)], args)[0]
 
 }
-
-// console.log(liushuaimaya.differenceBy([1,2,3,4,5,6,7,8],[1,3],[4,8],[6]))
