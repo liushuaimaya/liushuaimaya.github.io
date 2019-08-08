@@ -59,7 +59,7 @@ var liushuaimaya = {
     return ary;
   },
   negate: (f, ...args) => () => !f(...args),
-  forOwn: function(obj, f) {
+  forOwn: function (obj, f) {
     var hasOwn = Object.prototype.hasOwnProperty;
     for (let key in obj) {
       if (hasOwn.call(obj, key)) {
@@ -67,7 +67,7 @@ var liushuaimaya = {
       }
     }
   },
-  difference: function(ary, ...args) {
+  difference: function (ary, ...args) {
     let set = new Set();
     args.forEach(arg => arg.forEach(val => set.add(val)));
     return ary.filter(x => !set.has(x));
@@ -81,7 +81,8 @@ var liushuaimaya = {
   //   } else {
   //     return ary.filter(x => !set.has(x.f))
   //   }
-  // }
+  // },
+  identitty: (...args) => args[0]
 }
 
 // console.log(liushuaimaya.differenceBy([1,2,3,4,5,6,7,8],[1,3],[4,8],[6]))
