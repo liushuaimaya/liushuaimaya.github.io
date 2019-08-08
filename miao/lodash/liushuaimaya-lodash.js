@@ -1,6 +1,6 @@
 var liushuaimaya = {
   compact: (ary) => ary.filter(it => it),
-  chunk: (ary, size = 1) => ary.map((_, i) => i % size ? null : ary.slice(i, size)).filter(it => it),
+  chunk: (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean),
   flip: f => (...args) => f(...args.reverse()),
   filter: (collection, predicate) => {
     let res = [];
