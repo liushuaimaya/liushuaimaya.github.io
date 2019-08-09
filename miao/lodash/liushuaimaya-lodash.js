@@ -1,16 +1,15 @@
 var liushuaimaya = {
-  /** ONE LINE VERSION **/
+  /** one line parts **/
   chunk: (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean),
   compact: ary => ary.filter(Boolean),
   difference: (ary, ...args) => ary.filter(x => !args.flat().includes(x)),
   drop: (arr, n = 1) => arr.slice(n),
   dropRight: (arr, n = 1) => arr.slice(0, n ? -n : arr.length),
-  // dropRightWhile: (arr, n = 1) => arr.slice(0, n ? -n : arr.length),
   property: path => obj => (Array.isArray(path) ? path : path.split(".")).reduce((res, it) => res[it], obj),
   flatten: ary => [].concat(...ary),
   flattenDeep: ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []),
   flattenDepth: (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary,
-  indexOf: Array.prototype.indexOf.call,
+  indexOf: (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex),
   flip: f => (...args) => f(...args.reverse()),
   filter: (collection, predicate) => {
     let res = [];
@@ -44,13 +43,14 @@ var liushuaimaya = {
     return obj;
   },
   identity: (...args) => args[0],
-  // iteratee: arg => (...args) => { }
+  matches: o => obj => Object.keys(o).every(key => key in obj && obj[key] == o[key]),
 
 
 
 
 
-  //** ORIGIN VERSION **/
+  /** several lines parts **/
+  /* hard to write/read if write in single line */
   differenceBy: (ary, ...args) => {
     let f = it => it, last = args.pop();
     if (typeof last == "function") f = last;
@@ -58,6 +58,7 @@ var liushuaimaya = {
     if (typeof last == "string") f = obj => last.split(".").reduce((re, p) => re[p], obj);
     return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
   }
+  //** ORIGIN VERSION **/
   // indexOf: (arr, val, fromIndex = 0) => {
   //   if (fromIndex < 0) fromIndex = fromIndex + arr.length;
   //   for (let i = fromIndex; i < arr.length; i++) {
