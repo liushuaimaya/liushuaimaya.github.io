@@ -1,4 +1,4 @@
-const liushuaimaya = {
+var liushuaimaya = {
   chunk: (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean),
   compact: ary => ary.filter(Boolean),
   difference: (ary, ...args) => ary.filter(x => !(new Set(args.reduce((res, a) => res.concat(...a), []))).has(x)),
@@ -50,5 +50,4 @@ const liushuaimaya = {
     }
   },
   identity: (...args) => args[0],
-  flowRight: fs => (...args) => fs.reverse().reduce((res, f) => [f(...res)], args)[0]
 }
