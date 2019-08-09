@@ -56,7 +56,7 @@ var liushuaimaya = {
     if (typeof last == "function") f = last;
     if (Array.isArray(last)) args.push(last);
     if (typeof last == "string") f = obj => last.split(".").reduce((re, p) => re[p], obj);
-    return ary.filter(x => args.flat().map(it => f(it)).includes(f(x)));
+    return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
   }
   // indexOf: (arr, val, fromIndex = 0) => {
   //   if (fromIndex < 0) fromIndex = fromIndex + arr.length;
