@@ -2,15 +2,15 @@ const liushuaimaya = {
   chunk: (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean),
   compact: ary => ary.filter(Boolean),
   difference: (ary, ...args) => ary.filter(x => !(new Set(args.reduce((res, a) => res.concat(...a), []))).has(x)),
-  // differenceBy: (ary, ...args) => typeof (f = args[args.length - 1]) == "function" ? 
-  // ary.filter(x => !(new Set(args.reduce((res, a) => res.concat(...a), [])).map(it => f(it))).has(f(x)))
-  // : difference(ary, ...args),
   property: path => obj => (Array.isArray(path) ? path : path.split(".")).reduce((res, it) => res[it], obj),
   flatten: ary => [].concat(...ary),
   flattenDeep: ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []),
   flattenDepth: (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary,
   flip: f => (...args) => f(...args.reverse()),
   filter: (collection, predicate) => {
+    // differenceBy: (ary, ...args) => typeof (f = args[args.length - 1]) == "function" ? 
+    // ary.filter(x => !(new Set(args.reduce((res, a) => res.concat(...a), [])).map(it => f(it))).has(f(x)))
+    // : difference(ary, ...args),
     let res = [];
     for (let index = 0; index < collection.length; index++) {
       if (predicate(collection[index], index, collection)) {
@@ -51,5 +51,4 @@ const liushuaimaya = {
   },
   identity: (...args) => args[0],
   flowRight: fs => (...args) => fs.reverse().reduce((res, f) => [f(...res)], args)[0]
-
 }
