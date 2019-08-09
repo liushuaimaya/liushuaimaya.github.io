@@ -2,7 +2,7 @@ var liushuaimaya = {
   chunk: (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean),
   compact: ary => ary.filter(Boolean),
   difference: (ary, ...args) => ary.filter(x => !(args.reduce((res, a) => res.concat(a), [])).includes(x)),
-  differenceBy: (ary, ...args) => typeof (args[args.length - 1]) == "function" ? ary.filter(x => !(args.slice(0, -1).reduce((res, a) => res.concat(a), [])).map(it => args[args.length - 1](it)).includes(args[args.length - 1](x))) : differenceBy(ary, ...args.slice(-1), it => it),
+  differenceBy: (ary, ...args) => typeof (args[args.length - 1]) == "function" ? ary.filter(x => !(args.slice(0, -1).reduce((res, a) => res.concat(a), [])).map(it => args[args.length - 1](it)).includes(args[args.length - 1](x))) : differenceBy(ary, ...args, it => it),
   drop: (arr, n = 1) => arr.slice(n),
   dropRight: (arr, n = 1) => arr.slice(0, n ? -n : arr.length),
   // dropRightWhile: (arr, n = 1) => arr.slice(0, n ? -n : arr.length),
