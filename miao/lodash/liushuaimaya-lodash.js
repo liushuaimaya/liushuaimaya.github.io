@@ -30,7 +30,7 @@ var liushuaimaya = {
   //     obj[key] = f(obj[key], key, obj);
   //   }
   //   return obj;
-  // },
+  // }
   bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
   negate: f => (...args) => !f(...args),
   forOwn: function (obj, f) {
