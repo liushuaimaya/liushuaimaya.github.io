@@ -40,6 +40,7 @@ var liushuaimaya = {
         f(obj[key], key, obj);
       } else break;
     }
+    return obj;
   },
   identity: (...args) => args[0],
   // iteratee: arg => (...args) => { }
