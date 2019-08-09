@@ -54,7 +54,7 @@ var liushuaimaya = {
   differenceBy: (ary, ...args) => {
     let f = it => it, last = args.pop();
     if (typeof last == "function") f = last;
-    if (Array.isArray(last)) ary.push(last);
+    if (Array.isArray(last)) args.push(last);
     if (typeof last == "string") f = obj => last.split(".").reduce((re, p) => re[p], obj);
     return ary.filter(x => args.flat().map(it => f(it)).includes(f(x)));
   }
