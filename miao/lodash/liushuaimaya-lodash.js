@@ -1,11 +1,37 @@
 var liushuaimaya = function () {
-  /** one line parts, only using build-in funcs **/
+  const isArray = Array.isArray;
+  const isString = value => Object.prototype.toString.call(value) == "[object String]";
+  const isArguments = value => Object.prototype.toString.call(value) == "[object Arguments]";
+  const isBoolean = value => Object.prototype.toString.call(value) == "[object Boolean]"
+  const isDate = value => Object.prototype.toString.call(value) == "[object Date]";
+  const isElement = value => Object.prototype.toString.call(value) == "[object HTMLScriptElement]";
+  const isEmpty = value => isArguments(value) || isArray(value) || isString(value) ? value.length > 0 : false;
+  const isEqual = (a, b) => {
+    if (a === b) return true;
+    if (a == null || b == null || typeof a != "object" || typeof b != "object") return false;
+    let keysA = Object.keys(a), keysB = Object.keys(b);
+    if (keysA.length != keysB.length) return false;
+    for (let key of keysA) {
+      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
+    }
+    return true;
+  };
+  const isError = value => Object.prototype.toString.call(value) == "[object Error]";
+  const isFinite = Number.isFinite;
+  const isFunction = value => Object.prototype.toString.call(value) == "[object Function]";
+  const isNaN = Number.isNaN;
+  const isNil = value => value === undefined || value === null;
+  const isNull = value => value === null;
+  const isNumber = value => Object.prototype.toString.call(value) == "[object Number]";
+  const isObject = value => typeof value == "object" || typeof value == "function";
+  const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
+  const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
+  const toArray = value => isObject(value) ? Object.entries(a).map(it => it[1]) : isString(value) ? String.split("") : [];
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
   const drop = (arr, n = 1) => arr.slice(n);
   const dropRight = (arr, n = 1) => arr.slice(0, n ? -n : arr.length);
-  const property = path => obj => (Array.isArray(path) ? path : path.split(".")).reduce((res, it) => res[it], obj);
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
@@ -43,10 +69,7 @@ var liushuaimaya = function () {
     return obj;
   };
   const identity = (...args) => args[0];
-  const matches = o => obj => Object.keys(o).every(key => key in obj && obj[key] == o[key]);
-
-  /** several lines parts **/
-  /* hard to write/read in single line */
+  const toPath = str => str.match(/\b\w+\b/g);
   const differenceBy = (ary, ...args) => {
     let f = it => it, last = args.pop();
     if (typeof last == "function") f = last;
@@ -65,13 +88,50 @@ var liushuaimaya = function () {
     let copy = arr.slice().reverse();
     return copy.slice(copy.findIndex(it => !f(it))).reverse();
   };
+  const dropwhile = (arr, predicate = identity) => {
+
+  };
+
+  const isMatch = (obj, src) => {
+    if (obj === src) return true;
+    if (obj == null || typeof obj != "object" || typeof src != "object") return false;
+    let keysObj = Object.keys(obj), keysSrc = Object.keys(src);
+    for (let key of keysSrc) {
+      if (!keysObj.includes(key) || !isMatch(obj[key], src[key])) return false;
+    }
+    return true;
+  };
+  const matches = src => obj => isMatch(obj, src);
+  const property = path => obj => (Array.isArray(path) ? path : path.split(".")).reduce((res, it) => res[it], obj);
+  const matchesProperty = (path, srcValue) => {
+
+  }
+
   return {
+    isArray,
+    isString,
+    isArguments,
+    isBoolean,
+    isDate,
+    isElement,
+    isEmpty,
+    isEqual,
+    isError,
+    isFinite,
+    isFunction,
+    isNaN,
+    isNil,
+    isNull,
+    isNumber,
+    isObject,
+    isRegExp,
+    isUndefined,
+    toArray,
     chunk,
     compact,
     difference,
     drop,
     dropRight,
-    property,
     flatten,
     flattenDeep,
     flattenDepth,
@@ -83,12 +143,19 @@ var liushuaimaya = function () {
     memoize,
     spread,
     any,
+    mapvalues,
     bind,
     negate,
     forOwn,
     identity,
-    matches,
+    toPath,
     differenceBy,
-    dropRightWhile
+    dropRightWhile,
+    funcs,
+    dropwhile,
+    isMatch,
+    matches,
+    property,
+    matchesProperty
   }
 }();
