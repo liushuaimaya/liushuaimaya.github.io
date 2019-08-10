@@ -1,5 +1,4 @@
 var liushuaimaya = function () {
-  const isArray = Array.isArray;
   const isString = value => Object.prototype.toString.call(value) == "[object String]";
   const isArguments = value => Object.prototype.toString.call(value) == "[object Arguments]";
   const isBoolean = value => Object.prototype.toString.call(value) == "[object Boolean]"
@@ -8,15 +7,16 @@ var liushuaimaya = function () {
   const isMap = value => Object.prototype.toString.call(value) == "[object Map]";
   const isElement = value => Object.prototype.toString.call(value) == "[object HTMLScriptElement]";
   const isError = value => Object.prototype.toString.call(value) == "[object Error]";
-  const isFinite = Number.isFinite;
   const isFunction = value => Object.prototype.toString.call(value) == "[object Function]";
-  const isNil = value => value === undefined || value === null;
-  const isNull = value => value === null;
   const isNumber = value => Object.prototype.toString.call(value) == "[object Number]";
   const isNaN = value => isNumber(value) && value.toString() == "NaN";
-  const isObject = value => value instanceof Object;
   const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
   const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
+  const isNil = value => value === undefined || value === null;
+  const isObject = value => value instanceof Object;
+  const isNull = value => value === null;
+  const isFinite = Number.isFinite;
+  const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
   const isEqual = (a, b) => {
     if (a === b) return true;
@@ -36,6 +36,21 @@ var liushuaimaya = function () {
     }
     return true;
   }
+  const identity = (...args) => args[0];
+  const toPath = path => isString(path) ? path.match(/\b\w+\b/g) : path;
+  const isMatch = (obj, src) => {
+    if (obj === src) return true;
+    if (obj == null || typeof obj != "object" || typeof src != "object") return false;
+    let keysObj = Object.keys(obj), keysSrc = Object.keys(src);
+    for (let key of keysSrc) {
+      if (!keysObj.includes(key) || !isMatch(obj[key], src[key])) return false;
+    }
+    return true;
+  };
+  const matches = src => obj => isMatch(obj, src);
+  const property = path => obj => toPath(path).reduce((res, it) => res[it], obj);
+  const matchesProperty = (path, srcValue) => obj => isMatch(property(path)(obj), srcValue);
+  const iteratee = (func = identity) => isArray ? matchesProperty(func[0], func[1]) : isString ? property(func) : isObject ? matches(func) : false;
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
@@ -77,8 +92,6 @@ var liushuaimaya = function () {
     }
     return obj;
   };
-  const identity = (...args) => args[0];
-  const toPath = str => str.match(/\b\w+\b/g);
   const differenceBy = (ary, ...args) => {
     let f = it => it, last = args.pop();
     if (typeof last == "function") f = last;
@@ -101,20 +114,8 @@ var liushuaimaya = function () {
 
   };
 
-  const isMatch = (obj, src) => {
-    if (obj === src) return true;
-    if (obj == null || typeof obj != "object" || typeof src != "object") return false;
-    let keysObj = Object.keys(obj), keysSrc = Object.keys(src);
-    for (let key of keysSrc) {
-      if (!keysObj.includes(key) || !isMatch(obj[key], src[key])) return false;
-    }
-    return true;
-  };
-  const matches = src => obj => isMatch(obj, src);
-  const property = path => obj => (Array.isArray(path) ? path : path.split(".")).reduce((res, it) => res[it], obj);
-  const matchesProperty = (path, srcValue) => {
 
-  }
+
 
   return {
     isArray,
