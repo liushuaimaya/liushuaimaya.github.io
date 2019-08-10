@@ -1,5 +1,5 @@
 var liushuaimaya = {
-  /** one line parts **/
+  /** one line pats, only using build-in funcs **/
   chunk: (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean),
   compact: ary => ary.filter(Boolean),
   difference: (ary, ...args) => ary.filter(x => !args.flat().includes(x)),
@@ -55,13 +55,13 @@ var liushuaimaya = {
     return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
   },
   dropRightWhile: (arr, pred) => {
-    let f;
-    switch (Array.isArray(pred) || typeof pred) {
-      case "function": f = pred; break;
-      case "string": f = obj => pred.split(".").reduce((re, p) => re[p], obj); break;
-      case true: f = obj => (Array.isArray(pred[0]) ? pred[0] : pred[0].split(".")).reduce((re, key) => re[key], obj) == pred[1]; break;
-      case "object": f = obj => Object.keys(pred).every(key => key in obj && obj[key] == pred[key]); break;
+    const funcs = {
+      "[object Function]": pred,
+      "[object String]": obj => pred.split(".").reduce((re, p) => re[p], obj),
+      "[object Array]": obj => (Array.isArray(pred[0]) ? pred[0] : pred[0].split(".")).reduce((re, key) => re[key], obj) == pred[1],
+      "[object Object]": obj => Object.keys(pred).every(key => key in obj && obj[key] == pred[key])
     }
+    let f = funcs[Object.prototype.toString.call(pred)];
     let copy = arr.slice().reverse();
     return copy.slice(copy.findIndex(it => !f(it))).reverse();
   },
