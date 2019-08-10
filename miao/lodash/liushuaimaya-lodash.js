@@ -13,8 +13,8 @@ var liushuaimaya = function () {
   const isNil = value => value === undefined || value === null;
   const isNull = value => value === null;
   const isNumber = value => Object.prototype.toString.call(value) == "[object Number]";
-  const isNaN = value => isNumber(value) && value != value;
-  const isObject = value => values instanceof Object;
+  const isNaN = value => isNumber(value) && value.toString == "NaN";
+  const isObject = value => value instanceof Object;
   const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
   const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
