@@ -51,7 +51,7 @@ var liushuaimaya = function () {
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
   const any = (f, n = f.length) => (...args) => f(...args.slice(0, n));
-  // const mapvalues = (obj, f) => {
+  // let mapvalues = (obj, f) => {
   //   for (key in obj) {
   //     obj[key] = f(obj[key], key, obj);
   //   }
@@ -78,7 +78,7 @@ var liushuaimaya = function () {
     return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
   };
   const dropRightWhile = (arr, pred) => {
-    const funcs = {
+    let funcs = {
       "[object Function]": pred,
       "[object String]": obj => pred.split(".").reduce((re, p) => re[p], obj),
       "[object Array]": obj => (Array.isArray(pred[0]) ? pred[0] : pred[0].split(".")).reduce((re, key) => re[key], obj) == pred[1],
@@ -143,7 +143,6 @@ var liushuaimaya = function () {
     memoize,
     spread,
     any,
-    mapvalues,
     bind,
     negate,
     forOwn,
@@ -151,7 +150,6 @@ var liushuaimaya = function () {
     toPath,
     differenceBy,
     dropRightWhile,
-    funcs,
     dropwhile,
     isMatch,
     matches,
