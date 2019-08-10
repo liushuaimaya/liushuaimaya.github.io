@@ -4,18 +4,9 @@ var liushuaimaya = function () {
   const isArguments = value => Object.prototype.toString.call(value) == "[object Arguments]";
   const isBoolean = value => Object.prototype.toString.call(value) == "[object Boolean]"
   const isDate = value => Object.prototype.toString.call(value) == "[object Date]";
+  const isSet = value => Object.prototype.toString.call(value) == "[object Set]";
+  const isMap = value => Object.prototype.toString.call(value) == "[object Map]";
   const isElement = value => Object.prototype.toString.call(value) == "[object HTMLScriptElement]";
-  const isEmpty = value => isArguments(value) || isArray(value) || isString(value) ? value.length > 0 : false;
-  const isEqual = (a, b) => {
-    if (a === b) return true;
-    if (a == null || b == null || typeof a != "object" || typeof b != "object") return false;
-    let keysA = Object.keys(a), keysB = Object.keys(b);
-    if (keysA.length != keysB.length) return false;
-    for (let key of keysA) {
-      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
-    }
-    return true;
-  };
   const isError = value => Object.prototype.toString.call(value) == "[object Error]";
   const isFinite = Number.isFinite;
   const isFunction = value => Object.prototype.toString.call(value) == "[object Function]";
@@ -26,7 +17,25 @@ var liushuaimaya = function () {
   const isObject = value => typeof value == "object" || typeof value == "function";
   const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
   const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
-  const toArray = value => isObject(value) ? Object.entries(a).map(it => it[1]) : isString(value) ? String.split("") : [];
+  const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
+  const isEqual = (a, b) => {
+    if (a === b) return true;
+    if (a == null || b == null || typeof a != "object" || typeof b != "object") return false;
+    let keysA = Object.keys(a), keysB = Object.keys(b);
+    if (keysA.length != keysB.length) return false;
+    for (let key of keysA) {
+      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
+    }
+    return true;
+  };
+  const isEmpty = value => {
+    if(isArguments(value) || isArray(value) || isString(value) || isFunction(value)) return !value.length;
+    if (isMap(value) || isSet(value)) return !value.size;
+    for (let key in value) {
+      if(Object.prototype.hasOwnProperty.call(value, key)) return false;
+    }
+    return true;
+  }
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
