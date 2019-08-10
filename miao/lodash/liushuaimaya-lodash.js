@@ -46,19 +46,23 @@ var liushuaimaya = {
   matches: o => obj => Object.keys(o).every(key => key in obj && obj[key] == o[key]),
 
   /** several lines parts **/
-  /* hard to write/read if write in single line */
+  /* hard to write/read in single line */
   differenceBy: (ary, ...args) => {
     let f = it => it, last = args.pop();
     if (typeof last == "function") f = last;
     if (Array.isArray(last)) args.push(last);
     if (typeof last == "string") f = obj => last.split(".").reduce((re, p) => re[p], obj);
     return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
-  }
-  //** ORIGIN VERSION **/
-  // indexOf: (arr, val, fromIndex = 0) => {
-  //   if (fromIndex < 0) fromIndex = fromIndex + arr.length;
-  //   for (let i = fromIndex; i < arr.length; i++) {
-  //     if (arr[i] == val) return i;
-  //   }
-  // },
+  },
+  dropRightWhile: (arr, pred) => {
+    let f;
+    switch (Array.isArray(pred) || typeof pred) {
+      case "function": f = pred; break;
+      case "string": f = obj => pred.split(".").reduce((re, p) => re[p], obj); break;
+      case true: f = obj => (Array.isArray(pred[0]) ? pred[0] : pred[0].split(".")).reduce((re, key) => re[key], obj) == pred[1]; break;
+      case "object": f = obj => Object.keys(pred).every(key => key in obj && obj[key] == pred[key]); break;
+    }
+    let copy = arr.slice().reverse();
+    return copy.slice(copy.findIndex(it => !f(it))).reverse();
+  },
 }
