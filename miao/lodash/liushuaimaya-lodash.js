@@ -10,10 +10,10 @@ var liushuaimaya = function () {
   const isError = value => Object.prototype.toString.call(value) == "[object Error]";
   const isFinite = Number.isFinite;
   const isFunction = value => Object.prototype.toString.call(value) == "[object Function]";
-  const isNaN = Number.isNaN;
   const isNil = value => value === undefined || value === null;
   const isNull = value => value === null;
   const isNumber = value => Object.prototype.toString.call(value) == "[object Number]";
+  const isNaN = value => isNumber(value) && value != value;
   const isObject = value => typeof value == "object" || typeof value == "function";
   const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
   const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
