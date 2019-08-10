@@ -14,7 +14,7 @@ var liushuaimaya = function () {
   const isNull = value => value === null;
   const isNumber = value => Object.prototype.toString.call(value) == "[object Number]";
   const isNaN = value => isNumber(value) && value != value;
-  const isObject = value => typeof value == "object" || typeof value == "function";
+  const isObject = value => values instanceof Object;
   const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
   const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
