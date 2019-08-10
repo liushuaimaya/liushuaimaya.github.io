@@ -45,10 +45,6 @@ var liushuaimaya = {
   identity: (...args) => args[0],
   matches: o => obj => Object.keys(o).every(key => key in obj && obj[key] == o[key]),
 
-
-
-
-
   /** several lines parts **/
   /* hard to write/read if write in single line */
   differenceBy: (ary, ...args) => {
