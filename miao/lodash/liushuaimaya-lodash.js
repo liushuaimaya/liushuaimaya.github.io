@@ -81,7 +81,7 @@ var liushuaimaya = function () {
     return res;
   };
   const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) && res, true);
-  const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) || res, false);
+  const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res || iteratee(predicate)(it, i, ary), false);
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
   const any = (f, n = f.length) => (...args) => f(...args.slice(0, n));
