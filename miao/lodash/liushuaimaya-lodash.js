@@ -60,7 +60,7 @@ var liushuaimaya = function () {
   const matches = src => obj => isMatch(obj, src);
   const property = path => obj => toPath(path).reduce((res, it) => res[it], obj);
   const matchesProperty = (path, srcValue) => obj => isMatch(property(path)(obj), srcValue);
-  const iteratee = (func = identity) => isArray ? matchesProperty(func[0], func[1]) : isString ? property(func) : isObject ? matches(func) : false;
+  const iteratee = (func = identity) => isArray(func) ? matchesProperty(func[0], func[1]) : isString(func) ? property(func) : isObject(func) ? matches(func) : false;
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
