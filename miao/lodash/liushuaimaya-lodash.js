@@ -18,6 +18,16 @@ var liushuaimaya = function () {
   const isFinite = Number.isFinite;
   const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
+  const sameValueZero = (x, y) => {
+    if(typeof x != typeof y) return false;
+    if(isNumber(x)) {
+      if(isNaN(x) && isNaN(y)) return true;
+      if (x === +0 && y === -0) return true;
+      if (x === -0 && y === +0) return true;
+      if (x === y) return true;
+    }
+    return x == y;
+  }
   const isEqual = (a, b) => {
     if (a === b) return true;
     if (a == null || b == null || typeof a != "object" || typeof b != "object") return false;
@@ -71,7 +81,7 @@ var liushuaimaya = function () {
     return res;
   };
   const every = (ary, predicate = identity) => {
-    predicate = isFunction(predicate) ? predicate : iteratee;
+    predicate = isFunction(predicate) ? predicate : iteratee(predicate);
     for(let i in ary) {
       if (!predicate(ary[i], i, ary)) {
         return false;
