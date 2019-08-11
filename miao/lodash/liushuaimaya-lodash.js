@@ -19,9 +19,9 @@ var liushuaimaya = function () {
   const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
   const sameValueZero = (x, y) => {
-    if(typeof x != typeof y) return false;
-    if(isNumber(x)) {
-      if(isNaN(x) && isNaN(y)) return true;
+    if (typeof x != typeof y) return false;
+    if (isNumber(x)) {
+      if (isNaN(x) && isNaN(y)) return true;
       if (x === +0 && y === -0) return true;
       if (x === -0 && y === +0) return true;
       if (x === y) return true;
@@ -39,10 +39,10 @@ var liushuaimaya = function () {
     return true;
   };
   const isEmpty = value => {
-    if(isArguments(value) || isArray(value) || isString(value) || isFunction(value)) return !value.length;
+    if (isArguments(value) || isArray(value) || isString(value) || isFunction(value)) return !value.length;
     if (isMap(value) || isSet(value)) return !value.size;
     for (let key in value) {
-      if(Object.prototype.hasOwnProperty.call(value, key)) return false;
+      if (Object.prototype.hasOwnProperty.call(value, key)) return false;
     }
     return true;
   }
@@ -71,15 +71,29 @@ var liushuaimaya = function () {
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
-  const filter = (collection, predicate) => {
-    let res = [];
-    for (let index = 0; index < collection.length; index++) {
-      if (predicate(collection[index], index, collection)) {
-        res.push(collection[index]);
+  const forEach = (ary, predicate = identity) => {
+    for (let i = 0; iteratee(predicate)(it, i, ary) !== fasle && i < ary.length; i++) { }
+  };
+  const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
+  const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
+  const reduce = (collection, predicate = identity, accumulator) => {
+    let i = 0;
+    if (accumulator == undefined) {
+      accumulator = ary[0];
+      i++;
+    }
+    if (isObject(collection)) {
+      let keys = Object.keys(collection);
+      for (; i < keys.length; i++) {
+        accumulator = iteratee(predicate)(accumulator, keys[i], i, collection);
       }
     }
-    return res;
-  };
+    if (isArray(collection)) {
+      for (; i < collection.length; i++) {
+        accumulator = iteratee(predicate)(accumulator, collection[i], i, collection);
+      }
+    }
+  }
   const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res && iteratee(predicate)(it, i, ary), true);
   const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res || iteratee(predicate)(it, i, ary), false);
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
@@ -128,25 +142,35 @@ var liushuaimaya = function () {
 
 
   return {
-    isArray,
     isString,
     isArguments,
     isBoolean,
     isDate,
+    isSet,
+    isMap,
     isElement,
-    isEmpty,
-    isEqual,
     isError,
-    isFinite,
     isFunction,
-    isNaN,
-    isNil,
-    isNull,
     isNumber,
-    isObject,
+    isNaN,
     isRegExp,
     isUndefined,
+    isNil,
+    isObject,
+    isNull,
+    isFinite,
+    isArray,
     toArray,
+    sameValueZero,
+    isEqual,
+    isEmpty,
+    identity,
+    toPath,
+    isMatch,
+    matches,
+    property,
+    matchesProperty,
+    iteratee,
     chunk,
     compact,
     difference,
@@ -157,7 +181,10 @@ var liushuaimaya = function () {
     flattenDepth,
     indexOf,
     flip,
+    forEach,
     filter,
+    map,
+    reduce,
     every,
     some,
     memoize,
@@ -166,14 +193,8 @@ var liushuaimaya = function () {
     bind,
     negate,
     forOwn,
-    identity,
-    toPath,
     differenceBy,
     dropRightWhile,
-    dropwhile,
-    isMatch,
-    matches,
-    property,
-    matchesProperty
+    dropwhile
   }
 }();
