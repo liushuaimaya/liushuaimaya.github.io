@@ -1,7 +1,4 @@
 var liushuaimaya = function () {
-  function isAA() {
-
-  }
   const isString = value => Object.prototype.toString.call(value) == "[object String]";
   const isArguments = value => Object.prototype.toString.call(value) == "[object Arguments]";
   const isBoolean = value => Object.prototype.toString.call(value) == "[object Boolean]"
@@ -75,7 +72,7 @@ var liushuaimaya = function () {
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
   const toObj = collection => {
-    if(collection.length != undefined) {
+    if (collection.length != undefined) {
       let res = {};
       for (let i = 0; i < collection.length; i++) {
         res[i] = collection[i];
@@ -83,35 +80,36 @@ var liushuaimaya = function () {
       return res;
     }
     return collection;
-  }
+  };
   const forIn = (obj, func = identity) => {
-    for (let [key, value] in obj) {
-      if (iteratee(func)(value, key, obj) === false) {
+    func = iteratee(func);
+    for (let key in obj) {
+      if (func(obj[key], key, obj) === false) {
         break;
       };
     }
     return obj;
-  }
+  };
   const forOwn = (obj, func = identity) => {
-    for (let [key, value] in obj) {
+    func = iteratee(func);
+    for (let key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        if (iteratee(func)(value, key, obj) === false) {
+        if (func(obj[key], key, obj) === false) {
           break;
         }
       }
     }
     return obj;
-  }
+  };
   const forEach = (collection, func = identity) => {
-    // if(collection.length == undefined) {
-    //   return forIn(collection, func);
-    // }
-    // for(let i = 0; i < collection.length; i++) {
-    //   if(iteratee(func)(collection[i], i, collection) == false) {
-    //     break;
-    //   }
-    // }
-    return forIn(toObj(collection), func);
+    let obj = toObj(collection);
+    func = iteratee(func);
+    for (let key in obj) {
+      if (func(obj[key], key, obj) === false) {
+        break;
+      }
+    }
+    return collection;
   };
   const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
   const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
