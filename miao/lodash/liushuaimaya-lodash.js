@@ -68,11 +68,11 @@ var liushuaimaya = function () {
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
   const differenceBy = (array, ...args) => {
     let func = isString(args[args.length - 1]) ? property(args.pop()) : isFunction(args[args.length - 1]) ? args.pop() : it => it;
-    return array.filter(x => !args.flat().map(func).includes(func(x)));
+    return array.filter(val => !args.flat().map(func).includes(func(val)));
   };
   const differenceWith = (array, ...args) => {
-    let func = isFunction(args[args.length - 1]) ? args.pop() : it => it;
-    return array.filter(x => args.flat().every(it => !func(x, it)));
+    let comparator = isFunction(args[args.length - 1]) ? args.pop() : it => it;
+    return array.filter(arrVal => args.flat().every(othVal => !comparator(arrVal, othVal)));
   };
   const drop = (arr, n = 1) => arr.slice(n);
   const dropRight = (arr, n = 1) => arr.slice(0, n ? -n : arr.length);
@@ -120,6 +120,10 @@ var liushuaimaya = function () {
   const intersectionBy = (...args) => {
     let transform = iteratee(args.pop());
     return args[0].filter(it => args.slice(1).every(array => array.some(val => transform(val) == transform(it))));
+  }
+  const intersectionWith = (...args) => {
+    let comparator = iteratee(args.pop());
+    return args[0].filter(arrVal => args.slice(1).every(array => array.some(othVal => comparator(othVal, arrVal))));
   }
 
   const flatten = ary => [].concat(...ary);
@@ -289,6 +293,7 @@ var liushuaimaya = function () {
     head,
     initial,
     intersection,
-    intersectionBy
+    intersectionBy,
+    intersectionWith
   }
 }();
