@@ -128,14 +128,20 @@ var liushuaimaya = function () {
       Object.keys(collection).reduce((res, key) => res.concat(func(collection[key], key, collection)), []);
   };
   const reduce = (collection, func = identity, accumulator) => {
-    let obj = toObj(collection);
     func = iteratee(func);
-    if (accumulator === undefined) {
-      accumulator = collection[0];
-      delete obj[0];
-    }
-    for (let key in obj) {
-      accumulator = func(accumulator, obj[key], key, collection);
+    if (isArrayLikeObject(collection)) {
+      let i = 0;
+      if (accumulator == undefined) {
+        accumulator = collection[0];
+        i = 1;
+      }
+      for (; i < collection.length; i++) {
+        accumulator = func(accumulator, collection[i], i, collection);
+      }
+    } else {
+      for (let key in collection) {
+        accumulator = func(accumulator, collection[key], key, collection);
+      }
     }
     return accumulator;
   };
