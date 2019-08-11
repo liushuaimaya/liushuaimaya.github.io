@@ -60,7 +60,7 @@ var liushuaimaya = function () {
   const matches = src => obj => isMatch(obj, src);
   const property = path => obj => toPath(path).reduce((res, it) => res[it], obj);
   const matchesProperty = (path, srcValue) => obj => isMatch(property(path)(obj), srcValue);
-  const iteratee = (func = identity) => isFunction(func) ? func : isArray(func) ? matchesProperty(func[0], func[1]) : isString(func) ? property(func) : isObject(func) ? matches(func) : func;
+  const iteratee = (func = identity) => isRegExp(func) ? str => func.test(str) : isFunction(func) ? func : isArray(func) ? matchesProperty(func[0], func[1]) : isString(func) ? property(func) : isObject(func) ? matches(func) : func;
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
@@ -72,7 +72,7 @@ var liushuaimaya = function () {
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
   const forEach = (ary, predicate = identity) => {
-    for (let i = 0; iteratee(predicate)(it, i, ary) !== fasle && i < ary.length; i++) { }
+    for (let i = 0; iteratee(predicate)(it, i, ary) !== false && i < ary.length; i++) { }
   };
   const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
   const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
