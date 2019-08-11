@@ -73,16 +73,6 @@ var liushuaimaya = function () {
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
-  const toObj = collection => {
-    if (collection.length != undefined) {
-      let res = {};
-      for (let i = 0; i < collection.length; i++) {
-        res[i] = collection[i];
-      }
-      return res;
-    }
-    return collection;
-  };
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
     for (let key in obj) {
@@ -92,16 +82,16 @@ var liushuaimaya = function () {
     }
     return obj;
   };
-  const forOwn = (obj, func = identity) => {
+  const forOwn = (object, func = identity) => {
     func = iteratee(func);
-    for (let key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        if (func(obj[key], key, collection) === false) {
+    for (let key in object) {
+      if (Object.prototype.hasOwnProperty.call(object, key)) {
+        if (func(object[key], key, object) === false) {
           break;
         }
       }
     }
-    return obj;
+    return object;
   };
   const forEach = (collection, func = identity) => {
     func = iteratee(func);
