@@ -111,7 +111,18 @@ var liushuaimaya = function () {
     }
     return collection;
   };
-  const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
+  const filter = (collection, predicate = identity) => {
+    let res = [];
+    let obj = toObj(collection);
+    predicate = iteratee(predicate);
+    for (let key in obj) {
+      if (predicate(obj[key], key, obj)) {
+        res.push(obj[key]);
+      }
+    }
+    return res;
+  };
+  // const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
   const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
   const reduce = (collection, predicate = identity, accumulator) => {
     let i = 0;
