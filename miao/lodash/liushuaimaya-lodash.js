@@ -18,6 +18,8 @@ var liushuaimaya = function () {
   const isFinite = Number.isFinite;
   const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
+  const isArrayLike = value => !isFunction(value) && value !== undefined && value !== null && value.length >= 0 && value.length <= Number.MAX_SAFE_INTEGER;
+  const isArrayLikeObject = value => isArrayLike(value) && isObject(value);
   const sameValueZero = (x, y) => {
     if (typeof x != typeof y) return false;
     if (isNumber(x)) {
@@ -123,18 +125,15 @@ var liushuaimaya = function () {
     return res;
   };
   const map = (collection, func = identity) => {
-    let res = [];
-    let obj = toObj(collection);
     func = iteratee(func);
-    for (let key in obj) {
-      res.push(func(obj[key], key, collection));
-    }
-    return res;
+    return isArrayLikeObject(collection) ?
+      collection.reduce((res, value, index) => res.concat(func(value, index, collection)), []) :
+      Object.keys(collection).reduce((res, key) => res.concat(func(collection[key], key, collection)), []);
   };
   const reduce = (collection, func = identity, accumulator) => {
     let obj = toObj(collection);
     func = iteratee(func);
-    if(accumulator === undefined) {
+    if (accumulator === undefined) {
       accumulator = collection[0];
       delete obj[0];
     }
@@ -145,11 +144,11 @@ var liushuaimaya = function () {
   };
   const some = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
-    return Object.entries(toObj(collection)).reduce((res, [key, value], index, collection) => res || predicate(value, key, index, collection), false);
+    return Object.entries(toObj(collection)).reduce((res, [key, value], index) => res || predicate(value, key, index, collection), false);
   };
   const every = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
-    return Object.entries(toObj(collection)).reduce((res, [key, value], index, collection) => res && predicate(value, key, index, collection), true);
+    return Object.entries(toObj(collection)).reduce((res, [key, value], index) => res && predicate(value, key, index, collection), true);
   };
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
@@ -207,6 +206,8 @@ var liushuaimaya = function () {
     isFinite,
     isArray,
     toArray,
+    isArrayLike,
+    isArrayLikeObject,
     sameValueZero,
     isEqual,
     isEmpty,
