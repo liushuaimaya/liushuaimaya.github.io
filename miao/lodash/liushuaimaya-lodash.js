@@ -72,7 +72,7 @@ var liushuaimaya = function () {
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
   const forEach = (ary, predicate = identity) => {
-    for (let i = 0; iteratee(predicate)(it, i, ary) !== false && i < ary.length; i++) { }
+    for (let i = 0; iteratee(predicate)(ary[i], i, ary) !== false && i < ary.length; i++) { }
   };
   const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
   const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
