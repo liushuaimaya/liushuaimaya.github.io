@@ -72,7 +72,7 @@ var liushuaimaya = function () {
   };
   const differenceWith = (array, ...args) => {
     let func = isFunction(args[args.length - 1]) ? args.pop() : it => it;
-    return array.filter(x => args.flat().every(it => func(x, it)));
+    return array.filter(x => args.flat().every(it => !func(x, it)));
   };
   const drop = (arr, n = 1) => arr.slice(n);
   const dropRight = (arr, n = 1) => arr.slice(0, n ? -n : arr.length);
@@ -92,6 +92,7 @@ var liushuaimaya = function () {
       }
     }
   };
+  const fill = (array, value, start = 0, end = array.length) => {};
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
