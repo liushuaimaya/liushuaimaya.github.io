@@ -108,12 +108,13 @@ var liushuaimaya = function () {
     if (isArrayLikeObject(collection)) {
       for (let i = 0; i < collection.length; i++) {
         if (func(collection[i], i, collection) === false) {
-          return collection;
+          break;
         }
       }
     } else {
-      return forIn(collection, func);
+      forIn(collection, func);
     }
+    return collection;
   };
   const filter = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
