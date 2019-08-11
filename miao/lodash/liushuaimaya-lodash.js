@@ -132,15 +132,38 @@ var liushuaimaya = function () {
   const fromPairs = Object.fromEntries;
   const initial = array => array.slice(0, -1);
   const head = array => array[0];
-  const indexOf = (arr, val, fromIndex = 0) => {
-    fromIndex += fromIndex < 0 ? arr.length : 0;
-    for (let i = fromIndex; i < arr.length; i++) {
-      if (sameValueZero(val, arr[i])) {
+  const indexOf = (array, value, fromIndex = 0) => {
+    fromIndex += fromIndex < 0 ? array.length : 0;
+    for (let i = fromIndex; i < array.length; i++) {
+      if (sameValueZero(value, array[i])) {
         return i;
       }
     }
     return -1;
   }
+  const join = (array, separator = ',') => array.reduce(((res, s) => "" + res + separator + s));
+  const last = array => array[array.length - 1];
+  const lastIndexOf = (array, value, fromIndex = array.length - 1) => {
+    for (let i = fromIndex; i >= 0; i--) {
+      if (sameValueZero(value, array[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
+  const nth = (array, n = 0) => n >= 0 ? array[n] : array[-n];
+  const pull = (array, ...values) => {
+    let set = new Set(values);
+    for (let i = 0; i < array.length;) {
+      set.has(array[i]) ? array.splice(i, 1) : i++;
+    }
+    return array;
+  }
+  const pullAll = (array, values) => pull(array, ...values);
+  const pullAllBy = () => 1;
+  const pullAllWith = () => 1;
+  const reverse = () => 1;
+  const sortedIndex = () => 1;
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
@@ -262,38 +285,48 @@ var liushuaimaya = function () {
     chunk,
     compact,
     difference,
+    differenceBy,
+    differenceWith,
     drop,
     dropRight,
+    dropRightWhile,
+    dropWhile,
+    fill,
+    findIndex,
+    findLastIndex,
+    intersection,
+    intersectionBy,
+    intersectionWith,
     flatten,
     flattenDeep,
     flattenDepth,
+    fromPairs,
+    initial,
+    head,
     indexOf,
+    join,
+    last,
+    lastIndexOf,
+    nth,
+    pull,
+    pullAll,
+    pullAllBy,
+    pullAllWith,
+    reverse,
+    sortedIndex,
     flip,
     forIn,
+    forOwn,
     forEach,
     filter,
     map,
     reduce,
-    every,
     some,
+    every,
     memoize,
     spread,
     any,
     bind,
-    negate,
-    forOwn,
-    differenceBy,
-    dropRightWhile,
-    dropWhile,
-    differenceWith,
-    fill,
-    findIndex,
-    findLastIndex,
-    fromPairs,
-    head,
-    initial,
-    intersection,
-    intersectionBy,
-    intersectionWith
+    negate
   }
 }();
