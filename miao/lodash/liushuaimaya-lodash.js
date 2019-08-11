@@ -92,10 +92,36 @@ var liushuaimaya = function () {
       }
     }
   };
-  const fill = (array, value, start = 0, end = array.length) => {};
+  const fill = (array, value, start = 0, end = array.length) => {
+    for (let i = start; i < end; i++) {
+      array[i] = value;
+    }
+    return array;
+  }
+  const findIndex = (array, predicate = identity, fromIndex = 0) => {
+    predicate = iteratee(predicate);
+    for (let i = fromIndex; i < array.length; i++) {
+      if (predicate(array[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
+  const findLastIndex = (array, predicate = identity, fromIndex = 0) => {
+    predicate = iteratee(predicate);
+    for (let i = array.length - 1; i >= 0; i--) {
+      if (predicate(array[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
+  const fromPairs = Object.fromEntries;
+  const initial = array => array.slice(0, -1);
+  const head = array => array[0];
   const indexOf = (arr, val, fromIndex = 0) => {
     fromIndex += fromIndex < 0 ? arr.length : 0;
     for (let i = fromIndex; i < arr.length; i++) {
@@ -249,6 +275,12 @@ var liushuaimaya = function () {
     differenceBy,
     dropRightWhile,
     dropWhile,
-    differenceWith
+    differenceWith,
+    fill,
+    findIndex,
+    findLastIndex,
+    fromPairs,
+    head,
+    initial
   }
 }();
