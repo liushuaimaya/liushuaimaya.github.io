@@ -71,7 +71,15 @@ var liushuaimaya = function () {
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
-  const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
+  const indexOf = (arr, val, fromIndex = 0) => {
+    fromIndex += fromIndex < 0 ? arr.length : 0;
+    for (let i = fromIndex; i < arr.length; i++) {
+      if (sameValueZero(val, arr[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
