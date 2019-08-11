@@ -131,13 +131,8 @@ var liushuaimaya = function () {
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);
     if (isArrayLikeObject(collection)) {
-      let i = 0;
-      if (accumulator == undefined) {
-        accumulator = collection[0];
-        i = 1;
-      }
-      for (; i < collection.length; i++) {
-        accumulator = func(accumulator, collection[i], i, collection);
+      for (let i = 0; i < collection.length; i++) {
+        i == 0 && accumulator == undefined ? accumulator = collection[0] : accumulator = func(accumulator, collection[i], i, collection);
       }
     } else {
       for (let key in collection) {
