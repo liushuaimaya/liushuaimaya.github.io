@@ -122,26 +122,18 @@ var liushuaimaya = function () {
     }
     return res;
   };
-  // const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
-  const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
-  const reduce = (collection, predicate = identity, accumulator) => {
-    let i = 0;
-    if (accumulator == undefined) {
-      accumulator = ary[0];
-      i++;
+  const map = (collection, func = identity) => {
+    let res = [];
+    let obj = toObj(collection);
+    iteratee = iteratee(func);
+    for (let key in obj) {
+      res.push(func(obj[key], key, obj));
     }
-    if (isArray(collection)) {
-      for (; i < collection.length; i++) {
-        accumulator = iteratee(predicate)(accumulator, collection[i], i, collection);
-      }
-    }
-    if (isObject(collection)) {
-      let keys = Object.keys(collection);
-      for (; i < keys.length; i++) {
-        accumulator = iteratee(predicate)(accumulator, keys[i], i, collection);
-      }
-    }
-  }
+    return res;
+  };
+  const reduce = (collection, predicate = identity) => {
+
+  };
   const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res && iteratee(predicate)(it, i, ary), true);
   const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res || iteratee(predicate)(it, i, ary), false);
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
