@@ -94,7 +94,7 @@ var liushuaimaya = function () {
     func = iteratee(func);
     for (let key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        if (func(obj[key], key, obj) === false) {
+        if (func(obj[key], key, collection) === false) {
           break;
         }
       }
@@ -105,7 +105,7 @@ var liushuaimaya = function () {
     let obj = toObj(collection);
     func = iteratee(func);
     for (let key in obj) {
-      if (func(obj[key], key, obj) === false) {
+      if (func(obj[key], key, collection) === false) {
         break;
       }
     }
@@ -116,7 +116,7 @@ var liushuaimaya = function () {
     let obj = toObj(collection);
     predicate = iteratee(predicate);
     for (let key in obj) {
-      if (predicate(obj[key], key, obj)) {
+      if (predicate(obj[key], key, collection)) {
         res.push(obj[key]);
       }
     }
@@ -127,7 +127,7 @@ var liushuaimaya = function () {
     let obj = toObj(collection);
     func = iteratee(func);
     for (let key in obj) {
-      res.push(func(obj[key], key, obj));
+      res.push(func(obj[key], key, collection));
     }
     return res;
   };
@@ -139,17 +139,17 @@ var liushuaimaya = function () {
       delete obj[0];
     }
     for (let key in obj) {
-      accumulator = func(accumulator, obj[key], key, obj);
+      accumulator = func(accumulator, obj[key], key, collection);
     }
     return accumulator;
   };
   const some = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
-    return Object.entries(toObj(collection)).reduce((res, [key, value], index, entries) => res || predicate(value, key, index, entries), false);
+    return Object.entries(toObj(collection)).reduce((res, [key, value], index, collection) => res || predicate(value, key, index, collection), false);
   };
   const every = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
-    return Object.entries(toObj(collection)).reduce((res, [key, value], index, entries) => res && predicate(value, key, index, entries), true);
+    return Object.entries(toObj(collection)).reduce((res, [key, value], index, collection) => res && predicate(value, key, index, collection), true);
   };
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
