@@ -104,25 +104,22 @@ var liushuaimaya = function () {
     return obj;
   };
   const forEach = (collection, func = identity) => {
-    let obj = toObj(collection);
     func = iteratee(func);
-    for (let key in obj) {
-      if (func(obj[key], key, collection) === false) {
-        break;
+    if (isArrayLikeObject(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        if (func(collection[i], i, collection) === false) {
+          return collection;
+        }
       }
+    } else {
+      return forIn(collection, func);
     }
-    return collection;
   };
   const filter = (collection, predicate = identity) => {
-    let res = [];
-    let obj = toObj(collection);
     predicate = iteratee(predicate);
-    for (let key in obj) {
-      if (predicate(obj[key], key, collection)) {
-        res.push(obj[key]);
-      }
-    }
-    return res;
+    return isArrayLikeObject(collection) ?
+      collection.reduce((res, value, index) => predicate(value, index, collection) ? [...res, value] : res, []) :
+      Object.keys(collection).reduce((res, key) => predicate(collection[key], key, collection) ? [...res, value] : res, []);
   };
   const map = (collection, func = identity) => {
     func = iteratee(func);
@@ -144,11 +141,15 @@ var liushuaimaya = function () {
   };
   const some = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
-    return Object.entries(toObj(collection)).reduce((res, [key, value], index) => res || predicate(value, key, index, collection), false);
+    return isArrayLikeObject(collection) ?
+      collection.reduce((res, value, index) => res || predicate(value, index, collection), false) :
+      Object.keys(collection).reduce((res, key) => res || predicate(collection[key], key, collection), false);
   };
   const every = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
-    return Object.entries(toObj(collection)).reduce((res, [key, value], index) => res && predicate(value, key, index, collection), true);
+    return isArrayLikeObject(collection) ?
+      collection.reduce((res, value, index) => res && predicate(value, index, collection), true) :
+      Object.keys(collection).reduce((res, key) => res && predicate(collection[key], key, collection), true);
   };
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
