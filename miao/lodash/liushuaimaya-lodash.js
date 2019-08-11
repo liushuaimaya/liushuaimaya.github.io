@@ -125,14 +125,23 @@ var liushuaimaya = function () {
   const map = (collection, func = identity) => {
     let res = [];
     let obj = toObj(collection);
-    iteratee = iteratee(func);
+    func = iteratee(func);
     for (let key in obj) {
       res.push(func(obj[key], key, obj));
     }
     return res;
   };
-  const reduce = (collection, predicate = identity) => {
-
+  const reduce = (collection, func = identity, accumulator) => {
+    let obj = toObj(collection);
+    func = iteratee(func);
+    if(accumulator === undefined) {
+      accumulator = collection[0];
+      delete obj[0];
+    }
+    for (let key in obj) {
+      accumulator = func(accumulator, obj[key], key, obj);
+    }
+    return accumulator;
   };
   const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res && iteratee(predicate)(it, i, ary), true);
   const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res || iteratee(predicate)(it, i, ary), false);
