@@ -143,8 +143,14 @@ var liushuaimaya = function () {
     }
     return accumulator;
   };
-  const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res && iteratee(predicate)(it, i, ary), true);
-  const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res || iteratee(predicate)(it, i, ary), false);
+  const some = (collection, predicate = identity) => {
+    predicate = iteratee(predicate);
+    return Object.entries(toObj(collection)).reduce((res, [key, value], index, entries) => res || predicate(value, key, index, entries), false);
+  };
+  const every = (collection, predicate = identity) => {
+    predicate = iteratee(predicate);
+    return Object.entries(toObj(collection)).reduce((res, [key, value], index, entries) => res && predicate(value, key, index, entries), true);
+  };
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
   const any = (f, n = f.length) => (...args) => f(...args.slice(0, n));
