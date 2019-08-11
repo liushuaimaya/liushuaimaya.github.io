@@ -71,8 +71,32 @@ var liushuaimaya = function () {
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
-  const forEach = (collection, predicate = identity) => {
-    for (let i = 0; iteratee(predicate)(collection[i], i, collection) !== false && i < Object.keys(collection).length; i++) { }
+  const forIn = (obj, func = identity) => {
+    for (let [key, value] in obj) {
+      if (iteratee(func)(value, key, obj) === false) {
+        break;
+      };
+    }
+    return obj;
+  }
+  const forOwn = (obj, func = identity) => {
+    for (let [key, value] in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        if (iteratee(func)(value, key, obj) === false) {
+          break;
+        };
+      }
+    }
+    return obj;
+  }
+  const forEach = (collection, func = identity) => {
+    if(collection.length == undefined) {
+      return forIn(collection, func);
+    }
+    for(let i = 0; i < collection.length; i++) {
+      iteratee(func)(collection[i], i, collection);
+    }
+    return collection;
   };
   const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
   const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
@@ -107,15 +131,6 @@ var liushuaimaya = function () {
   // }
   const bind = (f, ...args1) => (...args2) => f(...args1, ...args2);
   const negate = f => (...args) => !f(...args);
-  const forOwn = function (obj, f) {
-    var hasOwn = Object.prototype.hasOwnProperty;
-    for (let key in obj) {
-      if (hasOwn.call(obj, key)) {
-        f(obj[key], key, obj);
-      } else break;
-    }
-    return obj;
-  };
   const differenceBy = (ary, ...args) => {
     let f = it => it, last = args.pop();
     if (typeof last == "function") f = last;
@@ -181,6 +196,7 @@ var liushuaimaya = function () {
     flattenDepth,
     indexOf,
     flip,
+    forIn,
     forEach,
     filter,
     map,
