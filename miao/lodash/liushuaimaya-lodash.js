@@ -66,6 +66,10 @@ var liushuaimaya = function () {
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
+  const differenceBy = (array, ...args) => {
+    let func = iteratee(args.pop());
+    return array.filter(x => !args.flat().map(it => func(it)).includes(func(x)));
+  };
   const drop = (arr, n = 1) => arr.slice(n);
   const dropRight = (arr, n = 1) => arr.slice(0, n ? -n : arr.length);
   const dropRightWhile = (array, predicate = identity) => {
@@ -178,13 +182,6 @@ var liushuaimaya = function () {
   // }
   const bind = (f, ...args1) => (...args2) => f(...args1, ...args2);
   const negate = f => (...args) => !f(...args);
-  const differenceBy = (ary, ...args) => {
-    let f = it => it, last = args.pop();
-    if (typeof last == "function") f = last;
-    if (Array.isArray(last)) args.push(last);
-    if (typeof last == "string") f = obj => last.split(".").reduce((re, p) => re[p], obj);
-    return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
-  };
 
 
 
