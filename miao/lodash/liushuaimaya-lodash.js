@@ -68,7 +68,11 @@ var liushuaimaya = function () {
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
   const differenceBy = (array, ...args) => {
     let func = iteratee(args.pop());
-    return array.filter(x => !args.flat().map(it => func(it)).includes(func(x)));
+    return array.filter(x => !args.flat().map(func).includes(func(x)));
+  };
+  const differenceWith = (array, ...args) => {
+    let func = iteratee(args.pop());
+    return array.filter(x => args.flat().every(it => func(x, it)));
   };
   const drop = (arr, n = 1) => arr.slice(n);
   const dropRight = (arr, n = 1) => arr.slice(0, n ? -n : arr.length);
@@ -243,6 +247,7 @@ var liushuaimaya = function () {
     forOwn,
     differenceBy,
     dropRightWhile,
-    dropWhile
+    dropWhile,
+    differenceWith
   }
 }();
