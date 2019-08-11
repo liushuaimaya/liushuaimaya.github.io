@@ -67,11 +67,11 @@ var liushuaimaya = function () {
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
   const differenceBy = (array, ...args) => {
-    let func = isString(args[args.length - 1]) ? property(args.pop()) : it => it;
+    let func = isString(args[args.length - 1]) ? property(args.pop()) : isFunction(args[args.length - 1]) ? args.pop() : it => it;
     return array.filter(x => !args.flat().map(func).includes(func(x)));
   };
   const differenceWith = (array, ...args) => {
-    let func = args.pop();
+    let func = isFunction(args[args.length - 1]) ? args.pop() : it => it;
     return array.filter(x => args.flat().every(it => func(x, it)));
   };
   const drop = (arr, n = 1) => arr.slice(n);
