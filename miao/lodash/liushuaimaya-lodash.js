@@ -68,6 +68,22 @@ var liushuaimaya = function () {
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
   const drop = (arr, n = 1) => arr.slice(n);
   const dropRight = (arr, n = 1) => arr.slice(0, n ? -n : arr.length);
+  const dropRightWhile = (array, predicate = identity) => {
+    predicate = iteratee(predicate);
+    for (let i = array.length - 1; i < array.length; i--) {
+      if (!predicate(array[i], i, array)) {
+        return array.slice(0, i + 1);
+      }
+    }
+  };
+  const dropWhile = (array, predicate = identity) => {
+    predicate = iteratee(predicate);
+    for (let i = 0; i < array.length; i++) {
+      if (!predicate(array[i], i, array)) {
+        return array.slice(i);
+      }
+    }
+  };
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
@@ -169,20 +185,6 @@ var liushuaimaya = function () {
     if (typeof last == "string") f = obj => last.split(".").reduce((re, p) => re[p], obj);
     return ary.filter(x => !args.flat().map(it => f(it)).includes(f(x)));
   };
-  const dropRightWhile = (arr, pred) => {
-    let funcs = {
-      "[object Function]": pred,
-      "[object String]": obj => pred.split(".").reduce((re, p) => re[p], obj),
-      "[object Array]": obj => (Array.isArray(pred[0]) ? pred[0] : pred[0].split(".")).reduce((re, key) => re[key], obj) == pred[1],
-      "[object Object]": obj => Object.keys(pred).every(key => key in obj && obj[key] == pred[key])
-    }
-    let f = funcs[Object.prototype.toString.call(pred)];
-    let copy = arr.slice().reverse();
-    return copy.slice(copy.findIndex(it => !f(it))).reverse();
-  };
-  const dropwhile = (arr, predicate = identity) => {
-
-  };
 
 
 
@@ -244,6 +246,6 @@ var liushuaimaya = function () {
     forOwn,
     differenceBy,
     dropRightWhile,
-    dropwhile
+    dropWhile
   }
 }();
