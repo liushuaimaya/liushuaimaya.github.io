@@ -71,8 +71,8 @@ var liushuaimaya = function () {
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
   const indexOf = (arr, val, fromIndex = 0) => arr.indexOf(val, fromIndex);
   const flip = f => (...args) => f(...args.reverse());
-  const forEach = (ary, predicate = identity) => {
-    for (let i = 0; iteratee(predicate)(ary[i], i, ary) !== false && i < ary.length; i++) { }
+  const forEach = (collection, predicate = identity) => {
+    for (let i = 0; iteratee(predicate)(collection[i], i, collection) !== false && i < Object.keys(collection).length; i++) { }
   };
   const filter = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) ? [...res, it] : res, []);
   const map = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => [...res, iteratee(predicate)(it, i, ary)], []);
@@ -82,15 +82,15 @@ var liushuaimaya = function () {
       accumulator = ary[0];
       i++;
     }
+    if (isArray(collection)) {
+      for (; i < collection.length; i++) {
+        accumulator = iteratee(predicate)(accumulator, collection[i], i, collection);
+      }
+    }
     if (isObject(collection)) {
       let keys = Object.keys(collection);
       for (; i < keys.length; i++) {
         accumulator = iteratee(predicate)(accumulator, keys[i], i, collection);
-      }
-    }
-    if (isArray(collection)) {
-      for (; i < collection.length; i++) {
-        accumulator = iteratee(predicate)(accumulator, collection[i], i, collection);
       }
     }
   }
