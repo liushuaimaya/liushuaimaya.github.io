@@ -60,7 +60,7 @@ var liushuaimaya = function () {
   const matches = src => obj => isMatch(obj, src);
   const property = path => obj => toPath(path).reduce((res, it) => res[it], obj);
   const matchesProperty = (path, srcValue) => obj => isMatch(property(path)(obj), srcValue);
-  const iteratee = (func = identity) => isArray(func) ? matchesProperty(func[0], func[1]) : isString(func) ? property(func) : isObject(func) ? matches(func) : func;
+  const iteratee = (func = identity) => isFunction(func) ? func : isArray(func) ? matchesProperty(func[0], func[1]) : isString(func) ? property(func) : isObject(func) ? matches(func) : func;
   const chunk = (ary, size) => ary.map((_, i) => i % size ? null : ary.slice(i, i + size)).filter(Boolean);
   const compact = ary => ary.filter(Boolean);
   const difference = (ary, ...args) => ary.filter(x => !args.flat().includes(x));
@@ -80,7 +80,7 @@ var liushuaimaya = function () {
     }
     return res;
   };
-  const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => iteratee(predicate)(it, i, ary) && res, true);
+  const every = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res && iteratee(predicate)(it, i, ary), true);
   const some = (ary, predicate = identity) => ary.reduce((res, it, i, ary) => res || iteratee(predicate)(it, i, ary), false);
   const memoize = f => (memo = {}, (...args) => args in memo ? memo[args] : memo[args] = f(...args));
   const spread = f => args => f(...args);
