@@ -117,6 +117,11 @@ var liushuaimaya = function () {
     return -1;
   }
   const intersection = (...arrays) => arrays[0].filter(it => arrays.slice(1).every(array => array.includes(it)));
+  const intersectionBy = (...args) => {
+    let transform = iteratee(args.pop());
+    return args[0].filter(it => args.slice(1).every(array => array.some(val => transform(val) == transform(it))));
+  }
+
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
@@ -283,6 +288,7 @@ var liushuaimaya = function () {
     fromPairs,
     head,
     initial,
-    intersection
+    intersection,
+    intersectionBy
   }
 }();
