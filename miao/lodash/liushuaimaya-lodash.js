@@ -116,6 +116,7 @@ var liushuaimaya = function () {
     }
     return -1;
   }
+  const intersection = (...arrays) => arrays[0].filter(it => arrays.slice(1).every(array => array.includes(it)));
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
@@ -281,6 +282,7 @@ var liushuaimaya = function () {
     findLastIndex,
     fromPairs,
     head,
-    initial
+    initial,
+    intersection
   }
 }();
