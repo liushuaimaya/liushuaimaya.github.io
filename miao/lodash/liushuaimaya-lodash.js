@@ -178,11 +178,23 @@ var liushuaimaya = function () {
   const sortedIndex = (array, value) => {
     let l = 0, r = array.length - 1;
     while (l <= r) {
-      mid = (l + r) / 2 | 0;
+      let mid = (l + r) / 2 | 0;
       array[mid] < value ? l = mid + 1 : r = mid - 1;
     }
     return l;
   };
+  const sortedIndexBy = (array, value, func = identity) => sortedIndex(array.map(iteratee(func)), iteratee(func)(value));
+  const sortedIndexOf = (array, value) => array[index = sortedIndex(array, value)] == value ? index : -1;
+  const sortedLastIndex = (array, value) => {
+    let l = 0, r = array.length - 1;
+    while (l <= r) {
+      let mid = (l + r) / 2 | 0;
+      array[mid] <= value ? l = mid + 1 : r = mid - 1;
+    }
+    return l;
+  };
+  const sortedLastIndexBy = (array, value, func = identity) => sortedLastIndex(array.map(iteratee(func)), iteratee(func)(value));
+  const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value)] == value ? index : -1;
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
@@ -347,6 +359,11 @@ var liushuaimaya = function () {
     spread,
     any,
     bind,
-    negate
+    negate,
+    sortedIndexBy,
+    sortedIndexOf,
+    sortedLastIndex,
+    sortedLastIndexBy,
+    sortedLastIndexOf
   }
 }();
