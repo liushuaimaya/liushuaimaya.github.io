@@ -153,17 +153,36 @@ var liushuaimaya = function () {
   }
   const nth = (array, n = 0) => n >= 0 ? array[n] : array[-n];
   const pull = (array, ...values) => {
-    let set = new Set(values);
     for (let i = 0; i < array.length;) {
-      set.has(array[i]) ? array.splice(i, 1) : i++;
+      values.includes(array[i]) ? array.splice(i, 1) : i++;
     }
     return array;
   }
   const pullAll = (array, values) => pull(array, ...values);
-  const pullAllBy = () => 1;
-  const pullAllWith = () => 1;
-  const reverse = () => 1;
-  const sortedIndex = () => 1;
+  const pullAllBy = (array, values, func = identity) => {
+    func = iteratee(func);
+    values = values.map(func);
+    for (let i = 0; i < array.length;) {
+      values.includes(func(array[i])) ? array.splice(i, 1) : i++;
+    }
+    return array;
+  };
+  const pullAllWith = (array, values, comparator) => {
+    for (let i = 0; i < array.length;) {
+      values.some(othVal => comparator(array[i], othVal)) ? array.splice(i, 1) : i++;
+    }
+    return array;
+  };
+  const pullAt = (array, indexes) => array.splice(indexes);
+  const reverse = array => array.reverse();
+  const sortedIndex = (array, value) => {
+    let l = 0, r = array.length - 1;
+    while (l <= r) {
+      mid = (l + r) / 2 | 0;
+      array[mid] < value ? l = mid + 1 : r = mid - 1;
+    }
+    return l;
+  };
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
@@ -312,6 +331,7 @@ var liushuaimaya = function () {
     pullAll,
     pullAllBy,
     pullAllWith,
+    pullAt,
     reverse,
     sortedIndex,
     flip,
