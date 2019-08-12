@@ -1,20 +1,21 @@
 var liushuaimaya = function () {
-  const isString = value => Object.prototype.toString.call(value) == "[object String]";
-  const isArguments = value => Object.prototype.toString.call(value) == "[object Arguments]";
-  const isBoolean = value => Object.prototype.toString.call(value) == "[object Boolean]"
-  const isDate = value => Object.prototype.toString.call(value) == "[object Date]";
-  const isSet = value => Object.prototype.toString.call(value) == "[object Set]";
-  const isMap = value => Object.prototype.toString.call(value) == "[object Map]";
-  const isElement = value => Object.prototype.toString.call(value) == "[object HTMLScriptElement]";
-  const isError = value => Object.prototype.toString.call(value) == "[object Error]";
-  const isFunction = value => Object.prototype.toString.call(value) == "[object Function]";
-  const isNumber = value => Object.prototype.toString.call(value) == "[object Number]";
-  const isNaN = value => isNumber(value) && value.toString() == "NaN";
-  const isRegExp = value => Object.prototype.toString.call(value) == "[object RegExp]";
-  const isUndefined = value => Object.prototype.toString.call(value) == "[object Undefined]";
-  const isNil = value => value === undefined || value === null;
+  const getTag = tag => value => Object.prototype.toString.call(value).slice(8, -1) == tag;
+  const isString = getTag("String");
+  const isArguments = getTag("Arguments");
+  const isBoolean = getTag("Boolean");
+  const isDate = getTag("Date");
+  const isSet = getTag("Set");
+  const isMap = getTag("Map");
+  const isError = getTag("Error");
+  const isFunction = getTag("Function");
+  const isNumber = getTag("Number");
+  const isNaN = getTag("NaN");
+  const isRegExp = getTag("RegExp");
+  const isUndefined = getTag("Undefined");
   const isObject = value => value instanceof Object;
+  const isElement = value => value instanceof Element;
   const isNull = value => value === null;
+  const isNil = value => value === undefined || value === null;
   const isFinite = Number.isFinite;
   const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
@@ -284,6 +285,7 @@ var liushuaimaya = function () {
 
 
   return {
+    getTag,
     isString,
     isArguments,
     isBoolean,
