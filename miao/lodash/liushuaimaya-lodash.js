@@ -194,7 +194,9 @@ var liushuaimaya = function () {
     return l;
   };
   const sortedLastIndexBy = (array, value, func = identity) => sortedLastIndex(array.map(iteratee(func)), iteratee(func)(value));
-  const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value)] == value ? index : -1;
+  const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value) - 1] == value ? index : -1;
+  const sortedUniq = array => [...new Set(array)];
+  // const sortedUniqBy = (array, func) => 
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
@@ -364,6 +366,7 @@ var liushuaimaya = function () {
     sortedIndexOf,
     sortedLastIndex,
     sortedLastIndexBy,
-    sortedLastIndexOf
+    sortedLastIndexOf,
+    sortedUniq
   }
 }();
