@@ -216,7 +216,12 @@ function liushuaimayaSrc() {
     let comparator = array.pop();
     return array.filter((arrVal, i) => !array.slice(0, i).some(othVal => comparator(arrVal, othVal)));
   };
-  const uniq = () => "placeholder";
+  const uniq = () => [...new Set(array)];
+  const uniqBy = (array, func) => {
+    func = iteratee(func);
+    let transformed = array.map(func);
+    return array.filter((_, i) => transformed.indexOf(transformed[i]) == i);
+  }
   const unzip = () => "placeholder";
   const unzipWith = () => "placeholder";
   const without = () => "placeholder";
