@@ -205,7 +205,7 @@ function liushuaimayaSrc() {
   const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value) - 1] == value ? index : -1;
   const sortedUniq = array => [...new Set(array)];
   const sortedUniqBy = (array, func) => "placeholder";
-  const union = () => "placeholder";
+  const union = (...arrays) => [...new Set(arrays.flat())];
   const unionBy = () => "placeholder";
   const unionWith = () => "placeholder";
   const uniq = () => "placeholder";
