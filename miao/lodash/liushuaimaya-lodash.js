@@ -222,6 +222,7 @@ function liushuaimayaSrc() {
     let transformed = array.map(func);
     return array.filter((_, i) => transformed.indexOf(transformed[i]) == i);
   }
+  const uniqWith = (array, comparator) => array.filter((arrVal, i) => !array.slice(0, i).some(othVal => comparator(arrVal, othVal)));
   const unzip = () => "placeholder";
   const unzipWith = () => "placeholder";
   const without = () => "placeholder";
