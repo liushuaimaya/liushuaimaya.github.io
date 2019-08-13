@@ -1,8 +1,8 @@
 var liushuaimaya = (function() {
-  let src = liushuaimayaSrc.toString();
-  let funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g);
-  let addReturnObj = `\nreturn {\n\t${funcNames.join(",\n\t")}\n}`;
-  return new Function(src.slice(src.indexOf("{") + 1, -1) + addReturnObj);
+  let src = liushuaimayaSrc.toString(); //获得liushuaimayaSrc函数源代码
+  let funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g); //获得liushuaimayaSrc内所有函数名组成的字符串数组
+  let addReturnObj = `\nreturn {\n\t${funcNames.join(",\n\t")}\n}`; //将函数名join并拼接成需要返回对象的字符串
+  return new Function(src.slice(src.indexOf("{") + 1, -1) + addReturnObj); //返回拼接后的新函数
 })()();
 
 function liushuaimayaSrc() {
