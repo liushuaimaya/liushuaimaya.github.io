@@ -1,4 +1,4 @@
-var liushuaimaya = (function() {
+var liushuaimaya = (function () {
   let src = liushuaimayaSrc.toString(); //获得liushuaimayaSrc函数源代码
   let funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g); //获得liushuaimayaSrc内所有函数名组成的字符串数组
   let addReturnObj = `\nreturn {\n\t${funcNames.join(",\n\t")}\n}`; //将函数名join并拼接成需要返回对象的字符串
@@ -206,7 +206,11 @@ function liushuaimayaSrc() {
   const sortedUniq = array => [...new Set(array)];
   const sortedUniqBy = (array, func) => "placeholder";
   const union = (...arrays) => [...new Set(arrays.flat())];
-  const unionBy = () => "placeholder";
+  const unionBy = (...arrays) => {
+    func = iteratee(arrays.pop());
+    let transformed = arrays.flat().map(func);
+    return arrays.flat().filter((_, i) => transformed.indexOf(transformed[i]) >= i);
+  }
   const unionWith = () => "placeholder";
   const uniq = () => "placeholder";
   const unzip = () => "placeholder";
