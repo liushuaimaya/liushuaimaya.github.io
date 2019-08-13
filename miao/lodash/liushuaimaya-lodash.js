@@ -216,7 +216,7 @@ function liushuaimayaSrc() {
     let comparator = array.pop();
     return array.filter((arrVal, i) => !array.slice(0, i).some(othVal => comparator(arrVal, othVal)));
   };
-  const uniq = () => [...new Set(array)];
+  const uniq = array => [...new Set(array)];
   const uniqBy = (array, func) => {
     func = iteratee(func);
     let transformed = array.map(func);
