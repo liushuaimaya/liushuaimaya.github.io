@@ -26,6 +26,7 @@ function liushuaimayaSrc() {
   const isFinite = Number.isFinite;
   const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
+  const add = (a, b) => a + b;
   const isArrayLike = value => !isFunction(value) && value !== undefined && value !== null && value.length >= 0 && value.length <= Number.MAX_SAFE_INTEGER;
   const isArrayLikeObject = value => isArrayLike(value) && isObject(value);
   const sameValueZero = (x, y) => {
@@ -224,7 +225,7 @@ function liushuaimayaSrc() {
   }
   const uniqWith = (array, comparator) => array.filter((arrVal, i) => !array.slice(0, i).some(othVal => comparator(arrVal, othVal)));
   const unzip = array => zip(...array);
-  const unzipWith = () => "placeholder";
+  const unzipWith = (array, func) => array[0].map((_, i) => iteratee(func)(...array.map(it => it[i])));
   const without = () => "placeholder";
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
