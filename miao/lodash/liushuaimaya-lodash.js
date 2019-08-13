@@ -29,7 +29,7 @@ var liushuaimaya = function () {
       if (x === -0 && y === +0) return true;
       if (x === y) return true;
     }
-    return x == y;
+    return x == y;c
   }
   const isEqual = (a, b) => {
     if (a === b) return true;
@@ -198,6 +198,7 @@ var liushuaimaya = function () {
   const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value) - 1] == value ? index : -1;
   const sortedUniq = array => [...new Set(array)];
   // const sortedUniqBy = (array, func) => 
+  const zip = (...arrays) => arrays[0].map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
@@ -369,6 +370,7 @@ var liushuaimaya = function () {
     sortedLastIndex,
     sortedLastIndexBy,
     sortedLastIndexOf,
-    sortedUniq
+    sortedUniq,
+    zip
   }
 }();
