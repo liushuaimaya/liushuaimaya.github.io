@@ -198,7 +198,7 @@ var liushuaimaya = function () {
   const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value) - 1] == value ? index : -1;
   const sortedUniq = array => [...new Set(array)];
   // const sortedUniqBy = (array, func) => 
-  const zip = (...arrays) => arrays[0].map((_, i) => arrays.map(ary => ary[i]));
+  const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
