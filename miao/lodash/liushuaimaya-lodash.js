@@ -1,4 +1,11 @@
-var liushuaimaya = function () {
+var liushuaimaya = (function() {
+  let src = liushuaimayaSrc.toString();
+  let funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g);
+  let addReturnObj = `\nreturn {\n\t${funcNames.join(",\n\t")}\n}`;
+  return new Function(src.slice(src.indexOf("{") + 1, -1) + addReturnObj);
+})()();
+
+function liushuaimayaSrc() {
   const getTag = tag => value => Object.prototype.toString.call(value).slice(8, -1) == tag;
   const isString = getTag("String");
   const isArguments = getTag("Arguments");
@@ -197,7 +204,14 @@ var liushuaimaya = function () {
   const sortedLastIndexBy = (array, value, func = identity) => sortedLastIndex(array.map(iteratee(func)), iteratee(func)(value));
   const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value) - 1] == value ? index : -1;
   const sortedUniq = array => [...new Set(array)];
-  // const sortedUniqBy = (array, func) => 
+  const sortedUniqBy = (array, func) => "placeholder";
+  const union = () => "placeholder";
+  const unionBy = () => "placeholder";
+  const unionWith = () => "placeholder";
+  const uniq = () => "placeholder";
+  const unzip = () => "placeholder";
+  const unzipWith = () => "placeholder";
+  const without = () => "placeholder";
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
@@ -281,96 +295,4 @@ var liushuaimaya = function () {
   // }
   const bind = (f, ...args1) => (...args2) => f(...args1, ...args2);
   const negate = f => (...args) => !f(...args);
-
-
-
-
-  return {
-    getTag,
-    isString,
-    isArguments,
-    isBoolean,
-    isDate,
-    isSet,
-    isMap,
-    isElement,
-    isError,
-    isFunction,
-    isNumber,
-    isNaN,
-    isRegExp,
-    isUndefined,
-    isNil,
-    isObject,
-    isNull,
-    isFinite,
-    isArray,
-    toArray,
-    isArrayLike,
-    isArrayLikeObject,
-    sameValueZero,
-    isEqual,
-    isEmpty,
-    identity,
-    toPath,
-    isMatch,
-    matches,
-    property,
-    matchesProperty,
-    iteratee,
-    chunk,
-    compact,
-    difference,
-    differenceBy,
-    differenceWith,
-    drop,
-    dropRight,
-    dropRightWhile,
-    dropWhile,
-    fill,
-    findIndex,
-    findLastIndex,
-    intersection,
-    intersectionBy,
-    intersectionWith,
-    flatten,
-    flattenDeep,
-    flattenDepth,
-    fromPairs,
-    initial,
-    head,
-    indexOf,
-    join,
-    last,
-    lastIndexOf,
-    nth,
-    pull,
-    pullAll,
-    pullAllBy,
-    pullAllWith,
-    pullAt,
-    reverse,
-    sortedIndex,
-    flip,
-    forIn,
-    forOwn,
-    forEach,
-    filter,
-    map,
-    reduce,
-    some,
-    every,
-    memoize,
-    spread,
-    any,
-    bind,
-    negate,
-    sortedIndexBy,
-    sortedIndexOf,
-    sortedLastIndex,
-    sortedLastIndexBy,
-    sortedLastIndexOf,
-    sortedUniq,
-    zip
-  }
-}();
+};
