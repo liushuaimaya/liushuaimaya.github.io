@@ -9,9 +9,9 @@ var liushuaimaya = function () {
   const isError = getTag("Error");
   const isFunction = getTag("Function");
   const isNumber = getTag("Number");
-  const isNaN = getTag("NaN");
   const isRegExp = getTag("RegExp");
   const isUndefined = getTag("Undefined");
+  const isNaN = value => isNumber(value) && +value !== value;
   const isObject = value => value instanceof Object;
   const isElement = value => value instanceof Element;
   const isNull = value => value === null;
