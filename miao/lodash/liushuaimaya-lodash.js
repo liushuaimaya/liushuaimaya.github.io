@@ -226,7 +226,7 @@ function liushuaimayaSrc() {
   const uniqWith = (array, comparator) => array.filter((arrVal, i) => !array.slice(0, i).some(othVal => comparator(arrVal, othVal)));
   const unzip = array => zip(...array);
   const unzipWith = (array, func) => array[0].map((_, i) => iteratee(func)(...array.map(it => it[i])));
-  const without = () => "placeholder";
+  const without = (array, ...values) => array.filter(it => !values.includes(it));
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
