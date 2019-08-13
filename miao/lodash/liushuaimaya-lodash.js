@@ -209,7 +209,7 @@ function liushuaimayaSrc() {
   const unionBy = (...arrays) => {
     func = iteratee(arrays.pop());
     let transformed = arrays.flat().map(func);
-    return arrays.flat().filter((_, i) => transformed.indexOf(transformed[i]) >= i);
+    return arrays.flat().filter((_, i) => transformed.indexOf(transformed[i]) == i);
   }
   const unionWith = () => "placeholder";
   const uniq = () => "placeholder";
