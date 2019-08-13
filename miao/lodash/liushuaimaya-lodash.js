@@ -29,7 +29,7 @@ var liushuaimaya = function () {
       if (x === -0 && y === +0) return true;
       if (x === y) return true;
     }
-    return x == y;c
+    return x == y; c
   }
   const isEqual = (a, b) => {
     if (a === b) return true;
@@ -174,7 +174,7 @@ var liushuaimaya = function () {
     }
     return array;
   };
-  const pullAt = (array, indexes) => array.splice(indexes);
+  const pullAt = (array, indexes) => indexes.sort((a, b) => b - a).reduce((res, i) => [...array.splice(i, 1), ...res], []);
   const reverse = array => array.reverse();
   const sortedIndex = (array, value) => {
     let l = 0, r = array.length - 1;
