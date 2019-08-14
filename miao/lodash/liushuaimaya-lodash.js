@@ -227,6 +227,7 @@ function liushuaimayaSrc() {
   const unzip = array => zip(...array);
   const unzipWith = (array, func) => array[0].map((_, i) => iteratee(func)(...array.map(it => it[i])));
   const without = (array, ...values) => array.filter(it => !values.includes(it));
+  const xor = (...arrays) => arrays.flat().filter((it, i, arr) => arr.indexOf(it) == arr.lastIndexOf(it));
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
