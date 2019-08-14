@@ -265,6 +265,8 @@ function liushuaimayaSrc() {
     return args.flat().filter((arrVal, _, arr) => arr.reduce((cnt, othVal) => comparator(arrVal, othVal) ? cnt + 1 : cnt, 0) == 1);
   }
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
+  const zipObject = (props = [], values = []) => props.reduce((obj, prop, i) => (obj[prop] = values[i], obj), {});
+  // const zipObjectDeep = (props = [], values = []) => props.
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
