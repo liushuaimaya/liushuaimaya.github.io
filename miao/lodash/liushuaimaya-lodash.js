@@ -134,7 +134,6 @@ function liushuaimayaSrc() {
     let comparator = iteratee(args.pop());
     return args[0].filter(arrVal => args.slice(1).every(array => array.some(othVal => comparator(othVal, arrVal))));
   }
-
   const flatten = ary => [].concat(...ary);
   const flattenDeep = ary => ary.reduce((res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it), []);
   const flattenDepth = (ary, depth = 1) => depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary;
@@ -215,6 +214,23 @@ function liushuaimayaSrc() {
   const tail = array => array.slice(1);
   const take = (array, n = 1) => array.slice(0, n);
   const takeRight = (array, n = 1) => array.slice(n ? -n : array.length);
+  const takeRightWhile = (array, predicate = identity) => {
+    predicate = iteratee(predicate);
+    for (let i = array.length - 1; i >= 0; i--) {
+      if (!predicate(array[i], i, array)) {
+        return array.slice(i + 1);
+      }
+    }
+  }
+  const takeWhile = (array, predicate = identity) => {
+    predicate = iteratee(predicate);
+    for (let i = 0; i < array.length; i++) {
+      if (!predicate(array[i], i, array)) {
+        return array.slice(0, i);
+      }
+    }
+  }
+
   // 
   const union = (...arrays) => [...new Set(arrays.flat())];
   const unionBy = (...arrays) => {
@@ -237,7 +253,17 @@ function liushuaimayaSrc() {
   const unzip = array => zip(...array);
   const unzipWith = (array, func) => array[0].map((_, i) => iteratee(func)(...array.map(it => it[i])));
   const without = (array, ...values) => array.filter(it => !values.includes(it));
-  const xor = (...arrays) => arrays.flat().filter((it, i, arr) => arr.indexOf(it) == arr.lastIndexOf(it));
+  const xor = (...arrays) => arrays.flat().filter((it, _, arr) => arr.indexOf(it) == arr.lastIndexOf(it));
+  const xorBy = (...args) => {
+    let arr = args.flat();
+    predicate = iteratee(arr.pop());
+    let transformed = arr.map(predicate);
+    return arr.filter((_, i) => transformed.indexOf(transformed[i]) == transformed.lastIndexOf(transformed[i]));
+  }
+  const xorWith = (...args) => {
+    let comparator = args.pop();
+    return args.flat().filter((arrVal, _, arr) => arr.reduce((cnt, othVal) => comparator(arrVal, othVal) ? cnt + 1 : cnt, 0) == 1);
+  }
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
