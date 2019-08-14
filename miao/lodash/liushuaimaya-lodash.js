@@ -266,7 +266,23 @@ function liushuaimayaSrc() {
   }
   const zip = (...arrays) => Array(Math.max(...arrays.map(it => it.length))).fill(0).map((_, i) => arrays.map(ary => ary[i]));
   const zipObject = (props = [], values = []) => props.reduce((obj, prop, i) => (obj[prop] = values[i], obj), {});
-  const zipObjectDeep = (props = [], values = []) => "placeholder";
+  // _.zipObjectDeep(['a.b[0].c', 'a.b[1].d'], [1, 2]);
+  // => { 'a': { 'b': [{ 'c': 1 }, { 'd': 2 }] } }
+  const zipObjectDeep = (props = [], values = []) => {
+    let res = isNaN(+props[0][0]) ? {} : [];
+    for (let i = 0; i < props.length; i++) {
+      let path = toPath(props[i]);
+      let cur = res;
+      for (let j = 0; j < path.length - 1; j++) {
+        if (!(path[j] in cur)) {
+          cur[path[j]] = (isNaN(+path[j]) ? {} : []);
+        }
+        cur = cur[path[j]];
+      }
+      cur[path[path.length - 1]] = values[i];
+    }
+    return res;
+  }
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
