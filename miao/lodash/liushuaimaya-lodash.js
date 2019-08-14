@@ -275,7 +275,7 @@ function liushuaimayaSrc() {
       let cur = res;
       for (let j = 0; j < path.length - 1; j++) {
         if (!(path[j] in cur)) {
-          cur[path[j]] = (isNaN(+path[j]) ? {} : []);
+          cur[path[j]] = (isNaN(+path[j + 1]) ? {} : []);
         }
         cur = cur[path[j]];
       }
