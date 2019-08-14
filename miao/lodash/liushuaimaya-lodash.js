@@ -37,7 +37,7 @@ function liushuaimayaSrc() {
       if (x === -0 && y === +0) return true;
       if (x === y) return true;
     }
-    return x == y; c
+    return x == y;
   }
   const isEqual = (a, b) => {
     if (a === b) return true;
@@ -202,10 +202,20 @@ function liushuaimayaSrc() {
     }
     return l;
   };
-  const sortedLastIndexBy = (array, value, func = identity) => sortedLastIndex(array.map(iteratee(func)), iteratee(func)(value));
+  const sortedLastIndexBy = (array, value, func = identity) => {
+    func = iteratee(func);
+    return sortedLastIndex(array.map(func), func(value));
+  }
   const sortedLastIndexOf = (array, value) => array[index = sortedLastIndex(array, value) - 1] == value ? index : -1;
   const sortedUniq = array => [...new Set(array)];
-  const sortedUniqBy = (array, func) => "placeholder";
+  const sortedUniqBy = (array, func) => {
+    func = iteratee(func);
+    return array.reduce((res, it) => func(it) !== func(res[res.length - 1]) ? [...res, it] : res, []);
+  }
+  const tail = array => array.slice(1);
+  const take = (array, n = 1) => array.slice(0, n);
+  const takeRight = (array, n = 1) => array.slice(n ? -n : array.length);
+  // 
   const union = (...arrays) => [...new Set(arrays.flat())];
   const unionBy = (...arrays) => {
     func = iteratee(arrays.pop());
