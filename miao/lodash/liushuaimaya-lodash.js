@@ -285,7 +285,7 @@ function liushuaimayaSrc() {
     let func = iteratee(args.pop());
     return args[0].map((_, i) => func(...args.map(it => it[i])));
   }
-  const countBy = (collection, func = identity) => collection.map(iteratee(func)).reduce((res, it) => (it in res ? res[it]++ : res[it] = 1, res), {});
+  const countBy = (collection, func = identity) => Object.values(collection).map(iteratee(func)).reduce((res, it) => (it in res ? res[it]++ : res[it] = 1, res), {});
   const flip = f => (...args) => f(...args.reverse());
   const forIn = (obj, func = identity) => {
     func = iteratee(func);
@@ -321,11 +321,15 @@ function liushuaimayaSrc() {
     return collection;
   };
   const filter = (collection, predicate = identity) => {
-    predicate = iteratee(predicate);
     return isArrayLikeObject(collection) ?
       collection.reduce((res, value, index) => predicate(value, index, collection) ? [...res, value] : res, []) :
       Object.keys(collection).reduce((res, key) => predicate(collection[key], key, collection) ? [...res, value] : res, []);
   };
+  const find = (collection, predicate = identity) => {
+    predicate = iteratee(predicate);
+    let arr = Array.from(collection.entries());
+    return arr[arr.findIndex(pair => predicate(pair[1], pair[0], collection))][1];
+  }
   const map = (collection, func = identity) => {
     func = iteratee(func);
     return isArrayLikeObject(collection) ?
