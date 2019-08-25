@@ -341,7 +341,7 @@ function liushuaimayaSrc() {
     if(isArrayLikeObject(collection)) {
       return collection.map((value, index) => func(value, index, collection));
     } else {
-      return collection.keys.map(key => func(collection[key], key, collection));
+      return Object.keys(collection).map(key => func(collection[key], key, collection));
     }
   };
   const flatMap = (collection, func = identity) => map(collection, func).flat();
