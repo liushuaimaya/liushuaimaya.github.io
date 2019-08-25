@@ -339,9 +339,9 @@ function liushuaimayaSrc() {
   const flatMap = (collection, func = identity) => {
     func = iteratee(func);
     if(isArrayLikeObject(collection)) {
-      return collection.map((value, index) => func(value, index, collection));
+      return collection.map((value, index) => func(value, index, collection)).flat();
     } else {
-      return collection.keys.map(key => func(collection[key], key, collection));
+      return collection.keys.map(key => func(collection[key], key, collection).flat());
     }
   }
 
