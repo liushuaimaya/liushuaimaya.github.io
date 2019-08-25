@@ -331,6 +331,12 @@ function liushuaimayaSrc() {
     let arr = Array.from(collection.entries());
     return arr[arr.findIndex(pair => predicate(pair[1], pair[0], collection))][1];
   }
+  const findLast = (collection, predicate = identity) => {
+    predicate = iteratee(predicate);
+    let arr = Array.from(collection.entries().reverse());
+    return arr[arr.findIndex(pair => predicate(pair[1], pair[0], collection))][1];
+  }
+
   const map = (collection, func = identity) => {
     func = iteratee(func);
     return isArrayLikeObject(collection) ?
