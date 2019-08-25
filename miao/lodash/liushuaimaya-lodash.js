@@ -344,6 +344,14 @@ function liushuaimayaSrc() {
       return collection.keys.map(key => func(collection[key], key, collection).flat());
     }
   }
+  const flatMapDeep = (collection, func = identity) => {
+    func = iteratee(func);
+    if(isArrayLikeObject(collection)) {
+      return collection.map((value, index) => flattenDeep(func(value, index, collection)));
+    } else {
+      return collection.keys.map(key => flatMapDeep(func(collection[key], key, collection)));
+    }
+  }
 
   const map = (collection, func = identity) => {
     func = iteratee(func);
