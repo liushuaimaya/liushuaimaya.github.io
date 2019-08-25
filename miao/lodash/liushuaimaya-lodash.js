@@ -321,6 +321,7 @@ function liushuaimayaSrc() {
     return collection;
   };
   const filter = (collection, predicate = identity) => {
+    predicate = iteratee(predicate);
     return isArrayLikeObject(collection) ?
       collection.reduce((res, value, index) => predicate(value, index, collection) ? [...res, value] : res, []) :
       Object.keys(collection).reduce((res, key) => predicate(collection[key], key, collection) ? [...res, value] : res, []);
