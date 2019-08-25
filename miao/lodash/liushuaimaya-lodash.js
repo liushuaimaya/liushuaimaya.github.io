@@ -336,29 +336,18 @@ function liushuaimayaSrc() {
     let arr = Array.from(collection.entries()).reverse();
     return arr[arr.findIndex(pair => predicate(pair[1], pair[0], collection))][1];
   }
-  const flatMap = (collection, func = identity) => {
+  const map = (collection, func = identity) => {
     func = iteratee(func);
     if(isArrayLikeObject(collection)) {
       return collection.map((value, index) => func(value, index, collection)).flat();
     } else {
       return collection.keys.map(key => func(collection[key], key, collection).flat());
     }
-  }
-  const flatMapDeep = (collection, func = identity) => {
-    func = iteratee(func);
-    if(isArrayLikeObject(collection)) {
-      return collection.map((value, index) => flattenDeep(func(value, index, collection)));
-    } else {
-      return collection.keys.map(key => flatMapDeep(func(collection[key], key, collection)));
-    }
-  }
-
-  const map = (collection, func = identity) => {
-    func = iteratee(func);
-    return isArrayLikeObject(collection) ?
-      collection.reduce((res, value, index) => res.concat(func(value, index, collection)), []) :
-      Object.keys(collection).reduce((res, key) => res.concat(func(collection[key], key, collection)), []);
   };
+  const flatMap = (collection, func = identity) => map(collection, func).flat();
+  const flatMapDeep = (collection, func = identity) => flattenDeep(map(collection, func));
+  const flatMapDepth = (collection, func = identity) => flattenDepth(map(collection, func));
+
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);
     if (isArrayLikeObject(collection)) {
