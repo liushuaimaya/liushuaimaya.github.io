@@ -307,19 +307,6 @@ function liushuaimayaSrc() {
     }
     return object;
   };
-  const forEach = (collection, func = identity) => {
-    func = iteratee(func);
-    if (isArrayLikeObject(collection)) {
-      for (let i = 0; i < collection.length; i++) {
-        if (func(collection[i], i, collection) === false) {
-          break;
-        }
-      }
-    } else {
-      forIn(collection, func);
-    }
-    return collection;
-  };
   const filter = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
     return isArrayLikeObject(collection) ?
@@ -338,16 +325,39 @@ function liushuaimayaSrc() {
   }
   const map = (collection, func = identity) => {
     func = iteratee(func);
-    if(isArrayLikeObject(collection)) {
+    if (isArrayLikeObject(collection)) {
       return collection.map((value, index) => func(value, index, collection));
     } else {
       return Object.keys(collection).map(key => func(collection[key], key, collection));
     }
   };
+
   const flatMap = (collection, func = identity) => map(collection, func).flat();
   const flatMapDeep = (collection, func = identity) => flattenDeep(map(collection, func));
   const flatMapDepth = (collection, func = identity, n) => flattenDepth(map(collection, func), n);
-
+  const forEach = (collection, func = identity) => {
+    func = iteratee(func);
+    if (isArrayLikeObject(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        if (func(collection[i], i, collection) === false) break;
+      }
+    } else {
+      forIn(collection, func);
+    }
+    return collection;
+  };
+  const forEachRight = (collection, func = identity) => {
+    func = iteratee(func);
+    if (isArrayLikeObject(collection)) {
+      for (let index = collection.length - 1; index >= 0; index--) {
+        if (func(value, index, collection) === false) break;
+      }
+    } else {
+      for(let [key, value] of Object.entries(collection).reverse()) {
+        if(func(value, key, collection) == false) break;
+      }
+    }
+  }
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);
     if (isArrayLikeObject(collection)) {
