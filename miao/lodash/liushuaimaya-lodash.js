@@ -27,7 +27,7 @@ function liushuaimayaSrc() {
   const isArray = Array.isArray;
   const toArray = value => isObject(value) ? Object.entries(value).map(it => it[1]) : isString(value) ? value.split("") : [];
   const add = (a, b) => a + b;
-  const isArrayLike = value => !isFunction(value) && value !== undefined && value !== null && value.length >= 0 && value.length <= Number.MAX_SAFE_INTEGER;
+  const isArrayLike = value => !isFunction(value) && !isString(value) && value !== undefined && value !== null && value.length >= 0 && value.length <= Number.MAX_SAFE_INTEGER;
   const isArrayLikeObject = value => isArrayLike(value) && isObject(value);
   const sameValueZero = (x, y) => {
     if (typeof x != typeof y) return false;
@@ -357,6 +357,7 @@ function liushuaimayaSrc() {
         if (func(value, key, collection) == false) break;
       }
     }
+    return collection;
   }
   const groupBy = (collection, func = identity) => {
     let res = {};
@@ -374,6 +375,16 @@ function liushuaimayaSrc() {
     }
     return res;
   }
+  const includes = (collection, value, fromIndex = 0) => {
+    if (isArrayLike(collection)) {
+      return collection.slice(fromIndex).some(item => sameValueZero(item, value));
+    } else if (isString(collection)) {
+      return collection.slice(fromIndex).includes(value);
+    } else {
+      return includes(Object.values(collection), value, fromIndex);
+    }
+  }
+
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);
     if (isArrayLikeObject(collection)) {
