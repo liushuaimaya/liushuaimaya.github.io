@@ -350,13 +350,29 @@ function liushuaimayaSrc() {
     func = iteratee(func);
     if (isArrayLikeObject(collection)) {
       for (let index = collection.length - 1; index >= 0; index--) {
-        if (func(value, index, collection) === false) break;
+        if (func(collection[index], index, collection) === false) break;
       }
     } else {
-      for(let [key, value] of Object.entries(collection).reverse()) {
-        if(func(value, key, collection) == false) break;
+      for (let [key, value] of Object.entries(collection).reverse()) {
+        if (func(value, key, collection) == false) break;
       }
     }
+  }
+  const groupBy = (collection, func = identity) => {
+    let res = {};
+    func = iteratee(func);
+    if (isArrayLikeObject(collection)) {
+      collection.forEach(val => {
+        let by = func(val);
+        by in res ? res[by].push(val) : res[by] = [val];
+      });
+    } else {
+      Object.keys(collection).forEach(key => {
+        let by = func(collection[key]);
+        by in res ? res[by].push(collection[key]) : res[by] = [collection[key]];
+      });
+    }
+    return res;
   }
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);
