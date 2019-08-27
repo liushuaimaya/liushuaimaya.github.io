@@ -135,7 +135,7 @@
     </script>
 
   <script type="y" id="complete-numbers">
-    for (a = 1; a <= 1000; a++) {
+    for (let a = 1; a <= 1000; a++) {
       let sum = 0;
       for (let i = 1; i <= a / 2; i++) {
         if (a % i === 0) {
@@ -1109,7 +1109,6 @@
     let n = Number(prompt());
     for (let i = 0; i < n; i++) {
       let current = Number(prompt());
-      // debugger
       if (current === 0) {
         Number(prompt());
         console.log(0);
@@ -1192,7 +1191,7 @@
 
   <script type="y" id="ch0105/43">
     let p = Number(prompt());
-    for (i = 2; i < Math.floor(Math.sqrt(p)); i++) {
+    for (i = 2; i < p; i++) {
       if (p % i === 0) {
         console.log(p / i);
         break;
@@ -1221,20 +1220,20 @@
     console.log(result);
   </script>
 
-  <script type="y" id="ch0105/45">
+  <script type="y" d="ch0105/45">
     let n = Number(prompt());
-    let total = 0;
-    let currentGold = 1;
-    let currentIndex = 0;
+    let t = 0;
+    let g = 1;
+    let i = 0;
     for (let day = 1; day <= n; day++) {
-      total += currentGold;
-      currentIndex++;
-      if (currentIndex === currentGold) {
-        currentGold++;
-        currentIndex = 0;
+      t += g;
+      i++;
+      if (i === g) {
+        g++;
+        i = 0;
       }
     }
-    console.log(total);
+    console.log(t);
   </script>
 
 

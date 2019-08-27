@@ -384,6 +384,9 @@ function liushuaimayaSrc() {
       return includes(Object.values(collection), value, fromIndex);
     }
   }
+  // invokeMap = (collection, path, ...args) => {
+
+  // }
 
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);

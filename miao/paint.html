@@ -85,7 +85,7 @@
   //画一个rgb色彩空间的某一面
   for (let x = 150; x < 250; x++) {
     for (let y = 90; y < 190; y++) {
-      dot(x, y, "rgba(" + (250 - x) + "%, " + (210 - y) + "%, " + "50%, " + "85%)");
+      dot(x, y, "rgba(" + (250 - x) + "%, " + (190 - y) + "%, " + "50%, " + "85%)");
     }
   }
 
@@ -106,6 +106,10 @@
         dot(x, y);
       }
     }
+  }
+
+  for (let degree = 0, r = 60; degree < 2 * Math.PI; degree += 2 * Math.PI / 4 / r) {
+    dot(r * Math.cos(degree) + 90, r * Math.sin(degree) + 170);
   }
 
 </script>
