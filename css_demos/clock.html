@@ -5,7 +5,7 @@
   <meta name="description" content="时钟">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>时钟</title>
+  <title>css clock</title>
   <style>
     section {
       width: 300px;
@@ -102,35 +102,32 @@
       transform-origin: 50% 100%;
     }
 
-    .hour {
+    #hour {
       width: 2.5%;
       height: 25%;
       left: 48.75%;
       bottom: 50%;
       background-color: #000a;
-      animation: hour-scroll calc(3600s*12) infinite steps(60);
     }
 
-    .minute {
+    #minute {
       width: 2%;
       height: 35%;
       left: 49%;
       bottom: 50%;
       background-color: #000a;
       transform: rotate(30deg);
-      animation: minute-scroll 3600s infinite steps(60);
     }
 
-    .second {
+    #second {
       width: 1%;
       height: 47.5%;
       left: 49.5%;
       bottom: 50%;
       transform: translateY(15%);
-      animation: second-scroll 60s infinite steps(60);
     }
 
-    .second:before {
+    #second:before {
       content: "";
       display: block;
       height: 100%;
@@ -138,36 +135,6 @@
       background-color: #f00a;
       transform-origin: center 85%;
       animation: beats 1s infinite;
-    }
-
-    @keyframes second-scroll {
-      from {
-        transform: rotate(0deg) translateY(15%);
-      }
-
-      to {
-        transform: rotate(360deg) translateY(15%);
-      }
-    }
-
-    @keyframes minute-scroll {
-      from {
-        transform: rotate(30deg);
-      }
-
-      to {
-        transform: rotate(390deg);
-      }
-    }
-
-    @keyframes hour-scroll {
-      from {
-        transform: rotate(2deg);
-      }
-
-      to {
-        transform: rotate(362deg);
-      }
     }
 
     @keyframes beats {
@@ -200,9 +167,9 @@
 
 <body>
   <section id="section">
-    <div class="hand hour"></div>
-    <div class="hand minute"></div>
-    <div class="hand second"></div>
+    <div class="hand" id="hour"></div>
+    <div class="hand" id="minute"></div>
+    <div class="hand" id="second"></div>
     <div class="number">
       <span>1</span>
       <span>2</span>
@@ -218,6 +185,37 @@
       <span>12</span>
     </div>
   </section>
+  <script>
+    let time = new Date();
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+    let seconds = time.getSeconds() + time.getMilliseconds() / 1000;
+    console.log(hour + ":" + minutes + ":" + seconds);
+    document.querySelector("#second").animate([
+      { transform: `rotate(${seconds / 60 * 360}deg) translateY(15%)` },
+      { transform: `rotate(${seconds / 60 * 360 + 360}deg) translateY(15%)` }
+    ], {
+        duration: 60 * 1000,
+        easing: "steps(60)",
+        iterations: Infinity
+      });
+    document.querySelector("#minute").animate([
+      { transform: `rotate(${minutes / 60 * 360}deg) translateY(15%)` },
+      { transform: `rotate(${minutes / 60 * 360 + 360}deg) translateY(15%)` }
+    ], {
+        duration: 60 * 60 * 1000,
+        easing: "steps(60)",
+        iterations: Infinity
+      });
+    document.querySelector("#hour").animate([
+      { transform: `rotate(${hours / 60 * 360}deg) translateY(15%)` },
+      { transform: `rotate(${hours / 60 * 360 + 360}deg) translateY(15%)` }
+    ], {
+        duration: 24 * 60 * 60 * 1000,
+        easing: "steps(60)",
+        iterations: Infinity
+      });
+  </script>
 </body>
 
 </html>
