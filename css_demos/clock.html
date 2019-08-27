@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="description" content="时钟">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>时钟</title>
+  <style>
+    section {
+      width: 300px;
+      height: 300px;
+      margin: 100px auto;
+      border-radius: 50%;
+      box-shadow: 0 0 20px 10px #ccc;
+      background-color: #fff;
+      position: relative;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      width: 5%;
+      height: 5%;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #000;
+      z-index: 1;
+    }
+
+    .number {
+      font: 30px sans-serif;
+      position: absolute;
+      left: 40%;
+      right: 40%;
+      top: 40%;
+      bottom: 40%;
+      margin: auto;
+      text-align: center;
+      line-height: 60px;
+    }
+
+    .number span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    span:nth-child(1) {
+      transform: rotate(30deg) translateY(-125px) rotate(-30deg);
+    }
+
+    span:nth-child(2) {
+      transform: rotate(60deg) translateY(-125px) rotate(-60deg);
+    }
+
+    span:nth-child(3) {
+      transform: rotate(90deg) translateY(-125px) rotate(-90deg);
+    }
+
+    span:nth-child(4) {
+      transform: rotate(120deg) translateY(-125px) rotate(-120deg);
+    }
+
+    span:nth-child(5) {
+      transform: rotate(150deg) translateY(-125px) rotate(-150deg);
+    }
+
+    span:nth-child(6) {
+      transform: rotate(180deg) translateY(-125px) rotate(-180deg);
+    }
+
+    span:nth-child(7) {
+      transform: rotate(210deg) translateY(-125px) rotate(-210deg);
+    }
+
+    span:nth-child(8) {
+      transform: rotate(240deg) translateY(-125px) rotate(-240deg);
+    }
+
+    span:nth-child(9) {
+      transform: rotate(270deg) translateY(-125px) rotate(-270deg);
+    }
+
+    span:nth-child(10) {
+      transform: rotate(300deg) translateY(-125px) rotate(-300deg);
+    }
+
+    span:nth-child(11) {
+      transform: rotate(330deg) translateY(-125px) rotate(-330deg);
+    }
+
+    span:nth-child(12) {
+      transform: rotate(0deg) translateY(-125px) rotate(-0deg);
+    }
+
+    .hand {
+      position: absolute;
+      transform-origin: 50% 100%;
+    }
+
+    .hour {
+      width: 2.5%;
+      height: 25%;
+      left: 48.75%;
+      bottom: 50%;
+      background-color: #000a;
+      animation: hour-scroll calc(3600s*12) infinite steps(60);
+    }
+
+    .minute {
+      width: 2%;
+      height: 35%;
+      left: 49%;
+      bottom: 50%;
+      background-color: #000a;
+      transform: rotate(30deg);
+      animation: minute-scroll 3600s infinite steps(60);
+    }
+
+    .second {
+      width: 1%;
+      height: 47.5%;
+      left: 49.5%;
+      bottom: 50%;
+      transform: translateY(15%);
+      animation: second-scroll 60s infinite steps(60);
+    }
+
+    .second:before {
+      content: "";
+      display: block;
+      height: 100%;
+      border-radius: 50% 50% 0 0/30% 30% 0 0;
+      background-color: #f00a;
+      transform-origin: center 85%;
+      animation: beats 1s infinite;
+    }
+
+    @keyframes second-scroll {
+      from {
+        transform: rotate(0deg) translateY(15%);
+      }
+
+      to {
+        transform: rotate(360deg) translateY(15%);
+      }
+    }
+
+    @keyframes minute-scroll {
+      from {
+        transform: rotate(30deg);
+      }
+
+      to {
+        transform: rotate(390deg);
+      }
+    }
+
+    @keyframes hour-scroll {
+      from {
+        transform: rotate(2deg);
+      }
+
+      to {
+        transform: rotate(362deg);
+      }
+    }
+
+    @keyframes beats {
+      0% {
+        transform: rotate(0);
+      }
+
+      5% {
+        transform: rotate(2deg);
+      }
+
+      10% {
+        transform: rotate(0);
+      }
+
+      15% {
+        transform: rotate(-1deg);
+      }
+
+      20% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section id="section">
+    <div class="hand hour"></div>
+    <div class="hand minute"></div>
+    <div class="hand second"></div>
+    <div class="number">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+      <span>6</span>
+      <span>7</span>
+      <span>8</span>
+      <span>9</span>
+      <span>10</span>
+      <span>11</span>
+      <span>12</span>
+    </div>
+  </section>
+</body>
+
+</html>
