@@ -58,7 +58,7 @@ function liushuaimayaSrc() {
     return true;
   }
   const identity = (...args) => args[0];
-  const toPath = path => isString(path) ? path.match(/\b\w+\b/g) : path;
+  const toPath = path => isString(path) ? path.match(/\w+/g) : path;
   const isMatch = (obj, src) => {
     if (obj === src) return true;
     if (obj == null || typeof obj != "object" || typeof src != "object") return false;
