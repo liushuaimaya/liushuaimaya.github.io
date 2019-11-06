@@ -238,10 +238,6 @@ function liushuaimayaSrc() {
     values = values.map(func);
     const mappedValues = values.map(func);
     return array.filter(it => !mappedValues.includes(func(it)));
-    // for (let i = 0; i < array.length; ) {
-    //   values.includes(func(array[i])) ? array.splice(i, 1) : i++;
-    // }
-    // return array;
   };
   const pullAllWith = (array, values, comparator) => {
     for (let i = 0; i < array.length; ) {
