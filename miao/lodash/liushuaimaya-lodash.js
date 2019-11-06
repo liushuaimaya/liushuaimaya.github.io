@@ -527,6 +527,9 @@ function liushuaimayaSrc() {
     }
   };
 
+  const keyBy = (collection, func = identity) =>
+    collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
+
   const reduce = (collection, func = identity, accumulator) => {
     func = iteratee(func);
     if (isArrayLikeObject(collection)) {
