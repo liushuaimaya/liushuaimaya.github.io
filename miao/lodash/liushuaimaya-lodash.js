@@ -235,7 +235,6 @@ function liushuaimayaSrc() {
   const pullAll = (array, values) => pull(array, ...values);
   const pullAllBy = (array, values, func = identity) => {
     func = iteratee(func);
-    values = values.map(func);
     const mappedValues = values.map(func);
     return array.filter(it => !mappedValues.includes(func(it)));
   };
