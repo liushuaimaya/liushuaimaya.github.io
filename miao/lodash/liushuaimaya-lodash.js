@@ -235,8 +235,11 @@ function liushuaimayaSrc() {
   const pullAll = (array, values) => pull(array, ...values);
   const pullAllBy = (array, values, func = identity) => {
     func = iteratee(func);
-    const mappedValues = values.map(func);
-    return array.filter(it => !mappedValues.includes(func(it)));
+    values = values.map(func);
+    for (let i = 0; i < array.length; ) {
+      values.includes(func(array[i])) ? array.splice(i, 1) : i++;
+    }
+    return array;
   };
   const pullAllWith = (array, values, comparator) => {
     for (let i = 0; i < array.length; ) {
