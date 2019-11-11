@@ -421,11 +421,11 @@ function liushuaimayaSrc() {
   const set = (object, path, value) => {
     path = typeof path === "string" ? path.match(/\w+/g).map(it => isNaN(it) ? it : +it) : path;
     path.reduce((res, p, i) => {
-      typeof path[i + 1] === "string" ? res[p] = {} : typeof path[i + 1] === "number" ? res[p] = [] : res[p] = value;
+      res[p] = res[p] || typeof path[i + 1] === "string" ? {} : typeof path[i + 1] === "number" ? [] : value;
       return res[p];
     }, object);
     return object;
-  }
+  };
   const filter = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
     return isArrayLikeObject(collection)
