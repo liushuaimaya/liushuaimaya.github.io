@@ -419,23 +419,26 @@ function liushuaimayaSrc() {
     return object;
   };
   const set = (object, path, value) => {
-    path = typeof path === "string" ? path.match(/\w+/g).map(it => isNaN(+it) ? it : +it) : path;
+    path = (typeof path === "string" ? path.match(/\w+/g) : path).map(it =>
+      Number(it) >= 0 ? +it : it
+    );
     path.reduce((res, p, i) => {
       if (i === path.length - 1) {
         res[p] = value;
-      }else if (!res[p] && typeof path[i + 1] === "string") {
+      } else if (!res[p] && typeof path[i + 1] === "string") {
         res[p] = {};
       } else if (!res[p] && typeof path[i + 1] === "number") {
         res[p] = [];
       }
       return res[p];
-      // res[p] = res[p] || (typeof path[i + 1] === "string" ? {} : typeof path[i + 1] === "number" ? [] : value);
     }, object);
     return object;
   };
   const pad = (string = "", length = 0, chars = " ") => {
     let padLength = length - string.length;
-    let add = chars.repeat(Math.ceil((padLength) / chars.length)).slice(0, padLength);
+    let add = chars
+      .repeat(Math.ceil(padLength / chars.length))
+      .slice(0, padLength);
     let left = add.slice(0, Math.floor(add.length / 2));
     let right = add.slice(Math.floor(add.length / 2));
     return left + string + right;
