@@ -419,7 +419,7 @@ function liushuaimayaSrc() {
     return object;
   };
   const set = (object, path, value) => {
-    path = typeof path === "string" ? path.match(/\w+/g).map(it => isNaN(it) ? it : +it) : path;
+    path = typeof path === "string" ? path.match(/\w+/g).map(it => isNaN(+it) ? it : +it) : path;
     path.reduce((res, p, i) => {
       res[p] = res[p] || typeof path[i + 1] === "string" ? {} : typeof path[i + 1] === "number" ? [] : value;
       return res[p];
