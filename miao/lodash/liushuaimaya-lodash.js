@@ -362,12 +362,10 @@ function liushuaimayaSrc() {
     let comparator = args.pop();
     return args
       .flat()
-      .filter(
-        (arrVal, _, arr) =>
-          arr.reduce(
-            (cnt, othVal) => (comparator(arrVal, othVal) ? cnt + 1 : cnt),
-            0
-          ) == 1
+      .filter((val, i, arr) =>
+        [...arr.slice(0, i), ...arr.slice(i + 1)].every(
+          othVal => !comparator(val, othVal)
+        )
       );
   };
   const zip = (...arrays) =>
@@ -420,6 +418,14 @@ function liushuaimayaSrc() {
     }
     return object;
   };
+  const set = (object, path, value) => {
+    path = typeof path === "string" ? path.match(/\w+/g).map(it => isNaN(it) ? it : +it) : path;
+    path.reduce((res, p, i) => {
+      typeof path[i + 1] === "string" ? res[p] = {} : typeof path[i + 1] === "number" ? res[p] = [] : res[p] = value;
+      return res[p];
+    }, object);
+    return object;
+  }
   const filter = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
     return isArrayLikeObject(collection)
