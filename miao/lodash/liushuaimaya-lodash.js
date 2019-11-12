@@ -95,18 +95,20 @@ function liushuaimayaSrc() {
     toPath(path).reduce((res, it) => res[it], obj);
   const matchesProperty = (path, srcValue) => obj =>
     isMatch(property(path)(obj), srcValue);
-  const iteratee = (func = identity) =>
-    isRegExp(func)
-      ? str => func.test(str)
-      : isFunction(func)
-      ? func
-      : isArray(func)
-      ? matchesProperty(func[0], func[1])
-      : isString(func)
-      ? property(func)
-      : isObject(func)
-      ? matches(func)
-      : func;
+  const iteratee = (func = identity) => {
+    switch (func) {
+      case isRegExp(func):
+        return str => func.test(str);
+      case isFunction(func):
+        return func;
+      case isArray(func):
+        return matchesProperty(func[0], func[1]);
+      case isString(func):
+        return property(func);
+      case isObject(func):
+        return matches(func);
+    }
+  };
   const chunk = (ary, size) =>
     ary
       .map((_, i) => (i % size ? null : ary.slice(i, i + size)))
@@ -457,12 +459,22 @@ function liushuaimayaSrc() {
           []
         );
   };
-  const find = (collection, predicate = identity) => {
+  const find = (collection, predicate = identity, fromIndex = 0) => {
     predicate = iteratee(predicate);
-    let arr = Array.from(collection.entries());
-    return arr[
-      arr.findIndex(pair => predicate(pair[1], pair[0], collection))
-    ][1];
+    if (Array.isArray(collection)) {
+      for (let index = fromIndex; index < collection.length; index++) {
+        if (predicate(collection[index], index, collection)) {
+          return true;
+        } 
+      }
+    } else {
+      for (const key in collection) {
+        if (predicate(collection[key], key, collection)) {
+          return true;
+        }
+      }
+    }
+    return undefined;
   };
   const findLast = (collection, predicate = identity) => {
     predicate = iteratee(predicate);
