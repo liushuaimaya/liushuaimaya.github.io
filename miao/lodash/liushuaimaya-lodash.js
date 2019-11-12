@@ -551,8 +551,8 @@ var liushuaimaya = {
     const compare = (a, b, funcs, orders) => {
       for (let i = 0; i < funcs.length; i++) {
         const flag = orders[i] === "asc" ? 1 : -1;
-        if (func[i](a) < func[i](b)) return -flag;
-        if (func[i](a) > func[i](b)) return flag;
+        if (funcs[i](a) < funcs[i](b)) return -flag;
+        if (funcs[i](a) > funcs[i](b)) return flag;
       }
       return 0;
     };
@@ -570,12 +570,10 @@ var liushuaimaya = {
   },
   reduceRight(collection, func = this.identity, accumulator) {
     func = this.iteratee(func);
-    const reversed = collection.slice().reverse();
-    return reversed.reduce(
-      (accumulator, value, index, collection) =>
-        func(accumulator, value, index, collection),
-      accumulator,
-    );
+    for(let i = collection.length - 1; i >= 0; i--) {
+      accumulator = func(accumulator, collection[i], i, collection);
+    }
+    return accumulator;
   },
   reject(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
@@ -607,8 +605,10 @@ var liushuaimaya = {
   },
   defer(func, ...args) {
     setTimeout(() => func(args), 0);
-  }
-  ,
+  },
+  delay(func, wait, args) {
+
+  },
   flatMapDeep(collection, func = this.identity) {
     return this.flattenDeep(this.map(collection, func));
   },
