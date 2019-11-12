@@ -42,7 +42,7 @@ var liushuaimaya = {
     return this.getTag("Undefined")(value);
   },
   isNaN(value) {
-    this.isNumber(value) && +value !== value;
+    return this.isNumber(value) && +value !== value;
   },
   isObject: value => value instanceof Object,
   isElement: value => value instanceof Element,
@@ -53,7 +53,7 @@ var liushuaimaya = {
   toArray(value) {
     return this.isObject(value)
       ? Object.entries(value).map(it => it[1])
-      : isString(value)
+      : this.isString(value)
       ? value.split("")
       : [];
   },
@@ -260,7 +260,7 @@ var liushuaimaya = {
   last: array => array[array.length - 1],
   lastIndexOf: (array, value, fromIndex = array.length - 1) => {
     for (let i = fromIndex; i >= 0; i--) {
-      if (sameValueZero(value, array[i])) {
+      if (this.sameValueZero(value, array[i])) {
         return i;
       }
     }
@@ -273,7 +273,9 @@ var liushuaimaya = {
     }
     return array;
   },
-  pullAll: (array, values) => this.pull(array, ...values),
+  pullAll (array, values) {
+    this.pull(array, ...values);
+  },
   pullAllBy(array, values, func = this.identity) {
     func = this.iteratee(func);
     values = values.map(func);
@@ -309,7 +311,7 @@ var liushuaimaya = {
     return this.sortedIndex(array.map(func), func(value));
   },
   sortedIndexOf(array, value) {
-    array[(index = this.sortedIndex(array, value))] == value ? index : -1;
+    return array[(index = this.sortedIndex(array, value))] === value ? index : -1;
   },
   sortedLastIndex: (array, value) => {
     let l = 0,
@@ -325,7 +327,7 @@ var liushuaimaya = {
     return this.sortedLastIndex(array.map(func), func(value));
   },
   sortedLastIndexOf(array, value) {
-    array[(index = this.sortedLastIndex(array, value) - 1)] == value
+    return array[(index = this.sortedLastIndex(array, value) - 1)] === value
       ? index
       : -1;
   },
@@ -385,7 +387,7 @@ var liushuaimaya = {
         !array.slice(0, i).some(othVal => comparator(arrVal, othVal)),
     ),
   unzip(array) {
-    this.zip(...array);
+    return this.zip(...array);
   },
   unzipWith(array, func) {
     func = this.iteratee(func);
@@ -546,10 +548,10 @@ var liushuaimaya = {
     return collection.flatMap(func);
   },
   flatMapDeep(collection, func = this.identity) {
-    return this.flattenDeep(map(collection, func));
+    return this.flattenDeep(this.map(collection, func));
   },
   flatMapDepth(collection, func = this.identity, n) {
-    return this.flattenDepth(map(collection, func), n);
+    return this.flattenDepth(this.map(collection, func), n);
   },
   forEach(collection, func = this.identity) {
     func = this.iteratee(func);
@@ -601,7 +603,7 @@ var liushuaimaya = {
     } else if (this.isString(collection)) {
       return collection.slice(fromIndex).includes(value);
     } else {
-      return includes(Object.values(collection), value, fromIndex);
+      return this.includes(Object.values(collection), value, fromIndex);
     }
   },
   invokeMap(collection, path, ...args) {
