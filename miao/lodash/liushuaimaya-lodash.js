@@ -7,39 +7,39 @@
 
 var liushuaimaya = {
   getTag: tag => value =>
-    Object.prototype.toString.call(value).slice(8, -1) == tag,
-  isString() {
-    return this.getTag("String");
+    Object.prototype.toString.call(value).slice(8, -1) === tag,
+  isString(value) {
+    return this.getTag("String")(value);
   },
-  isArguments() {
-    return this.getTag("Arguments");
+  isArguments(value) {
+    return this.getTag("Arguments")(value);
   },
-  isBoolean() {
-    return this.getTag("Boolean");
+  isBoolean(value) {
+    return this.getTag("Boolean")(value);
   },
-  isDate() {
-    return this.getTag("Date");
+  isDate(value) {
+    return this.getTag("Date")(value);
   },
-  isSet() {
-    return this.getTag("Set");
+  isSet(value) {
+    return this.getTag("Set")(value);
   },
-  isMap() {
-    return this.getTag("Map");
+  isMap(value) {
+    return this.getTag("Map")(value);
   },
-  isError() {
-    return this.getTag("Error");
+  isError(value) {
+    return this.getTag("Error")(value);
   },
-  isFunction() {
-    return this.getTag("Function");
+  isFunction(value) {
+    return this.getTag("Function")(value);
   },
-  isNumber() {
-    return this.getTag("Number");
+  isNumber(value) {
+    return this.getTag("Number")(value);
   },
-  isRegExp() {
-    return this.getTag("RegExp");
+  isRegExp(value) {
+    return this.getTag("RegExp")(value);
   },
-  isUndefined() {
-    return this.getTag("Undefined");
+  isUndefined(value) {
+    return this.getTag("Undefined")(value);
   },
   isNaN: value => this.isNumber(value) && +value !== value,
   isObject: value => value instanceof Object,
