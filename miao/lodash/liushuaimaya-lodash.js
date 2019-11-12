@@ -583,7 +583,7 @@ var liushuaimaya = {
     return collection[Math.floor(Math.random() * collection.length)];
   },
   sampleSize(collection, n = 1) {
-    return collection.sort(() => Math.random() - 1).slice(0, n);
+    return collection.sort(() => Math.random() - 0.5).slice(0, n);
   },
   shuffle(collection) {
     return collection.sort(() => Math.random() - 1);
