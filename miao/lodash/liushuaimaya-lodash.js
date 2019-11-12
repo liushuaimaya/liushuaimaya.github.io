@@ -134,9 +134,9 @@ var liushuaimaya = {
   iteratee(func = this.identity) {
     if (this.isRegExp(func)) return str => func.test(str);
     if (this.isFunction(func)) return func;
-    if (this.isArray(func)) return matchesProperty(func[0], func[1]);
-    if (this.isString(func)) return property(func);
-    if (this.isObject(func)) return matches(func);
+    if (this.isArray(func)) return this.matchesProperty(func[0], func[1]);
+    if (this.isString(func)) return this.property(func);
+    if (this.isObject(func)) return this.matches(func);
   },
   chunk: (ary, size) =>
     ary
@@ -414,7 +414,7 @@ var liushuaimaya = {
   zipObjectDeep: (props = [], values = []) => {
     let res = isNaN(+props[0][0]) ? {} : [];
     for (let i = 0; i < props.length; i++) {
-      let path = toPath(props[i]);
+      let path = this.toPath(props[i]);
       let cur = res;
       for (let j = 0; j < path.length - 1; j++) {
         if (!(path[j] in cur)) {
