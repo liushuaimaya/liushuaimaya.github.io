@@ -562,6 +562,16 @@ var liushuaimaya = {
       return 0;
     });
   },
+  partition(collection, predicate = this.identity) {
+    predicate = this.iteratee(predicate);
+    return collection.reduce(
+      (res, it) => {
+        res[predicate(it) ? 0 : 1].push(it);
+        return res;
+      },
+      [[], []],
+    );
+  },
   flatMap(collection, func = this.identity) {
     return collection.flatMap(func);
   },
