@@ -1,3 +1,4 @@
+// 非正常方法, 已废弃
 // var liushuaimaya = (function() {
 //   const src = liushuaimayaSrc.toString(); //获得liushuaimayaSrc函数源代码
 //   const funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g); //获得liushuaimayaSrc内所有函数名组成的字符串数组
@@ -545,7 +546,22 @@ var liushuaimaya = {
       );
     }
   },
-
+  orderBy(collection, funcs = [this.identity], orders) {
+    funcs = funcs.map(it => this.iteratee(it));
+    const compare = (a, b, func, order = "asc") => {
+      const symbol = order === "asc" ? 1 : -1;
+      if (func(a) < func(b)) return -symbol;
+      if (func(a) > func(b)) return symbol;
+      return 0;
+    };
+    return collection.sort((a, b) => {
+      for (let i = 0; i < funcs.length; i++) {
+        const res = compare(a, b, funcs[i], orders[i]);
+        if (res !== 0) return res;
+      }
+      return 0;
+    });
+  },
   flatMap(collection, func = this.identity) {
     return collection.flatMap(func);
   },
