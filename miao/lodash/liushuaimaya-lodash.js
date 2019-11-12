@@ -258,7 +258,7 @@ var liushuaimaya = {
   join: (array, separator = ",") =>
     array.reduce((res, s) => "" + res + separator + s),
   last: array => array[array.length - 1],
-  lastIndexOf: (array, value, fromIndex = array.length - 1) => {
+  lastIndexOf (array, value, fromIndex = array.length - 1) {
     for (let i = fromIndex; i >= 0; i--) {
       if (this.sameValueZero(value, array[i])) {
         return i;
@@ -274,7 +274,7 @@ var liushuaimaya = {
     return array;
   },
   pullAll (array, values) {
-    this.pull(array, ...values);
+    return this.pull(array, ...values);
   },
   pullAllBy(array, values, func = this.identity) {
     func = this.iteratee(func);
