@@ -457,13 +457,13 @@ function liushuaimayaSrc() {
     if (Array.isArray(collection)) {
       for (let index = fromIndex; index < collection.length; index++) {
         if (predicate(collection[index], index, collection)) {
-          return true;
+          return collection[index];
         }
       }
     } else {
       for (const key in collection) {
         if (predicate(collection[key], key, collection)) {
-          return true;
+          return collection[key];
         }
       }
     }
