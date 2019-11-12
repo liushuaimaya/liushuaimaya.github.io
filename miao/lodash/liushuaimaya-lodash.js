@@ -205,7 +205,7 @@ var liushuaimaya = {
   findLastIndex(
     array,
     predicate = this.identity,
-    fromIndex = array.lenght - 1,
+    fromIndex = array.length - 1,
   ) {
     predicate = this.iteratee(predicate);
     for (let i = fromIndex; i >= 0; i--) {
