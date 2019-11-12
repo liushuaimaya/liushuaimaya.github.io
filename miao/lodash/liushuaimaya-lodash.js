@@ -556,7 +556,7 @@ var liushuaimaya = {
       }
       return 0;
     };
-    return collection.sort((a, b) => compare(a, b, funcs, order));
+    return collection.sort((a, b) => compare(a, b, funcs, orders));
   },
   partition(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
