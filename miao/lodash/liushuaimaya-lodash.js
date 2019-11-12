@@ -96,18 +96,11 @@ function liushuaimayaSrc() {
   const matchesProperty = (path, srcValue) => obj =>
     isMatch(property(path)(obj), srcValue);
   const iteratee = (func = identity) => {
-    switch (func) {
-      case isRegExp(func):
-        return str => func.test(str);
-      case isFunction(func):
-        return func;
-      case isArray(func):
-        return matchesProperty(func[0], func[1]);
-      case isString(func):
-        return property(func);
-      case isObject(func):
-        return matches(func);
-    }
+    if (isRegExp(func)) return str => func.test(str);
+    if (isFunction(func)) return func;
+    if (isArray(func)) return matchesProperty(func[0], func[1]);
+    if (isString(func)) return property(func);
+    if (isObject(func)) return matches(func);
   };
   const chunk = (ary, size) =>
     ary
@@ -465,7 +458,7 @@ function liushuaimayaSrc() {
       for (let index = fromIndex; index < collection.length; index++) {
         if (predicate(collection[index], index, collection)) {
           return true;
-        } 
+        }
       }
     } else {
       for (const key in collection) {
