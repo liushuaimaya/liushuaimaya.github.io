@@ -605,6 +605,10 @@ var liushuaimaya = {
     };
     return collection.sort((a, b) => compare(a, b, funcs));
   },
+  defer(func, ...args) {
+    setTimeout(() => func(args), 0);
+  }
+  ,
   flatMapDeep(collection, func = this.identity) {
     return this.flattenDeep(this.map(collection, func));
   },
