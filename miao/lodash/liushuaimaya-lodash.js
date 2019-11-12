@@ -548,19 +548,15 @@ var liushuaimaya = {
   },
   orderBy(collection, funcs = [this.identity], orders) {
     funcs = funcs.map(it => this.iteratee(it));
-    const compare = (a, b, func, order = "asc") => {
-      const symbol = order === "asc" ? 1 : -1;
-      if (func(a) < func(b)) return -symbol;
-      if (func(a) > func(b)) return symbol;
-      return 0;
-    };
-    return collection.sort((a, b) => {
+    const compare = (a, b, funcs, orders) => {
       for (let i = 0; i < funcs.length; i++) {
-        const res = compare(a, b, funcs[i], orders[i]);
-        if (res !== 0) return res;
+        const flag = orders[i] === "asc" ? 1 : -1;
+        if (func[i](a) < func[i](b)) return -flag;
+        if (func[i](a) > func[i](b)) return flag;
       }
       return 0;
-    });
+    };
+    return collection.sort((a, b) => compare(a, b, funcs, order));
   },
   partition(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
@@ -581,13 +577,33 @@ var liushuaimaya = {
       accumulator,
     );
   },
-  reject(collection, predicate=this.identity) {
+  reject(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
     return collection.filter((it, i, arr) => !predicate(it, i, arr));
   },
-
+  sample(collection) {
+    return collection[Math.floor(Math.random() * collection.length)];
+  },
+  sampleSize(collection, n = 1) {
+    return collection.sort(() => Math.random() - 1).slice(0, n);
+  },
+  shuffle(collection) {
+    return collection.sort(() => Math.random() - 1);
+  },
+  size: collection => collection.length || Object.keys(collection).length,
   flatMap(collection, func = this.identity) {
     return collection.flatMap(func);
+  },
+  sortBy(collection, funcs = [this.identity]) {
+    funcs = funcs.map(it => this.iteratee(it));
+    const compare = (a, b, funcs) => {
+      for (let i = 0; i < funcs.length; i++) {
+        if (funcs[i](a) < funcs[i](b)) return -1;
+        if (funcs[i](a) > funcs[i](b)) return 1;
+      }
+      return 0;
+    };
+    return collection.sort((a, b) => compare(a, b, funcs));
   },
   flatMapDeep(collection, func = this.identity) {
     return this.flattenDeep(this.map(collection, func));
