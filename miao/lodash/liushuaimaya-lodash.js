@@ -1,7 +1,7 @@
 // var liushuaimaya = (function() {
-//   let src = liushuaimayaSrc.toString(); //获得liushuaimayaSrc函数源代码
-//   let funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g); //获得liushuaimayaSrc内所有函数名组成的字符串数组
-//   let addReturnObj = `\nreturn {\n\t${funcNames.join(",\n\t")}\n}`; //将函数名join并拼接成需要返回对象的字符串
+//   const src = liushuaimayaSrc.toString(); //获得liushuaimayaSrc函数源代码
+//   const funcNames = src.match(/(?<=const )\b\w+\b(?= =)/g); //获得liushuaimayaSrc内所有函数名组成的字符串数组
+//   const addReturnObj = `\nreturn {\n\t${funcNames.join(",\n\t")}\n}`; //将函数名join并拼接成需要返回对象的字符串
 //   return new Function(src.slice(src.indexOf("{") + 1, -1) + addReturnObj); //返回拼接后的新函数
 // })()();
 
@@ -86,10 +86,10 @@ var liushuaimaya = {
     if (a === b) return true;
     if (a == null || b == null || typeof a != "object" || typeof b != "object")
       return false;
-    let keysA = Object.keys(a),
+    const keysA = Object.keys(a),
       keysB = Object.keys(b);
     if (keysA.length != keysB.length) return false;
-    for (let key of keysA) {
+    for (const key of keysA) {
       if (!keysB.includes(key) || !this.isEqual(a[key], b[key])) return false;
     }
     return true;
@@ -104,7 +104,7 @@ var liushuaimaya = {
       return !value.length;
     }
     if (this.isMap(value) || this.isSet(value)) return !value.size;
-    for (let key in value) {
+    for (const key in value) {
       if (Object.prototype.hasOwnProperty.call(value, key)) return false;
     }
     return true;
@@ -117,9 +117,9 @@ var liushuaimaya = {
     if (obj === src) return true;
     if (obj == null || typeof obj != "object" || typeof src != "object")
       return false;
-    let keysObj = Object.keys(obj),
+    const keysObj = Object.keys(obj),
       keysSrc = Object.keys(src);
-    for (let key of keysSrc) {
+    for (const key of keysSrc) {
       if (!keysObj.includes(key) || !this.isMatch(obj[key], src[key]))
         return false;
     }
@@ -148,7 +148,7 @@ var liushuaimaya = {
   compact: ary => ary.filter(Boolean),
   difference: (ary, ...args) => ary.filter(x => !args.flat().includes(x)),
   differenceBy(array, ...args) {
-    let func = this.isString(args[args.length - 1])
+    const func = this.isString(args[args.length - 1])
       ? this.property(args.pop())
       : this.isFunction(args[args.length - 1])
       ? args.pop()
@@ -162,7 +162,7 @@ var liushuaimaya = {
     );
   },
   differenceWith(array, ...args) {
-    let comparator = this.isFunction(args[args.length - 1])
+    const comparator = this.isFunction(args[args.length - 1])
       ? args.pop()
       : it => it;
     return array.filter(arrVal =>
@@ -218,7 +218,7 @@ var liushuaimaya = {
   intersection: (...arrays) =>
     arrays[0].filter(it => arrays.slice(1).every(array => array.includes(it))),
   intersectionBy(...args) {
-    let transform = this.iteratee(args.pop());
+    const transform = this.iteratee(args.pop());
     return args[0].filter(it =>
       args
         .slice(1)
@@ -226,7 +226,7 @@ var liushuaimaya = {
     );
   },
   intersectionWith(...args) {
-    let comparator = this.iteratee(args.pop());
+    const comparator = this.iteratee(args.pop());
     return args[0].filter(arrVal =>
       args
         .slice(1)
@@ -258,7 +258,7 @@ var liushuaimaya = {
   join: (array, separator = ",") =>
     array.reduce((res, s) => "" + res + separator + s),
   last: array => array[array.length - 1],
-  lastIndexOf (array, value, fromIndex = array.length - 1) {
+  lastIndexOf(array, value, fromIndex = array.length - 1) {
     for (let i = fromIndex; i >= 0; i--) {
       if (this.sameValueZero(value, array[i])) {
         return i;
@@ -273,7 +273,7 @@ var liushuaimaya = {
     }
     return array;
   },
-  pullAll (array, values) {
+  pullAll(array, values) {
     return this.pull(array, ...values);
   },
   pullAllBy(array, values, func = this.identity) {
@@ -311,7 +311,9 @@ var liushuaimaya = {
     return this.sortedIndex(array.map(func), func(value));
   },
   sortedIndexOf(array, value) {
-    return array[(index = this.sortedIndex(array, value))] === value ? index : -1;
+    return array[(index = this.sortedIndex(array, value))] === value
+      ? index
+      : -1;
   },
   sortedLastIndex: (array, value) => {
     let l = 0,
@@ -362,14 +364,14 @@ var liushuaimaya = {
   union: (...arrays) => [...new Set(arrays.flat())],
   unionBy(...arrays) {
     func = this.iteratee(arrays.pop());
-    let transformed = arrays.flat().map(func);
+    const transformed = arrays.flat().map(func);
     return arrays
       .flat()
       .filter((_, i) => transformed.indexOf(transformed[i]) == i);
   },
   unionWith: (...arrays) => {
-    let array = arrays.flat();
-    let comparator = array.pop();
+    const array = arrays.flat();
+    const comparator = array.pop();
     return array.filter(
       (arrVal, i) =>
         !array.slice(0, i).some(othVal => comparator(arrVal, othVal)),
@@ -378,7 +380,7 @@ var liushuaimaya = {
   uniq: array => [...new Set(array)],
   uniqBy(array, func) {
     func = this.iteratee(func);
-    let transformed = array.map(func);
+    const transformed = array.map(func);
     return array.filter((_, i) => transformed.indexOf(transformed[i]) == i);
   },
   uniqWith: (array, comparator) =>
@@ -399,9 +401,9 @@ var liushuaimaya = {
       .flat()
       .filter((it, _, arr) => arr.indexOf(it) == arr.lastIndexOf(it)),
   xorBy(...args) {
-    let arr = args.flat();
+    const arr = args.flat();
     predicate = this.iteratee(arr.pop());
-    let transformed = arr.map(predicate);
+    const transformed = arr.map(predicate);
     return arr.filter(
       (_, i) =>
         transformed.indexOf(transformed[i]) ==
@@ -409,7 +411,7 @@ var liushuaimaya = {
     );
   },
   xorWith: (...args) => {
-    let comparator = args.pop();
+    const comparator = args.pop();
     return args
       .flat()
       .filter((val, i, arr) =>
@@ -425,9 +427,9 @@ var liushuaimaya = {
   zipObject: (props = [], values = []) =>
     props.reduce((obj, prop, i) => ((obj[prop] = values[i]), obj), {}),
   zipObjectDeep(props = [], values = []) {
-    let res = isNaN(+props[0][0]) ? {} : [];
+    const res = isNaN(+props[0][0]) ? {} : [];
     for (let i = 0; i < props.length; i++) {
-      let path = this.toPath(props[i]);
+      const path = this.toPath(props[i]);
       let cur = res;
       for (let j = 0; j < path.length - 1; j++) {
         if (!(path[j] in cur)) {
@@ -440,7 +442,7 @@ var liushuaimaya = {
     return res;
   },
   zipWith(...args) {
-    let func = this.iteratee(args.pop());
+    const func = this.iteratee(args.pop());
     return args[0].map((_, i) => func(...args.map(it => it[i])));
   },
   countBy(collection, func = this.identity) {
@@ -452,7 +454,7 @@ var liushuaimaya = {
   flip: f => (...args) => f(...args.reverse()),
   forIn(obj, func = this.identity) {
     func = this.iteratee(func);
-    for (let key in obj) {
+    for (const key in obj) {
       if (func(obj[key], key, obj) === false) {
         break;
       }
@@ -461,7 +463,7 @@ var liushuaimaya = {
   },
   forOwn(object, func = this.identity) {
     func = this.iteratee(func);
-    for (let key in object) {
+    for (const key in object) {
       if (Object.prototype.hasOwnProperty.call(object, key)) {
         if (func(object[key], key, object) === false) {
           break;
@@ -487,12 +489,12 @@ var liushuaimaya = {
     return object;
   },
   pad: (string = "", length = 0, chars = " ") => {
-    let padLength = length - string.length;
-    let add = chars
+    const padLength = length - string.length;
+    const add = chars
       .repeat(Math.ceil(padLength / chars.length))
       .slice(0, padLength);
-    let left = add.slice(0, Math.floor(add.length / 2));
-    let right = add.slice(Math.floor(add.length / 2));
+    const left = add.slice(0, Math.floor(add.length / 2));
+    const right = add.slice(Math.floor(add.length / 2));
     return left + string + right;
   },
   filter(collection, predicate = this.identity) {
@@ -528,7 +530,7 @@ var liushuaimaya = {
   },
   findLast(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
-    let arr = Array.from(collection.entries()).reverse();
+    const arr = Array.from(collection.entries()).reverse();
     return arr[
       arr.findIndex(pair => predicate(pair[1], pair[0], collection))
     ][1];
@@ -571,23 +573,23 @@ var liushuaimaya = {
         if (func(collection[index], index, collection) === false) break;
       }
     } else {
-      for (let [key, value] of Object.entries(collection).reverse()) {
+      for (const [key, value] of Object.entries(collection).reverse()) {
         if (func(value, key, collection) == false) break;
       }
     }
     return collection;
   },
   groupBy(collection, func = this.identity) {
-    let res = {};
+    const res = {};
     func = this.iteratee(func);
     if (Array.isArray(collection)) {
       collection.forEach(val => {
-        let by = func(val);
+        const by = func(val);
         by in res ? res[by].push(val) : (res[by] = [val]);
       });
     } else {
       Object.keys(collection).forEach(key => {
-        let by = func(collection[key]);
+        const by = func(collection[key]);
         by in res
           ? res[by].push(collection[key])
           : (res[by] = [collection[key]]);
@@ -629,7 +631,7 @@ var liushuaimaya = {
           : (accumulator = func(accumulator, collection[i], i, collection));
       }
     } else {
-      for (let key in collection) {
+      for (const key in collection) {
         accumulator = func(accumulator, collection[key], key, collection);
       }
     }
