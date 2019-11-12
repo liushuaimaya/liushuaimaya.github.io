@@ -570,7 +570,7 @@ var liushuaimaya = {
   },
   reduceRight(collection, func = this.identity, accumulator) {
     func = this.iteratee(func);
-    for(let i = collection.length - 1; i >= 0; i--) {
+    for (let i = collection.length - 1; i >= 0; i--) {
       accumulator = func(accumulator, collection[i], i, collection);
     }
     return accumulator;
@@ -603,12 +603,9 @@ var liushuaimaya = {
     };
     return collection.sort((a, b) => compare(a, b, funcs));
   },
-  defer(func, ...args) {
-    setTimeout(() => func(args), 0);
-  },
-  delay(func, wait, args) {
-
-  },
+  defer: (func, ...args) => setTimeout(() => func(args), 0),
+  delay: (func, wait, ...args) => setTimeout(() => func(...args), wait),
+  castArray: (...args) => Array.isArray(...args) ? value : [...args],
   flatMapDeep(collection, func = this.identity) {
     return this.flattenDeep(this.map(collection, func));
   },
