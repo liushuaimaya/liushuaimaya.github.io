@@ -572,6 +572,20 @@ var liushuaimaya = {
       [[], []],
     );
   },
+  reduceRight(collection, func = this.identity, accumulator) {
+    func = this.iteratee(func);
+    const reversed = collection.slice().reverse();
+    return reversed.reduce(
+      (accumulator, value, index, collection) =>
+        func(accumulator, value, index, collection),
+      accumulator,
+    );
+  },
+  reject(collection, predicate=this.identity) {
+    predicate = this.iteratee(predicate);
+    return collection.filter((it, i, arr) => !predicate(it, i, arr));
+  },
+
   flatMap(collection, func = this.identity) {
     return collection.flatMap(func);
   },
