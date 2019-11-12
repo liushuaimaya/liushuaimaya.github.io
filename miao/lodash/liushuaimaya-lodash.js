@@ -41,19 +41,22 @@ var liushuaimaya = {
   isUndefined(value) {
     return this.getTag("Undefined")(value);
   },
-  isNaN: value => this.isNumber(value) && +value !== value,
+  isNaN(value) {
+    this.isNumber(value) && +value !== value;
+  },
   isObject: value => value instanceof Object,
   isElement: value => value instanceof Element,
   isNull: value => value === null,
   isNil: value => value === undefined || value === null,
   isFinite: Number.isFinite,
   isArray: Array.isArray,
-  toArray: value =>
-    this.isObject(value)
+  toArray(value) {
+    return this.isObject(value)
       ? Object.entries(value).map(it => it[1])
       : isString(value)
       ? value.split("")
-      : [],
+      : [];
+  },
   add: (a, b) => a + b,
   isArrayLike(value) {
     return (
@@ -67,7 +70,7 @@ var liushuaimaya = {
   },
 
   isArrayLikeObject(value) {
-    return isArrayLike(value) && this.isObject(value);
+    return this.isArrayLike(value) && this.isObject(value);
   },
   sameValueZero(x, y) {
     if (typeof x != typeof y) return false;
@@ -87,7 +90,7 @@ var liushuaimaya = {
       keysB = Object.keys(b);
     if (keysA.length != keysB.length) return false;
     for (let key of keysA) {
-      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
+      if (!keysB.includes(key) || !this.isEqual(a[key], b[key])) return false;
     }
     return true;
   },
@@ -237,13 +240,13 @@ var liushuaimaya = {
       [],
     );
   },
-  flattenDepth (ary, depth = 1) {
+  flattenDepth(ary, depth = 1) {
     return depth ? [].concat(...this.flattenDepth(ary, depth - 1)) : ary;
   },
   fromPairs: Object.fromEntries,
   initial: array => array.slice(0, -1),
   head: array => array[0],
-  indexOf (array, value, fromIndex = 0)  {
+  indexOf(array, value, fromIndex = 0) {
     fromIndex += fromIndex < 0 ? array.length : 0;
     for (let i = fromIndex; i < array.length; i++) {
       if (this.sameValueZero(value, array[i])) {
@@ -305,7 +308,7 @@ var liushuaimaya = {
     func = this.iteratee(func);
     return this.sortedIndex(array.map(func), func(value));
   },
-  sortedIndexOf (array, value) {
+  sortedIndexOf(array, value) {
     array[(index = this.sortedIndex(array, value))] == value ? index : -1;
   },
   sortedLastIndex: (array, value) => {
@@ -321,8 +324,10 @@ var liushuaimaya = {
     func = this.iteratee(func);
     return this.sortedLastIndex(array.map(func), func(value));
   },
-  sortedLastIndexOf (array, value) {
-    array[(index = this.sortedLastIndex(array, value) - 1)] == value ? index : -1;
+  sortedLastIndexOf(array, value) {
+    array[(index = this.sortedLastIndex(array, value) - 1)] == value
+      ? index
+      : -1;
   },
   sortedUniq: array => [...new Set(array)],
   sortedUniqBy(array, func) {
@@ -379,7 +384,7 @@ var liushuaimaya = {
       (arrVal, i) =>
         !array.slice(0, i).some(othVal => comparator(arrVal, othVal)),
     ),
-  unzip (array){
+  unzip(array) {
     this.zip(...array);
   },
   unzipWith(array, func) {
@@ -417,7 +422,7 @@ var liushuaimaya = {
       .map((_, i) => arrays.map(ary => ary[i])),
   zipObject: (props = [], values = []) =>
     props.reduce((obj, prop, i) => ((obj[prop] = values[i]), obj), {}),
-  zipObjectDeep (props = [], values = []) {
+  zipObjectDeep(props = [], values = []) {
     let res = isNaN(+props[0][0]) ? {} : [];
     for (let i = 0; i < props.length; i++) {
       let path = this.toPath(props[i]);
@@ -630,7 +635,7 @@ var liushuaimaya = {
   },
   some(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
-    return isArrayLikeObject(collection)
+    return this.isArrayLikeObject(collection)
       ? collection.reduce(
           (res, value, index) => res || predicate(value, index, collection),
           false,
