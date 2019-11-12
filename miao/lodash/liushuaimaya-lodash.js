@@ -522,7 +522,7 @@ var liushuaimaya = {
   },
   map(collection, func = this.identity) {
     func = this.iteratee(func);
-    if (isArrayLikeObject(collection)) {
+    if (Array.isArray(collection)) {
       return collection.map((value, index) => func(value, index, collection));
     } else {
       return Object.keys(collection).map(key =>
@@ -542,7 +542,7 @@ var liushuaimaya = {
   },
   forEach(collection, func = this.identity) {
     func = this.iteratee(func);
-    if (isArrayLikeObject(collection)) {
+    if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
         if (func(collection[i], i, collection) === false) break;
       }
@@ -553,7 +553,7 @@ var liushuaimaya = {
   },
   forEachRight(collection, func = this.identity) {
     func = this.iteratee(func);
-    if (isArrayLikeObject(collection)) {
+    if (Array.isArray(collection)) {
       for (let index = collection.length - 1; index >= 0; index--) {
         if (func(collection[index], index, collection) === false) break;
       }
@@ -567,7 +567,7 @@ var liushuaimaya = {
   groupBy(collection, func = this.identity) {
     let res = {};
     func = this.iteratee(func);
-    if (isArrayLikeObject(collection)) {
+    if (Array.isArray(collection)) {
       collection.forEach(val => {
         let by = func(val);
         by in res ? res[by].push(val) : (res[by] = [val]);
@@ -582,12 +582,12 @@ var liushuaimaya = {
     }
     return res;
   },
-  includes: (collection, value, fromIndex = 0) => {
-    if (isArrayLike(collection)) {
+  includes(collection, value, fromIndex = 0) {
+    if (Array.isArray(collection)) {
       return collection
         .slice(fromIndex)
         .some(item => sameValueZero(item, value));
-    } else if (isString(collection)) {
+    } else if (this.isString(collection)) {
       return collection.slice(fromIndex).includes(value);
     } else {
       return includes(Object.values(collection), value, fromIndex);
@@ -609,7 +609,7 @@ var liushuaimaya = {
 
   reduce(collection, func = this.identity, accumulator) {
     func = this.iteratee(func);
-    if (isArrayLikeObject(collection)) {
+    if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
         i == 0 && accumulator == undefined
           ? (accumulator = collection[0])
