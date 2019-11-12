@@ -231,20 +231,22 @@ var liushuaimaya = {
     );
   },
   flatten: ary => [].concat(...ary),
-  flattenDeep: ary =>
-    ary.reduce(
-      (res, it) => res.concat(Array.isArray(it) ? flattenDeep(it) : it),
+  flattenDeep(ary) {
+    return ary.reduce(
+      (res, it) => res.concat(Array.isArray(it) ? this.flattenDeep(it) : it),
       [],
-    ),
-  flattenDepth: (ary, depth = 1) =>
-    depth ? [].concat(...flattenDepth(ary, depth - 1)) : ary,
+    );
+  },
+  flattenDepth (ary, depth = 1) {
+    return depth ? [].concat(...this.flattenDepth(ary, depth - 1)) : ary;
+  },
   fromPairs: Object.fromEntries,
   initial: array => array.slice(0, -1),
   head: array => array[0],
-  indexOf: (array, value, fromIndex = 0) => {
+  indexOf (array, value, fromIndex = 0)  {
     fromIndex += fromIndex < 0 ? array.length : 0;
     for (let i = fromIndex; i < array.length; i++) {
-      if (sameValueZero(value, array[i])) {
+      if (this.sameValueZero(value, array[i])) {
         return i;
       }
     }
@@ -268,7 +270,7 @@ var liushuaimaya = {
     }
     return array;
   },
-  pullAll: (array, values) => pull(array, ...values),
+  pullAll: (array, values) => this.pull(array, ...values),
   pullAllBy(array, values, func = this.identity) {
     func = this.iteratee(func);
     values = values.map(func);
@@ -301,10 +303,11 @@ var liushuaimaya = {
   },
   sortedIndexBy(array, value, func = this.identity) {
     func = this.iteratee(func);
-    return sortedIndex(array.map(func), func(value));
+    return this.sortedIndex(array.map(func), func(value));
   },
-  sortedIndexOf: (array, value) =>
-    array[(index = sortedIndex(array, value))] == value ? index : -1,
+  sortedIndexOf (array, value) {
+    array[(index = this.sortedIndex(array, value))] == value ? index : -1;
+  },
   sortedLastIndex: (array, value) => {
     let l = 0,
       r = array.length - 1;
@@ -318,8 +321,9 @@ var liushuaimaya = {
     func = this.iteratee(func);
     return this.sortedLastIndex(array.map(func), func(value));
   },
-  sortedLastIndexOf: (array, value) =>
-    array[(index = sortedLastIndex(array, value) - 1)] == value ? index : -1,
+  sortedLastIndexOf (array, value) {
+    array[(index = this.sortedLastIndex(array, value) - 1)] == value ? index : -1;
+  },
   sortedUniq: array => [...new Set(array)],
   sortedUniqBy(array, func) {
     func = this.iteratee(func);
@@ -375,10 +379,12 @@ var liushuaimaya = {
       (arrVal, i) =>
         !array.slice(0, i).some(othVal => comparator(arrVal, othVal)),
     ),
-  unzip: array => zip(...array),
+  unzip (array){
+    this.zip(...array);
+  },
   unzipWith(array, func) {
     func = this.iteratee(func);
-    array[0].map((_, i) => func(...array.map(it => it[i])));
+    return array[0].map((_, i) => func(...array.map(it => it[i])));
   },
   without: (array, ...values) => array.filter(it => !values.includes(it)),
   xor: (...arrays) =>
@@ -411,7 +417,7 @@ var liushuaimaya = {
       .map((_, i) => arrays.map(ary => ary[i])),
   zipObject: (props = [], values = []) =>
     props.reduce((obj, prop, i) => ((obj[prop] = values[i]), obj), {}),
-  zipObjectDeep: (props = [], values = []) => {
+  zipObjectDeep (props = [], values = []) {
     let res = isNaN(+props[0][0]) ? {} : [];
     for (let i = 0; i < props.length; i++) {
       let path = this.toPath(props[i]);
@@ -484,7 +490,7 @@ var liushuaimaya = {
   },
   filter(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
-    return isArrayLikeObject(collection)
+    return this.isArrayLikeObject(collection)
       ? collection.reduce(
           (res, value, index) =>
             predicate(value, index, collection) ? [...res, value] : res,
@@ -535,10 +541,10 @@ var liushuaimaya = {
     return collection.flatMap(func);
   },
   flatMapDeep(collection, func = this.identity) {
-    return flattenDeep(map(collection, func));
+    return this.flattenDeep(map(collection, func));
   },
   flatMapDepth(collection, func = this.identity, n) {
-    return flattenDepth(map(collection, func), n);
+    return this.flattenDepth(map(collection, func), n);
   },
   forEach(collection, func = this.identity) {
     func = this.iteratee(func);
@@ -547,7 +553,7 @@ var liushuaimaya = {
         if (func(collection[i], i, collection) === false) break;
       }
     } else {
-      forIn(collection, func);
+      this.forIn(collection, func);
     }
     return collection;
   },
@@ -586,7 +592,7 @@ var liushuaimaya = {
     if (Array.isArray(collection)) {
       return collection
         .slice(fromIndex)
-        .some(item => sameValueZero(item, value));
+        .some(item => this.sameValueZero(item, value));
     } else if (this.isString(collection)) {
       return collection.slice(fromIndex).includes(value);
     } else {
@@ -604,7 +610,7 @@ var liushuaimaya = {
   },
 
   keyBy(collection, func = this.identity) {
-    collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
+    return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
   },
 
   reduce(collection, func = this.identity, accumulator) {
@@ -636,7 +642,7 @@ var liushuaimaya = {
   },
   every(collection, predicate = this.identity) {
     predicate = this.iteratee(predicate);
-    return isArrayLikeObject(collection)
+    return this.isArrayLikeObject(collection)
       ? collection.reduce(
           (res, value, index) => res && predicate(value, index, collection),
           true,
