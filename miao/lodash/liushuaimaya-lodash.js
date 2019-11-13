@@ -913,6 +913,11 @@ var liushuaimaya = {
       return res;
     }, {});
   },
+  invoke(object, path, ...args) {
+    path = this.toPath(path);
+    const func = path.pop();
+    return this.property(path)(object)[func](...args);
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
