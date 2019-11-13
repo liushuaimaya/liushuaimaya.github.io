@@ -903,8 +903,15 @@ var liushuaimaya = {
     }
     return true;
   },
-  invert(object){
-    return Object.fromEntries(Object.entries(object).map(it => it.reverse()))
+  invert(object) {
+    return Object.fromEntries(Object.entries(object).map(it => it.reverse()));
+  },
+  invertBy(object, func = this.identity) {
+    return Object.keys(object).reduce((res, key) => {
+      const cur = func(object[key]);
+      cur in res ? res[cur].push(key) : (res[cur] = [key]);
+      return res;
+    }, {});
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
