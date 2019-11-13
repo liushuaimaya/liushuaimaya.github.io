@@ -56,10 +56,25 @@ var liushuaimaya = {
   isFinite: Number.isFinite,
   isArray: Array.isArray,
   isInteger: Number.isInteger,
-  isLength (value) {
+  isLength(value) {
     return value === this.toLength(value);
   },
-  isMatchWith: () => {},
+  isMatchWith: (a, b, customizer) => {
+    if (customizer(a, b) || a === b) return true;
+    if (a == null || b == null || typeof a != "object" || typeof b != "object")
+      return false;
+    const keysA = Object.keys(a),
+      keysB = Object.keys(b);
+    for (const key of keysB) {
+      if (!keysA.includes(key)) return false;
+      if (
+        !customizer(a[key], b[key], key, a, b) &&
+        !this.isMatchWith(a[key], b[key], customizer)
+      )
+        return false;
+    }
+    return true;
+  },
   isNative: () => {},
   isObjectLike: () => {},
   isPlainObject: () => {},
@@ -651,16 +666,18 @@ var liushuaimaya = {
   gt: (value, other) => value > other,
   gte: (value, other) => value >= other,
   isEqualWith(a, b, customizer) {
-    const res = customizer(a, b);
-    if (res !== undefined) return res;
-    if (a === b) return true;
+    if (customizer(a, b) || a === b) return true;
     if (a == null || b == null || typeof a != "object" || typeof b != "object")
       return false;
     const keysA = Object.keys(a),
       keysB = Object.keys(b);
     if (keysA.length != keysB.length) return false;
     for (const key of keysA) {
-      if (!keysB.includes(key) || !this.isEqualWith(a[key], b[key], customizer))
+      if (!keysB.includes(key)) return false;
+      if (
+        !customizer(a[key], b[key], key, a, b) &&
+        !this.isEqualWith(a[key], b[key], customizer)
+      )
         return false;
     }
     return true;
