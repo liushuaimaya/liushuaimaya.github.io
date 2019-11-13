@@ -76,14 +76,14 @@ var liushuaimaya = {
       : [];
   },
   toFinite: () => {},
-  toInteger (value)  {
+  toInteger(value) {
     const number = Number(value);
-    if(isNaN(number)) return 0;
-    if(number === 0 || !Number.isFinite(number)) return number;
+    if (isNaN(number) || number === 0) return 0;
+    if (number === Infinity) return Number.MAX_VALUE;
+    if (number === -Infinity) return Number.MIN_VALUE;
     return Math.floor(Math.abs(number)) * (number < 0 ? -1 : 1);
   },
-  toLength (value) {
-  },
+  toLength(value) {},
   toNumber: Number,
   assign: () => {},
   toSafeInteger: () => {},
