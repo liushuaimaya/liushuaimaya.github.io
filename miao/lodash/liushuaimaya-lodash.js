@@ -868,10 +868,18 @@ var liushuaimaya = {
       const res = this.property(path)(object);
       return res === undefined ? defaultValue : res;
     } catch (e) {
-    } finally {
       return defaultValue;
     }
   },
+  //todo
+  // has(object, path) {
+  //   try {
+  //     this.property(path)(object);
+  //     return true;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
