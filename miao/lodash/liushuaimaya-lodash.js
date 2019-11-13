@@ -56,7 +56,9 @@ var liushuaimaya = {
   isFinite: Number.isFinite,
   isArray: Array.isArray,
   isInteger: Number.isInteger,
-  isLength: () => {},
+  isLength (value) {
+    return value === this.toLength(value);
+  },
   isMatchWith: () => {},
   isNative: () => {},
   isObjectLike: () => {},
@@ -83,7 +85,12 @@ var liushuaimaya = {
     if (number === -Infinity) return Number.MIN_VALUE;
     return Math.floor(Math.abs(number)) * (number < 0 ? -1 : 1);
   },
-  toLength(value) {},
+  toLength(value) {
+    const len = this.toInteger(value);
+    if (len < 0) return 0;
+    if (len === Infinity) return 2 ** 32 - 1;
+    return Math.min(len, 2 ** 32 - 1);
+  },
   toNumber: Number,
   assign: () => {},
   toSafeInteger: () => {},
@@ -98,7 +105,6 @@ var liushuaimaya = {
       value.length <= Number.MAX_SAFE_INTEGER
     );
   },
-
   isArrayLikeObject(value) {
     return this.isArrayLike(value) && this.isObject(value);
   },
