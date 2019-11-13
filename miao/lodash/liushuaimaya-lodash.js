@@ -57,7 +57,7 @@ var liushuaimaya = {
   isArray: Array.isArray,
   isInteger: Number.isInteger,
   isLength: () => {},
-  isMathchWith: () => {},
+  isMatchWith: () => {},
   isNative: () => {},
   isObjectLike: () => {},
   isPlainObject: () => {},
@@ -75,6 +75,18 @@ var liushuaimaya = {
       ? value.split("")
       : [];
   },
+  toFinite: () => {},
+  toInteger (value)  {
+    const number = Number(value);
+    if(isNaN(number)) return 0;
+    if(number === 0 || !Number.isFinite(number)) return number;
+    return Math.floor(Math.abs(number)) * (number < 0 ? -1 : 1);
+  },
+  toLength (value) {
+  },
+  toNumber: Number,
+  assign: () => {},
+  toSafeInteger: () => {},
   add: (a, b) => a + b,
   isArrayLike(value) {
     return (
