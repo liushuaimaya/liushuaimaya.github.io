@@ -42,6 +42,10 @@ var liushuaimaya = {
   isUndefined(value) {
     return this.getTag("Undefined")(value);
   },
+  isArrayBuffer(value) {
+    return this.getTag("ArrayBuffer")(value);
+  },
+
   isNaN(value) {
     return this.isNumber(value) && +value !== value;
   },
@@ -607,10 +611,25 @@ var liushuaimaya = {
   delay: (func, wait, ...args) => setTimeout(() => func(...args), wait),
   castArray: (...args) => (Array.isArray(...args) ? args[0] : args),
   conformsTo: (object, source) =>
-    Object.values(source)[0](object[Object.keys(source)[0]]),
-  eq: (value, other) => {},
-  gt: (value, other) => {},
-  gte: (value, other) => {},
+    Object.values(source).every((func, i) =>
+      func(object[Object.keys(source)[i]]),
+    ),
+  eq: this.sameValueZero,
+  gt: (value, other) => value > other,
+  gte: (value, other) => value >= other,
+  isEqualWith(a, b, customizer) {
+    if (customizer(a, b)) return true;
+    if (a == null || b == null || typeof a != "object" || typeof b != "object")
+      return false;
+    const keysA = Object.keys(a),
+      keysB = Object.keys(b);
+    if (keysA.length != keysB.length) return false;
+    for (const key of keysA) {
+      if (!keysB.includes(key) || !this.isEqualWith(a[key], b[key], customizer))
+        return false;
+    }
+    return true;
+  },
   flatMapDeep(collection, func = this.identity) {
     return this.flattenDeep(this.map(collection, func));
   },
