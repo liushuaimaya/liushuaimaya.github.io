@@ -75,9 +75,11 @@ var liushuaimaya = {
     }
     return true;
   },
-  isNative: () => {},
-  isObjectLike: () => {},
-  isPlainObject: () => {},
+  isNative: func => func.toString().includes("[native code]"),
+  isObjectLike: value => typeof value === "object" && value !== null,
+  isPlainObject: value =>
+    Object.getPrototypeOf(value) === Object.prototype ||
+    Object.getPrototypeOf(value) === null,
   isSafeInteger: () => {},
   isSymbol: () => {},
   isTypedArray: () => {},
