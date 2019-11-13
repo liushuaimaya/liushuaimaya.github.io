@@ -903,6 +903,9 @@ var liushuaimaya = {
     }
     return true;
   },
+  invert(object){
+    return Object.fromEntries(Object.entries(object).map(it => it.reverse()))
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
