@@ -957,7 +957,7 @@ var liushuaimaya = {
         if (!(key in obj)) {
           obj[key] = src[key];
         } else if (
-          key in src &&
+          key in obj &&
           typeof src[key] === "object" &&
           typeof obj[key] === "object" &&
           src[key] !== null &&
