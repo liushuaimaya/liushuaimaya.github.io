@@ -969,6 +969,30 @@ var liushuaimaya = {
     });
     return obj;
   },
+  mergeWith(obj, ...args) {
+    const customizer = args.pop();
+    args.forEach(src => {
+      for (const key in src) {
+        if (!(key in obj)) {
+          obj[key] = src[key];
+        } else if (
+          key in obj &&
+          typeof src[key] === "object" &&
+          typeof obj[key] === "object" &&
+          src[key] !== null &&
+          obj[key] !== null
+        ) {
+          const res = customizer(obj[key], src[key], key, obj, src);
+          if (res === undefined) {
+            this.merge(obj[key], src[key]);
+          } else {
+            obj[key] = res;
+          }
+        }
+      }
+    });
+    return obj;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
