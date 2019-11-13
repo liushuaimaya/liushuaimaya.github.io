@@ -56,7 +56,18 @@ var liushuaimaya = {
   isFinite: Number.isFinite,
   isArray: Array.isArray,
   isInteger: Number.isInteger,
-  isLength: 1,
+  isLength: () => {},
+  isMathchWith: () => {},
+  isNative: () => {},
+  isObjectLike: () => {},
+  isPlainObject: () => {},
+  isSafeInteger: () => {},
+  isSymbol: () => {},
+  isTypedArray: () => {},
+  isWeakMap: () => {},
+  isWeakSet: () => {},
+  lt: () => {},
+  lte: () => {},
   toArray(value) {
     return this.isObject(value)
       ? Object.entries(value).map(it => it[1])
