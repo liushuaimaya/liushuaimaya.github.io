@@ -951,6 +951,24 @@ var liushuaimaya = {
       return res;
     }, {});
   },
+  merge(obj, ...sources) {
+    sources.forEach(src => {
+      for (const key in src) {
+        if (!(key in obj)) {
+          obj[key] = src[key];
+        } else if (
+          key in src &&
+          typeof src[key] === "object" &&
+          typeof obj[key] === "object" &&
+          src[key] !== null &&
+          obj[key] !== null
+        ) {
+          this.merge(obj[key], src[key]);
+        }
+      }
+    });
+    return object;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
