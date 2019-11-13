@@ -724,7 +724,7 @@ var liushuaimaya = {
     return array.map(it => [func(it), it]).sort((a, b) => b[0] - a[0])[0][1];
   },
   mean: array => array.reduce((a, b) => a + b) / array.length,
-  meanBy (array, func = this.identity) {
+  meanBy(array, func = this.identity) {
     func = this.iteratee(func);
     return this.mean(array.map(func));
   },
@@ -780,14 +780,57 @@ var liushuaimaya = {
       return lower + Math.random() * (upper - lower);
     }
   },
-  assignIn: (object, sources) => {
-
+  assignIn: (object, ...sources) => {
+    sources.forEach(src => {
+      for (const key in src) {
+        object[key] = src[key];
+      }
+    });
+    return object;
   },
-  at: value => {},
-  defaults: value => {},
-  defaultsDeep: value => {},
-  findKey: value => {},
-  findLastKey: value => {},
+  at(object, paths) {
+    return paths.map(path => this.property(path)(object));
+  },
+  defaults: (object, ...sources) => {
+    sources.forEach(src => {
+      for (const key in src) {
+        if (object[key] === undefined) object[key] = src[key];
+      }
+    });
+    return object;
+  },
+  defaultsDeep(object, ...sources) {
+    sources.forEach(src => {
+      for (const key in src) {
+        if (object[key] === undefined) object[key] = src[key];
+        else if (
+          typeof object[key] === "object" &&
+          typeof src[key] === "object" &&
+          typeof object[key] !== null &&
+          typeof src[key] !== null
+        ) {
+          this.defaultsDeep(object[key], src[key]);
+        }
+      }
+    });
+    return object;
+  },
+  findKey(object, predicate = this.identity) {
+    predicate = this.iteratee(predicate);
+    for (const key in object) {
+      if (predicate(object[key], key, object)) {
+        return key;
+      }
+    }
+  },
+  findLastKey(object, predicate = this.identity) {
+    predicate = this.iteratee(predicate);
+    for (const key of Object.keys(object).reverse()) {
+      if (predicate(object[key], key, object)) {
+        return key;
+      }
+    }
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   sameValueZero(x, y) {
