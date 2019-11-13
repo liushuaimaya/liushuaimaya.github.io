@@ -757,8 +757,32 @@ var liushuaimaya = {
     }
     return number > 0 && number < args[0];
   },
-  random: value => {},
-  assignIn: value => {},
+  random(...args) {
+    let lower = 0,
+      upper = 1,
+      floating;
+    if (typeof args[args.length - 1] === "boolean") {
+      floating = args.pop();
+    } else {
+      floating = args.some(n => !Number.isInteger(n));
+    }
+    if (args.length === 2) {
+      lower = args[0];
+      upper = args[1];
+    } else if (args.length === 1) {
+      upper = args[0];
+    }
+    if (!floating) {
+      lower = Math.ceil(lower);
+      upper = Math.floor(upper);
+      return lower + Math.floor(Math.random() * (upper - lower + 1));
+    } else {
+      return lower + Math.random() * (upper - lower);
+    }
+  },
+  assignIn: (object, sources) => {
+    
+  },
   at: value => {},
   defaults: value => {},
   defaultsDeep: value => {},
