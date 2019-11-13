@@ -735,11 +735,28 @@ var liushuaimaya = {
   },
   miltiply: (multiplier, multiplicand) => multiplier * multiplicand,
   round: (value, p = 0) => Math.round(value * 10 ** p) / 10 ** p,
-  subtract: value => {},
-  sum: value => {},
-  sumBy: value => {},
-  clamp: value => {},
-  inRange: value => {},
+  subtract: (minuend, subtrahend) => minuend - subtrahend,
+  sum: array => array.reduce((a, b) => a + b),
+  sumBy(array, func = this.identity) {
+    func = this.iteratee(func);
+    return array.map(func).reduce((a, b) => a + b);
+  },
+  clamp: (number, ...args) => {
+    if (args.length === 2) {
+      number = Math.max(args[0], number);
+      number = Math.min(args[1], number);
+    } else {
+      number = Math.min(args[0], number);
+    }
+    return number;
+  },
+  inRange: (number, ...args) => {
+    if (args.length === 2) {
+      if (args[0] > args[1]) [args[0], args[1]] = [args[1], args[0]];
+      return number > args[0] && number < args[1];
+    }
+    return number > 0 && number < args[0];
+  },
   random: value => {},
   assignIn: value => {},
   at: value => {},
