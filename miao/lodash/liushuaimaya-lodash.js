@@ -55,6 +55,8 @@ var liushuaimaya = {
   isNil: value => value === undefined || value === null,
   isFinite: Number.isFinite,
   isArray: Array.isArray,
+  isInteger: Number.isInteger,
+  isLength: 1,
   toArray(value) {
     return this.isObject(value)
       ? Object.entries(value).map(it => it[1])
@@ -620,19 +622,16 @@ var liushuaimaya = {
   gt: (value, other) => value > other,
   gte: (value, other) => value >= other,
   isEqualWith(a, b, customizer) {
+    const res = customizer(a, b);
+    if (res !== undefined) return res;
+    if (a === b) return true;
     if (a == null || b == null || typeof a != "object" || typeof b != "object")
       return false;
     const keysA = Object.keys(a),
       keysB = Object.keys(b);
     if (keysA.length != keysB.length) return false;
     for (const key of keysA) {
-      if (
-        !keysB.includes(key) ||
-        !(
-          customizer(a[key], b[key], key, a, b) ||
-          this.isEqualWith(a[key], b[key], customizer)
-        )
-      )
+      if (!keysB.includes(key) || !this.isEqualWith(a[key], b[key], customizer))
         return false;
     }
     return true;
