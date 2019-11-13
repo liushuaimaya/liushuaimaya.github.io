@@ -853,6 +853,18 @@ var liushuaimaya = {
     }
     return obj;
   },
+  forOwn(object, func = this.identity) {
+    func = this.iteratee(func);
+    Object.keys(object).forEach(key => func(object[key], key, object));
+    return object;
+  },
+  forOwnRight(object, func = this.identity) {
+    func = this.iteratee(func);
+    Object.keys(object)
+      .reverse()
+      .forEach(key => func(object[key], key, object));
+    return object;
+  },
   functions(object) {
     return Object.keys(object).filter(key => typeof object[key] === "function");
   },
@@ -922,17 +934,7 @@ var liushuaimaya = {
       .reduce((res, i) => [...array.splice(i, 1), ...res], []),
 
   flip: f => (...args) => f(...args.reverse()),
-  forOwn(object, func = this.identity) {
-    func = this.iteratee(func);
-    for (const key in object) {
-      if (Object.prototype.hasOwnProperty.call(object, key)) {
-        if (func(object[key], key, object) === false) {
-          break;
-        }
-      }
-    }
-    return object;
-  },
+
   set: (object, path, value) => {
     path = (typeof path === "string" ? path.match(/\w+/g) : path).map(it =>
       Number(it) >= 0 ? +it : it,
