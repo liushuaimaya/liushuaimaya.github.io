@@ -918,6 +918,14 @@ var liushuaimaya = {
     const func = path.pop();
     return this.property(path)(object)[func](...args);
   },
+  keys: Object.keys,
+  keysIn(object) {
+    const res = [];
+    for(const key in object) {
+      res.push(key);
+    }
+    return res;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
