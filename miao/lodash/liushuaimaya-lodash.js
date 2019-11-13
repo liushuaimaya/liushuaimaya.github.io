@@ -724,7 +724,7 @@ var liushuaimaya = {
     return array.map(it => [func(it), it]).sort((a, b) => b[0] - a[0])[0][1];
   },
   mean: array => array.reduce((a, b) => a + b) / array.length,
-  meanBy: (array, func = this.identity) => {
+  meanBy (array, func = this.identity) {
     func = this.iteratee(func);
     return this.mean(array.map(func));
   },
@@ -733,7 +733,7 @@ var liushuaimaya = {
     func = this.iteratee(func);
     return array.map(it => [func(it), it]).sort((a, b) => a[0] - b[0])[0][1];
   },
-  miltiply: (multiplier, multiplicand) => multiplier * multiplicand,
+  multiply: (multiplier, multiplicand) => multiplier * multiplicand,
   round: (value, p = 0) => Math.round(value * 10 ** p) / 10 ** p,
   subtract: (minuend, subtrahend) => minuend - subtrahend,
   sum: array => array.reduce((a, b) => a + b),
@@ -781,7 +781,7 @@ var liushuaimaya = {
     }
   },
   assignIn: (object, sources) => {
-    
+
   },
   at: value => {},
   defaults: value => {},
