@@ -717,14 +717,24 @@ var liushuaimaya = {
   add: (a, b) => a + b,
   ceil: (value, p = 0) => Math.ceil(value * 10 ** p) / 10 ** p,
   divide: (dividend, divisor) => dividend / divisor,
-  floor: (value, p) => Math.floor(value * 10 ** p) / 10 ** p,
+  floor: (value, p = 0) => Math.floor(value * 10 ** p) / 10 ** p,
   max: array => (array && array.length ? Math.max(...array) : undefined),
-  maxBy (array, func = this.identity) {
+  maxBy(array, func = this.identity) {
     func = this.iteratee(func);
     return array.map(it => [func(it), it]).sort((a, b) => b[0] - a[0])[0][1];
   },
-  miltiply: value => {},
-  round: value => {},
+  mean: array => array.reduce((a, b) => a + b) / array.length,
+  meanBy: (array, func = this.identity) => {
+    func = this.iteratee(func);
+    return this.mean(array.map(func));
+  },
+  min: array => (array && array.length ? Math.min(...array) : undefined),
+  minBy(array, func = this.identity) {
+    func = this.iteratee(func);
+    return array.map(it => [func(it), it]).sort((a, b) => a[0] - b[0])[0][1];
+  },
+  miltiply: (multiplier, multiplicand) => multiplier * multiplicand,
+  round: (value, p = 0) => Math.round(value * 10 ** p) / 10 ** p,
   subtract: value => {},
   sum: value => {},
   sumBy: value => {},
