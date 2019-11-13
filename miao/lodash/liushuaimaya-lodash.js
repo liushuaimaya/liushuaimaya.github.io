@@ -831,6 +831,28 @@ var liushuaimaya = {
       }
     }
   },
+  forIn(obj, func = this.identity) {
+    func = this.iteratee(func);
+    for (const key in obj) {
+      if (func(obj[key], key, obj) === false) {
+        break;
+      }
+    }
+    return obj;
+  },
+  forInRight(obj, func = this.identity) {
+    func = this.iteratee(func);
+    const keys = [];
+    for (const key in obj) {
+      keys.push(key);
+    }
+    for (const key of keys.reverse()) {
+      if (func(obj[key], key, obj) === false) {
+        break;
+      }
+    }
+    return obj;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   sameValueZero(x, y) {
@@ -872,15 +894,6 @@ var liushuaimaya = {
       .reduce((res, i) => [...array.splice(i, 1), ...res], []),
 
   flip: f => (...args) => f(...args.reverse()),
-  forIn(obj, func = this.identity) {
-    func = this.iteratee(func);
-    for (const key in obj) {
-      if (func(obj[key], key, obj) === false) {
-        break;
-      }
-    }
-    return obj;
-  },
   forOwn(object, func = this.identity) {
     func = this.iteratee(func);
     for (const key in object) {
