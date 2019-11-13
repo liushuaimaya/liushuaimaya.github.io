@@ -110,11 +110,11 @@ var liushuaimaya = {
     return value;
   },
   toInteger(value) {
-    const number = Number(value);
-    if (isNaN(number) || number === 0) return 0;
-    if (number === Infinity) return Number.MAX_VALUE;
-    if (number === -Infinity) return Number.MIN_VALUE;
-    return Math.floor(Math.abs(number)) * (number < 0 ? -1 : 1);
+    const value = Number(value);
+    if (isNaN(value) || value === 0) return 0;
+    if (value === Infinity) return Number.MAX_VALUE;
+    if (value === -Infinity) return Number.MIN_VALUE;
+    return Math.floor(Math.abs(value)) * (value < 0 ? -1 : 1);
   },
   toLength(value) {
     const len = this.toInteger(value);
@@ -123,8 +123,14 @@ var liushuaimaya = {
     return Math.min(len, 2 ** 32 - 1);
   },
   toNumber: Number,
-  assign: () => {},
-  toSafeInteger: () => {},
+  assign: Object.assign,
+  toSafeInteger: value => {
+    value = Number(value);
+    if (isNaN(value) || value === 0) return 0;
+    value = Math.min(Number.MAX_SAFE_INTEGER, value);
+    value = Math.max(Number.MIN_SAFE_INTEGER, value);
+    return Math.floor(Math.abs(value)) * (value < 0 ? -1 : 1);
+  },
   add: (a, b) => a + b,
   isArrayLike(value) {
     return (
