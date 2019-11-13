@@ -110,7 +110,7 @@ var liushuaimaya = {
     return value;
   },
   toInteger(value) {
-    const value = Number(value);
+    value = Number(value);
     if (isNaN(value) || value === 0) return 0;
     if (value === Infinity) return Number.MAX_VALUE;
     if (value === -Infinity) return Number.MIN_VALUE;
