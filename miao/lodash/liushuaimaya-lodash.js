@@ -896,7 +896,7 @@ var liushuaimaya = {
   hasIn(object, path) {
     path = this.toPath(path);
     for (const key of path) {
-      if (!(key in obj)) {
+      if (!(key in object)) {
         return false;
       }
       object = object[key];
