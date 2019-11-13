@@ -502,6 +502,18 @@ var liushuaimaya = {
     return collection.sort(() => Math.random() - 1);
   },
   size: collection => collection.length || Object.keys(collection).length,
+  some(collection, predicate = this.identity) {
+    predicate = this.iteratee(predicate);
+    return this.isArrayLikeObject(collection)
+      ? collection.reduce(
+          (res, value, index) => res || predicate(value, index, collection),
+          false,
+        )
+      : Object.keys(collection).reduce(
+          (res, key) => res || predicate(collection[key], key, collection),
+          false,
+        );
+  },
   sortBy(collection, funcs = [this.identity]) {
     funcs = funcs.map(it => this.iteratee(it));
     const compare = (a, b, funcs) => {
@@ -689,20 +701,19 @@ var liushuaimaya = {
   toFinite: value => {
     value = Number(value);
     if (value === Infinity) return Number.MAX_VALUE;
-    if (value === -Infinity) return Number.MIN_VALUE;
+    if (value === -Infinity) return -Number.MAX_VALUE;
     return value;
   },
   toInteger(value) {
     value = Number(value);
     if (isNaN(value) || value === 0) return 0;
     if (value === Infinity) return Number.MAX_VALUE;
-    if (value === -Infinity) return Number.MIN_VALUE;
+    if (value === -Infinity) return -Number.MAX_VALUE;
     return Math.floor(Math.abs(value)) * (value < 0 ? -1 : 1);
   },
   toLength(value) {
     const len = this.toInteger(value);
     if (len < 0) return 0;
-    if (len === Infinity) return 2 ** 32 - 1;
     return Math.min(len, 2 ** 32 - 1);
   },
   toNumber: Number,
@@ -921,10 +932,24 @@ var liushuaimaya = {
   keys: Object.keys,
   keysIn(object) {
     const res = [];
-    for(const key in object) {
+    for (const key in object) {
       res.push(key);
     }
     return res;
+  },
+  mapKeys(object, func = this.identity) {
+    func = this.iteratee(func);
+    return Object.entries(object).reduce((res, [key, value]) => {
+      res[func(value, key, object)] = value;
+      return res;
+    }, {});
+  },
+  mapValues(object, func = this.identity) {
+    func = this.iteratee(func);
+    return Object.entries(object).reduce((res, [key, value]) => {
+      res[key] = [func(value, key, object)];
+      return res;
+    }, {});
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
@@ -997,19 +1022,6 @@ var liushuaimaya = {
 
   keyBy(collection, func = this.identity) {
     return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
-  },
-
-  some(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
-    return this.isArrayLikeObject(collection)
-      ? collection.reduce(
-          (res, value, index) => res || predicate(value, index, collection),
-          false,
-        )
-      : Object.keys(collection).reduce(
-          (res, key) => res || predicate(collection[key], key, collection),
-          false,
-        );
   },
 
   // memoize: f => (
