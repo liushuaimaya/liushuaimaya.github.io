@@ -853,8 +853,28 @@ var liushuaimaya = {
     }
     return obj;
   },
+  functions(object) {
+    return Object.keys(object).filter(key => typeof object[key] === "function");
+  },
+  functionsIn(object) {
+    const res = [];
+    for (const key in object) {
+      if (typeof object[key] === "function") res.push(key);
+    }
+    return res;
+  },
+  get(object, path, defaultValue) {
+    try {
+      const res = this.property(path)(object);
+      return res === undefined ? defaultValue : res;
+    } catch (e) {
+    } finally {
+      return defaultValue;
+    }
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
+  constant: value => () => value,
   sameValueZero(x, y) {
     if (typeof x != typeof y) return false;
     if (this.isNumber(x)) {
