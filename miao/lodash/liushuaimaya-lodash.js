@@ -80,13 +80,22 @@ var liushuaimaya = {
   isPlainObject: value =>
     Object.getPrototypeOf(value) === Object.prototype ||
     Object.getPrototypeOf(value) === null,
-  isSafeInteger: () => {},
-  isSymbol: () => {},
-  isTypedArray: () => {},
-  isWeakMap: () => {},
-  isWeakSet: () => {},
-  lt: () => {},
-  lte: () => {},
+  isSafeInteger: Number.isSafeInteger,
+
+  isSymbol: value => typeof value === "symbol",
+  isTypedArray(value) {
+    return /^(Int|Uint|Float)(8|16|32|64)(Clamped)?Array$/.test(
+      Object.prototype.toString.call(value).slice(8, -1),
+    );
+  },
+  isWeakMap (value)  {
+    return this.getTag("WeakMap")(value);
+  },
+  isWeakSet () {
+    return this.getTag("WeakSet")(value);
+  },
+  lt: (value, other) => value < other,
+  lte: (value, other) => value <= other,
   toArray(value) {
     return this.isObject(value)
       ? Object.entries(value).map(it => it[1])
