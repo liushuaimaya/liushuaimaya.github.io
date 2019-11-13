@@ -88,10 +88,10 @@ var liushuaimaya = {
       Object.prototype.toString.call(value).slice(8, -1),
     );
   },
-  isWeakMap (value)  {
+  isWeakMap(value) {
     return this.getTag("WeakMap")(value);
   },
-  isWeakSet () {
+  isWeakSet(value) {
     return this.getTag("WeakSet")(value);
   },
   lt: (value, other) => value < other,
@@ -103,7 +103,12 @@ var liushuaimaya = {
       ? value.split("")
       : [];
   },
-  toFinite: () => {},
+  toFinite: value => {
+    value = Nubmer(value);
+    if (value === Infinity) return Number.MAX_VALUE;
+    if (value === -Infinity) return Number.MIN_VALUE;
+    return value;
+  },
   toInteger(value) {
     const number = Number(value);
     if (isNaN(number) || number === 0) return 0;
