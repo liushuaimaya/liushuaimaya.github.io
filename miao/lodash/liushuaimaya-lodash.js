@@ -947,7 +947,7 @@ var liushuaimaya = {
   mapValues(object, func = this.identity) {
     func = this.iteratee(func);
     return Object.entries(object).reduce((res, [key, value]) => {
-      res[key] = [func(value, key, object)];
+      res[key] = func(value, key, object);
       return res;
     }, {});
   },
