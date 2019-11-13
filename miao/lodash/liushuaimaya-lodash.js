@@ -605,7 +605,12 @@ var liushuaimaya = {
   },
   defer: (func, ...args) => setTimeout(() => func(args), 0),
   delay: (func, wait, ...args) => setTimeout(() => func(...args), wait),
-  castArray: (...args) => (Array.isArray(...args) ? args[0] : [...args]),
+  castArray: (...args) => (Array.isArray(...args) ? args[0] : args),
+  conformsTo: (object, source) =>
+    Object.values(source)[0](object[Object.keys(source)[0]]),
+  eq: (value, other) => {},
+  gt: (value, other) => {},
+  gte: (value, other) => {},
   flatMapDeep(collection, func = this.identity) {
     return this.flattenDeep(this.map(collection, func));
   },
