@@ -993,6 +993,15 @@ var liushuaimaya = {
     });
     return obj;
   },
+  omit(object, ...paths){
+    const res = {};
+    for(const key in object) {
+      if(!paths.includes(key)) {
+        res[key] = object[key];
+      }
+    }
+    return res;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
