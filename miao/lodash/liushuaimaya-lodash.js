@@ -1061,6 +1061,7 @@ var liushuaimaya = {
     }, object);
     return object;
   },
+  to
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1103,18 +1104,15 @@ var liushuaimaya = {
       .reduce((res, i) => [...array.splice(i, 1), ...res], []),
 
   flip: f => (...args) => f(...args.reverse()),
-
   set: (object, path, value) => {
-    path = (typeof path === "string" ? path.match(/\w+/g) : path).map(it =>
-      Number(it) >= 0 ? +it : it,
-    );
+    path = this.toPath(path);
     path.reduce((res, p, i) => {
       if (i === path.length - 1) {
         res[p] = value;
-      } else if (!res[p] && typeof path[i + 1] === "string") {
-        res[p] = {};
-      } else if (!res[p] && typeof path[i + 1] === "number") {
+      } else if (res[p].charCodeAt(0) >= 48 && res[p].charCodeAt(0) <= 57) {
         res[p] = [];
+      } else {
+        res[p] = {};
       }
       return res[p];
     }, object);
