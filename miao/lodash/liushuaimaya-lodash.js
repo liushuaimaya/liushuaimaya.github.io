@@ -1052,7 +1052,7 @@ var liushuaimaya = {
         res[p] = value;
       } else if (customizer() !== undefined) {
         res[p] = customizer();
-      } else if (p.charCodeAt(0) >= 48 && p.charCodeAt(0) <= 57) {
+      } else if (path[i + 1].charCodeAt(0) >= 48 && path[i + 1].charCodeAt(0) <= 57) {
         res[p] = [];
       } else {
         res[p] = {};
@@ -1079,24 +1079,24 @@ var liushuaimaya = {
     }
     return accumulator;
   },
-  unset(object, path){
+  unset(object, path) {
     path = this.toPath(path);
-    if(this.has(object, path)) {
+    if (this.has(object, path)) {
       delete this.get(object, path.slice(0, -1))[path[path.length - 1]];
     }
     return !this.has(object, path);
   },
-  update(object, path, updater){
+  update(object, path, updater) {
     return this.set(object, path, updater(this.get(object, path)));
   },
-  updateWith(object, path, updater, customizer){
+  updateWith(object, path, updater, customizer) {
     const value = this.get(object, path);
     return this.setWith(object, path, updater(value), customizer);
   },
   values: Object.values,
-  valuesIn(object){
+  valuesIn(object) {
     const res = [];
-    for(const key in object) {
+    for (const key in object) {
       res.push(object[key]);
     }
     return res;
@@ -1148,7 +1148,7 @@ var liushuaimaya = {
     path.reduce((res, p, i) => {
       if (i === path.length - 1) {
         res[p] = value;
-      } else if (p.charCodeAt(0) >= 48 && p.charCodeAt(0) <= 57) {
+      } else if (path[i + 1].charCodeAt(0) >= 48 && path[i + 1].charCodeAt(0) <= 57) {
         res[p] = [];
       } else {
         res[p] = {};
