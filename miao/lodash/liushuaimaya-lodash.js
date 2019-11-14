@@ -1061,7 +1061,6 @@ var liushuaimaya = {
     }, object);
     return object;
   },
-  to
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
