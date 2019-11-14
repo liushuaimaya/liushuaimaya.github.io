@@ -1052,7 +1052,10 @@ var liushuaimaya = {
         res[p] = value;
       } else if (customizer() !== undefined) {
         res[p] = customizer();
-      } else if (path[i + 1].charCodeAt(0) >= 48 && path[i + 1].charCodeAt(0) <= 57) {
+      } else if (
+        path[i + 1].charCodeAt(0) >= 48 &&
+        path[i + 1].charCodeAt(0) <= 57
+      ) {
         res[p] = [];
       } else {
         res[p] = {};
@@ -1101,6 +1104,12 @@ var liushuaimaya = {
     }
     return res;
   },
+  camelCase(str){
+    const words = str.match(/[^\W_]+/g);
+    return words.map((w, i) => i ? this.capitalize(w) : w.toLowerCase()).join(""); 
+  },
+  capitalize: (string = "") =>
+    string[0].toUpperCase() + string.slice(1).toLowerCase(),
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1148,7 +1157,10 @@ var liushuaimaya = {
     path.reduce((res, p, i) => {
       if (i === path.length - 1) {
         res[p] = value;
-      } else if (path[i + 1].charCodeAt(0) >= 48 && path[i + 1].charCodeAt(0) <= 57) {
+      } else if (
+        path[i + 1].charCodeAt(0) >= 48 &&
+        path[i + 1].charCodeAt(0) <= 57
+      ) {
         res[p] = [];
       } else {
         res[p] = {};
