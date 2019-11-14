@@ -993,7 +993,7 @@ var liushuaimaya = {
     });
     return obj;
   },
-  omit(object, ...paths){
+  omit(object, paths){
     const res = {};
     for(const key in object) {
       if(!paths.includes(key)) {
