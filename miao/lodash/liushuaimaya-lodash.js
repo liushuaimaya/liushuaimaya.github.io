@@ -1130,12 +1130,13 @@ var liushuaimaya = {
     return string.replace(reg, `\\$&`);
   },
   kebabCase(str) {
-    const words = str.match(/[^\W_]+/g);
-    return words.map(w => w.toLowerCase()).join("-");
+    return this.words(str)
+      .map(w => w.toLowerCase())
+      .join("-");
   },
   lowerFirst: str => str[0].toLowerCase() + str.slice(1),
 
-  words(str="", pattern){
+  words(str = "", pattern) {
     return str.match(pattern || /[A-Za-z][a-z]+|[A-Z]+/g);
   },
   getTag: tag => value =>
