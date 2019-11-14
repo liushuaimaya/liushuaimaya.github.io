@@ -1181,7 +1181,7 @@ var liushuaimaya = {
   negate: f => (...args) => !f(...args),
 };
 
-//将所有函数的this绑定到liushuaimaya对象
+// 将所有函数的this绑定到liushuaimaya对象
 // (() =>
 //   Object.keys(liushuaimaya).forEach(
 //     key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
