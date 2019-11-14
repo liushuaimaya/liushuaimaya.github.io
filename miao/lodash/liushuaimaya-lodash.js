@@ -1011,6 +1011,24 @@ var liushuaimaya = {
     }
     return res;
   },
+  pick(object, paths) {
+    const res = {};
+    for (const key in object) {
+      if (paths.includes(key)) {
+        res[key] = object[key];
+      }
+    }
+    return res;
+  },
+  pickBy(object, predicate = this.identity) {
+    const res = {};
+    for (const key in object) {
+      if (predicate(object[key], key)) {
+        res[key] = object[key];
+      }
+    }
+    return res;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
