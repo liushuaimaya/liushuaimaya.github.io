@@ -1191,9 +1191,11 @@ var liushuaimaya = {
     for (let i = str.length - 1; i >= 0; i--) {
       if (!chars.includes(str[i])) {
         str = str.slice(0, i + 1);
+        console.log(str)
         break;
       }
     }
+    console.log(str)
     return str;
   },
   trimStart(str = "", chars = " ") {
