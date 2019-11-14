@@ -1125,6 +1125,15 @@ var liushuaimaya = {
     ];
     return entities.reduce((res, [en, c]) => res.replace(c, `&${en};`), str);
   },
+  escapeRegExp(string = "") {
+    const reg = /[\^\$\,\.\*\+\?\(\)\[\]\{\}\|]/g;
+    return string.replace(reg, `\\$&`);
+  },
+  kebabCase(str) {
+    const words = str.match(/[^\W_]+/g);
+    return words.map(w => w.toLowerCase()).join("-");
+  },
+  lowerFirst: str => str[0].toLowerCase() + str.slice(1),
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
