@@ -1177,8 +1177,8 @@ var liushuaimaya = {
       .map(s => this.upperFirst(s))
       .join(" ");
   },
-  startsWith(string = "", target, position = string.length) {
-    return string.slice(position - target.length, position) === target;
+  startsWith(string = "", target, position = 0) {
+    return string.slice(position, position + target.length) === target;
   },
   upperFirst(str = "") {
     return str[0].toUpperCase() + str.slice(1);
@@ -1194,11 +1194,9 @@ var liushuaimaya = {
     for (let i = str.length - 1; i >= 0; i--) {
       if (!chars.includes(str[i])) {
         str = str.slice(0, i + 1);
-        console.log("chars",chars, str)
         break;
       }
     }
-    console.log(str)
     return str;
   },
   trimStart(str = "", chars = " ") {
