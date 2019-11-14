@@ -1104,7 +1104,7 @@ var liushuaimaya = {
       .reduce((res, i) => [...array.splice(i, 1), ...res], []),
 
   flip: f => (...args) => f(...args.reverse()),
-  set: (object, path, value) => {
+  set(object, path, value) {
     path = this.toPath(path);
     path.reduce((res, p, i) => {
       if (i === path.length - 1) {
