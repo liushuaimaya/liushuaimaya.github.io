@@ -1052,7 +1052,7 @@ var liushuaimaya = {
         res[p] = value;
       } else if (customizer() !== undefined) {
         res[p] = customizer();
-      } else if (res[p].charCodeAt(0) >= 48 && res[p].charCodeAt(0) <= 57) {
+      } else if (p.charCodeAt(0) >= 48 && p.charCodeAt(0) <= 57) {
         res[p] = [];
       } else {
         res[p] = {};
@@ -1069,12 +1069,12 @@ var liushuaimaya = {
     }
     return res;
   },
-  // transform(object, func=this.identity, accumulator){
-  //   func = this.iteratee(func);
-  //   for(const key of Object.keys(object)) {
-
-  //   }
-  // },
+  transform(object, func=this.identity, accumulator){
+    func = this.iteratee(func);
+    for(const key of Object.keys(object)) {
+      
+    }
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1122,7 +1122,7 @@ var liushuaimaya = {
     path.reduce((res, p, i) => {
       if (i === path.length - 1) {
         res[p] = value;
-      } else if (res[p].charCodeAt(0) >= 48 && res[p].charCodeAt(0) <= 57) {
+      } else if (p.charCodeAt(0) >= 48 && p.charCodeAt(0) <= 57) {
         res[p] = [];
       } else {
         res[p] = {};
