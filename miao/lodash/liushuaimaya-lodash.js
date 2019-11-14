@@ -1079,6 +1079,13 @@ var liushuaimaya = {
     }
     return accumulator;
   },
+  unset(object, path){
+    path = this.toPath(path);
+    if(this.has(object, path)) {
+      delete this.get(object, path.slice(0, -1))[path[path.length - 1]];
+    }
+    return !this.has(object, path);
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
