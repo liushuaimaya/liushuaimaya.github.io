@@ -1062,6 +1062,19 @@ var liushuaimaya = {
     return object;
   },
   toPairs: Object.entries,
+  toPairsIn: object => {
+    const res = [];
+    for (const key in object) {
+      res.push([key, object[key]]);
+    }
+    return res;
+  },
+  // transform(object, func=this.identity, accumulator){
+  //   func = this.iteratee(func);
+  //   for(const key of Object.keys(object)) {
+
+  //   }
+  // },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1142,6 +1155,7 @@ var liushuaimaya = {
   negate: f => (...args) => !f(...args),
 };
 
+//将所有函数的this绑定到liushuaimaya对象
 (() =>
   Object.keys(liushuaimaya).forEach(
     key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
