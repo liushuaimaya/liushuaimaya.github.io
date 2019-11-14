@@ -1115,6 +1115,11 @@ var liushuaimaya = {
   endsWith(string = "", target, position = string.length) {
     return string.slice(position - target.length, position) === target;
   },
+  escape(str="") {
+    const textArea = document.createElement('textarea');
+    textArea.innerText = str;
+    return textArea.innerHTML;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
