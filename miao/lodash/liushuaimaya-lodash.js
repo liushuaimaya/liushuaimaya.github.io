@@ -6,6 +6,7 @@
 //   return new Function(src.slice(src.indexOf("{") + 1, -1) + addReturnObj); //返回拼接后的新函数
 // })()();
 
+
 var liushuaimaya = {
   chunk: (ary, size) =>
     ary
@@ -997,6 +998,15 @@ var liushuaimaya = {
     const res = {};
     for(const key in object) {
       if(!paths.includes(key)) {
+        res[key] = object[key];
+      }
+    }
+    return res;
+  },
+  omitBy(object, predicate=this.identity){
+    const res = {};
+    for(const key in object) {
+      if(!predicate(object[key], key)) {
         res[key] = object[key];
       }
     }
