@@ -1134,6 +1134,10 @@ var liushuaimaya = {
     return words.map(w => w.toLowerCase()).join("-");
   },
   lowerFirst: str => str[0].toLowerCase() + str.slice(1),
+
+  words(str="", pattern){
+    return str.match(pattern || /[A-Za-z][a-z]+|[A-Z]+/g);
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
