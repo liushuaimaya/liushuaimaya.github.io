@@ -1029,6 +1029,21 @@ var liushuaimaya = {
     }
     return res;
   },
+  result(object, path, defaultValue) {
+    path = this.toPath(path);
+    let last = null,
+      res = object;
+    for (const prop of path) {
+      last = res;
+      res = res[prop];
+      if (res === undefined) {
+        return typeof defaultValue === "function"
+          ? defaultValue()
+          : defaultValue;
+      }
+    }
+    return typeof res === "function" ? res.call(last) : res;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
