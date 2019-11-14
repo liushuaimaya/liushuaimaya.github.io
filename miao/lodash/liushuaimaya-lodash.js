@@ -1135,7 +1135,9 @@ var liushuaimaya = {
       .join("-");
   },
   lowerFirst: str => str[0].toLowerCase() + str.slice(1),
-
+  lowerCase(str) {
+    return this.words(str).join(" ").toLowerCase();
+  },
   words(str = "", pattern) {
     return str.match(pattern || /[A-Za-z][a-z]+|[A-Z]+/g);
   },
