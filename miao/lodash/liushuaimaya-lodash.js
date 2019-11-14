@@ -1136,10 +1136,33 @@ var liushuaimaya = {
   },
   lowerFirst: str => str[0].toLowerCase() + str.slice(1),
   lowerCase(str) {
-    return this.words(str).join(" ").toLowerCase();
+    return this.words(str)
+      .join(" ")
+      .toLowerCase();
   },
   words(str = "", pattern) {
     return str.match(pattern || /[A-Za-z][a-z]+|[A-Z]+/g);
+  },
+  pad: (string = "", length = 0, chars = " ") => {
+    const padLength = length - string.length;
+    const add = chars
+      .repeat(Math.ceil(padLength / chars.length))
+      .slice(0, padLength);
+    const left = add.slice(0, Math.floor(add.length / 2));
+    const right = add.slice(Math.floor(add.length / 2));
+    return left + string + right;
+  },
+  padEnd: (string = "", length = 0, chars = " ") => {
+    return (
+      string + chars.repeat(Math.ceil((length - string.length) / chars.length))
+    ).slice(0, length);
+  },
+  padStart: (string = "", length = 0, chars = " ") => {
+    const padLength = length - string.length;
+    return (
+      chars.repeat(Math.ceil(padLength / chars.length)).slice(0, padLength) +
+      string
+    );
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
@@ -1199,15 +1222,6 @@ var liushuaimaya = {
       return res[p];
     }, object);
     return object;
-  },
-  pad: (string = "", length = 0, chars = " ") => {
-    const padLength = length - string.length;
-    const add = chars
-      .repeat(Math.ceil(padLength / chars.length))
-      .slice(0, padLength);
-    const left = add.slice(0, Math.floor(add.length / 2));
-    const right = add.slice(Math.floor(add.length / 2));
-    return left + string + right;
   },
 
   keyBy(collection, func = this.identity) {
