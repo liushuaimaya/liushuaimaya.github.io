@@ -1093,6 +1093,14 @@ var liushuaimaya = {
     const value = this.get(object, path);
     return this.setWith(object, path, updater(value), customizer);
   },
+  values: Object.values,
+  valuesIn(object){
+    const res = [];
+    for(const key in object) {
+      res.push(object[key]);
+    }
+    return res;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
