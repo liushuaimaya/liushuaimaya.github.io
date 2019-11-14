@@ -6,7 +6,6 @@
 //   return new Function(src.slice(src.indexOf("{") + 1, -1) + addReturnObj); //返回拼接后的新函数
 // })()();
 
-
 var liushuaimaya = {
   chunk: (ary, size) =>
     ary
@@ -994,19 +993,19 @@ var liushuaimaya = {
     });
     return obj;
   },
-  omit(object, paths){
+  omit(object, paths) {
     const res = {};
-    for(const key in object) {
-      if(!paths.includes(key)) {
+    for (const key in object) {
+      if (!paths.includes(key)) {
         res[key] = object[key];
       }
     }
     return res;
   },
-  omitBy(object, predicate=this.identity){
+  omitBy(object, predicate = this.identity) {
     const res = {};
-    for(const key in object) {
-      if(!predicate(object[key], key)) {
+    for (const key in object) {
+      if (!predicate(object[key], key)) {
         res[key] = object[key];
       }
     }
@@ -1094,3 +1093,8 @@ var liushuaimaya = {
   bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
   negate: f => (...args) => !f(...args),
 };
+
+(() =>
+  Object.keys(liushuaimaya).forEach(
+    key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
+  ))();
