@@ -1164,11 +1164,27 @@ var liushuaimaya = {
       string
     );
   },
+  snakeCase(str = "") {
+    return this.words(str)
+      .join("_")
+      .toLowerCase();
+  },
+  split(str, sep, lim) {
+    return str.split(sep, lim);
+  },
+  startCase(str=''){
+    return this.words(str).map(s => this.upperFirst(s)).join(" ");
+  },
+  upperFirst(str='') {
+    return str[0].toUpperCase() + str.slice(1);
+  },
   parseInt(string, radix) {
-    if(!radix && string.slice(0, 2) === '0x') radix = 16;
+    if (!radix && string.slice(0, 2) === "0x") radix = 16;
     else if (arguments.length === 3 || !radix) radix = 10;
     return parseInt(string, radix);
   },
+  repeat: (str, n = 1) => str.repeat(n),
+  replace: (str, pat, rep) => str.replace(pat, rep),
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
