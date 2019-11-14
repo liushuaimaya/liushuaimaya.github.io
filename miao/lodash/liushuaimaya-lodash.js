@@ -1104,12 +1104,15 @@ var liushuaimaya = {
     }
     return res;
   },
-  camelCase(str){
+  camelCase(str) {
     const words = str.match(/[^\W_]+/g);
-    return words.map((w, i) => i ? this.capitalize(w) : w.toLowerCase()).join(""); 
+    return words
+      .map((w, i) => (i ? this.capitalize(w) : w.toLowerCase()))
+      .join("");
   },
   capitalize: (string = "") =>
     string[0].toUpperCase() + string.slice(1).toLowerCase(),
+  deburr: () => {},
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
