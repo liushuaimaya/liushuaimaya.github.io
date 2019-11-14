@@ -1112,7 +1112,9 @@ var liushuaimaya = {
   },
   capitalize: (string = "") =>
     string[0].toUpperCase() + string.slice(1).toLowerCase(),
-  deburr: () => {},
+  endsWith(string = "", target, position = string.length) {
+    return string.slice(position - target.length, position) === target;
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
