@@ -1172,11 +1172,38 @@ var liushuaimaya = {
   split(str, sep, lim) {
     return str.split(sep, lim);
   },
-  startCase(str=''){
-    return this.words(str).map(s => this.upperFirst(s)).join(" ");
+  startCase(str = "") {
+    return this.words(str)
+      .map(s => this.upperFirst(s))
+      .join(" ");
   },
-  upperFirst(str='') {
+  upperFirst(str = "") {
     return str[0].toUpperCase() + str.slice(1);
+  },
+  toLower: (str = "") => str.toLowerCase(),
+  toUpper: (str = "") => str.toUpperCase(),
+  trim(str = "", chars = " ") {
+    if (arguments.length === 3) chars = " ";
+    str = this.trimEnd(str, chars);
+    return this.trimStart(str, chars);
+  },
+  trimEnd(str = "", chars = " ") {
+    for (let i = str.length - 1; i >= 0; i--) {
+      if (!chars.includes(str[i])) {
+        str = str.slice(0, i + 1);
+        break;
+      }
+    }
+    return str;
+  },
+  trimStart(str = "", chars = " ") {
+    for (let i = 0; i < str.length; i++) {
+      if (!chars.includes(str[i])) {
+        str = str.slice(i);
+        break;
+      }
+    }
+    return str;
   },
   parseInt(string, radix) {
     if (!radix && string.slice(0, 2) === "0x") radix = 16;
@@ -1264,3 +1291,7 @@ var liushuaimaya = {
 //   Object.keys(liushuaimaya).forEach(
 //     key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
 //   ))();
+((...funcs) => {
+  const me = liushuaimaya;
+  funcs.forEach(f => (me[f] = me[f].bind(me)));
+})("trim");
