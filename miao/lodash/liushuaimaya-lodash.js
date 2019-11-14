@@ -1069,11 +1069,15 @@ var liushuaimaya = {
     }
     return res;
   },
-  transform(object, func=this.identity, accumulator){
-    func = this.iteratee(func);
-    for(const key of Object.keys(object)) {
-      
+  transform(
+    obj,
+    func = this.identity,
+    accumulator = Object.create(Object.getPrototypeOf(obj)),
+  ) {
+    for (const key in obj) {
+      if (func(accumulator, obj[key], key) === false) break;
     }
+    return accumulator;
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
