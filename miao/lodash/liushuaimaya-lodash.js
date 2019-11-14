@@ -1164,6 +1164,11 @@ var liushuaimaya = {
       string
     );
   },
+  parseInt(string, radix) {
+    if(!radix && string.slice(0, 2) === '0x') radix = 16;
+    else if (arguments.length === 3 || !radix) radix = 10;
+    return parseInt(string, radix);
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
