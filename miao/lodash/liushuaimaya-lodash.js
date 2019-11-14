@@ -1185,12 +1185,12 @@ var liushuaimaya = {
   },
   toLower: (str = "") => str.toLowerCase(),
   toUpper: (str = "") => str.toUpperCase(),
-  trim(str = "", chars = " ") {
-    if (arguments.length === 3) chars = " ";
+  trim(str = "", chars = "  ") {
+    if (arguments.length === 3) chars = "  ";
     str = this.trimEnd(str, chars);
     return this.trimStart(str, chars);
   },
-  trimEnd(str = "", chars = " ") {
+  trimEnd(str = "", chars = "  ") {
     for (let i = str.length - 1; i >= 0; i--) {
       if (!chars.includes(str[i])) {
         str = str.slice(0, i + 1);
@@ -1199,7 +1199,7 @@ var liushuaimaya = {
     }
     return str;
   },
-  trimStart(str = "", chars = " ") {
+  trimStart(str = "", chars = "  ") {
     for (let i = 0; i < str.length; i++) {
       if (!chars.includes(str[i])) {
         str = str.slice(i);
