@@ -1115,8 +1115,8 @@ var liushuaimaya = {
   endsWith(string = "", target, position = string.length) {
     return string.slice(position - target.length, position) === target;
   },
-  escape(str="") {
-    const textArea = document.createElement('textarea');
+  escape(str = "") {
+    const textArea = document.createElement("textarea");
     textArea.innerText = str;
     return textArea.innerHTML;
   },
