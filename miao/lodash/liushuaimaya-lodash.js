@@ -1339,9 +1339,9 @@ var liushuaimaya = {
   once(func) {
     let res;
     let isExecuted = false;
-    return function(...args) {
+    return (...args) => {
       if (!isExecuted) {
-        res = func.apply(this, args);
+        res = func(...args);
         isExecuted = true;
       }
       return res;
