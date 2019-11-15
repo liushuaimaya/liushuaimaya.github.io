@@ -1164,6 +1164,13 @@ var liushuaimaya = {
       string
     );
   },
+  parseInt(string, radix) {
+    if (!radix && string.slice(0, 2) === "0x") radix = 16;
+    else if (arguments.length === 3 || !radix) radix = 10;
+    return parseInt(string, radix);
+  },
+  repeat: (str, n = 1) => str.repeat(n),
+  replace: (str, pat, rep) => str.replace(pat, rep),
   snakeCase(str = "") {
     return this.words(str)
       .join("_")
@@ -1228,13 +1235,12 @@ var liushuaimaya = {
     ];
     return entities.reduce((res, [en, c]) => res.replace(`&${en};`, c), str);
   },
-  parseInt(string, radix) {
-    if (!radix && string.slice(0, 2) === "0x") radix = 16;
-    else if (arguments.length === 3 || !radix) radix = 10;
-    return parseInt(string, radix);
+  upperCase(str) {
+    return this.words(str)
+      .join(" ")
+      .toUpperCase();
   },
-  repeat: (str, n = 1) => str.repeat(n),
-  replace: (str, pat, rep) => str.replace(pat, rep),
+
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
