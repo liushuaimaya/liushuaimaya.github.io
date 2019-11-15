@@ -1044,6 +1044,23 @@ var liushuaimaya = {
     }
     return typeof res === "function" ? res.call(last) : res;
   },
+  set(object, path, value) {
+    path = this.toPath(path);
+    path.reduce((res, p, i) => {
+      if (i === path.length - 1) {
+        res[p] = value;
+      } else if (
+        path[i + 1].charCodeAt(0) >= 48 &&
+        path[i + 1].charCodeAt(0) <= 57
+      ) {
+        res[p] = [];
+      } else {
+        res[p] = {};
+      }
+      return res[p];
+    }, object);
+    return object;
+  },
   setWith(object, path, value, customizer) {
     if (!customizer) return this.set(object, path, value);
     path = this.toPath(path);
@@ -1221,7 +1238,6 @@ var liushuaimaya = {
     str = str.slice(0, op.length - op.omission.length);
     if (this.isRegExp(op.separator) && !op.separator.global)
       op.separator = new RegExp(op.separator, op.separator.flags + "g");
-    console.log([...str.matchAll(op.separator)]);
     const index = [...str.matchAll(op.separator)].pop().index;
     return str.slice(0, index) + op.omission;
   },
@@ -1266,8 +1282,12 @@ var liushuaimaya = {
     }
     return res;
   },
-  rangeRight(...args){
+  rangeRight(...args) {
     return this.range(...args).reverse();
+  },
+  mixin(obj = liushuaimaya, src, op = {}) {
+    if (op.chain === undefined) op.chain = true;
+    
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
@@ -1280,7 +1300,7 @@ var liushuaimaya = {
       if (x === -0 && y === +0) return true;
       if (x === y) return true;
     }
-    return x == y;
+    return x === y;
   },
 
   identity: (...args) => args[0],
@@ -1311,23 +1331,7 @@ var liushuaimaya = {
       .reduce((res, i) => [...array.splice(i, 1), ...res], []),
 
   flip: f => (...args) => f(...args.reverse()),
-  set(object, path, value) {
-    path = this.toPath(path);
-    path.reduce((res, p, i) => {
-      if (i === path.length - 1) {
-        res[p] = value;
-      } else if (
-        path[i + 1].charCodeAt(0) >= 48 &&
-        path[i + 1].charCodeAt(0) <= 57
-      ) {
-        res[p] = [];
-      } else {
-        res[p] = {};
-      }
-      return res[p];
-    }, object);
-    return object;
-  },
+
 
   keyBy(collection, func = this.identity) {
     return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
