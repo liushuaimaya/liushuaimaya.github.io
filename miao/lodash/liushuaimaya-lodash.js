@@ -1349,14 +1349,11 @@ var liushuaimaya = {
   },
   spread: f => args => f(...args),
   curry(func, arity = func.length) {
-    if (!this.curry.placeholder) {
-      this.curry.placeholder = this;
-    }
-    let storeArgs = [];
-    return (...args) => {
-      storeArgs.push(...args);
-      if(storeArgs.length === arity) return func()
-    };
+    // if (!this.curry.placeholder) {
+    //   this.curry.placeholder = this;
+    // }
+    const storeArgs = [];
+    return curry;
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
@@ -1395,7 +1392,18 @@ var liushuaimaya = {
   // ,
 
   any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
-  bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
+  bind: (func, thisArg, ...partials) => {
+    return (...args) => {
+      const realArgs = [...partials];
+      partials.forEach((arg, i) => {
+        if (arg === _) {
+          realArgs[i] = args.shift();
+        }
+      });
+      realArgs.push(...args);
+      return func.apply(thisArg, realArgs);
+    };
+  },
 };
 
 // 将所有函数的this绑定到liushuaimaya对象
@@ -1404,6 +1412,6 @@ var liushuaimaya = {
 //     key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
 //   ))();
 ((...funcs) => {
-  const me = liushuaimaya;
-  funcs.forEach(f => (me[f] = me[f].bind(me)));
+  funcs.forEach(f => (liushuaimaya[f] = liushuaimaya[f].bind(liushuaimaya)));
+  liushuaimaya.bind.placeholder = liushuaimaya;
 })("trim");
