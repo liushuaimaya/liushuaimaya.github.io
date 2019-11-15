@@ -1241,7 +1241,7 @@ var liushuaimaya = {
       .toUpperCase();
   },
   bindAll(object, methodNames) {
-    Object.keys().forEach(m => object[m].bind(object));
+    methodNames.forEach(m => object[m].bind(object));
     return object;
   },
   defaultTo(val, defaultVal) {
