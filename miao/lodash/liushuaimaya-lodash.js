@@ -1307,7 +1307,7 @@ var liushuaimaya = {
     if(typeof value !== "object" || typeof value === null || this.isRegExp(value)) {
       return value;
     }
-    let res = Array.isArray(value) ? [] : {};
+    const res = Array.isArray(value) ? [] : {};
     for(const key in value) {
       res[key] = this.cloneDeep(value[key]);
     }
@@ -1322,12 +1322,12 @@ var liushuaimaya = {
   },
   ary(func, n = func.length) {
     return function(...args) {
-      func.apply(this, args.slice(0, n));
+      return func.apply(this, args.slice(0, n));
     };
   },
   unary(func) {
     return function(...args) {
-      func.apply(this, args[0]);
+      return func.apply(this, args[0]);
     };
   },
   negate: f => (...args) => !f(...args),
