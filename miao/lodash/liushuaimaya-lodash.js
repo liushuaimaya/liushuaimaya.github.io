@@ -1287,7 +1287,21 @@ var liushuaimaya = {
   },
   mixin(obj = liushuaimaya, src, op = {}) {
     if (op.chain === undefined) op.chain = true;
-    
+  },
+  times(n, func = this.identity) {
+    const res = [];
+    for (let i = 0; i < n; i++) {
+      res.push(func(i));
+    }
+    return res;
+  },
+  toPath(path) {
+    return this.isString(path) ? path.match(/\w+/g) : path;
+  },
+  _base: 103,
+  uniqueId(prefix = "") {
+    this._base++;
+    return prefix + this._base;
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
@@ -1304,9 +1318,6 @@ var liushuaimaya = {
   },
 
   identity: (...args) => args[0],
-  toPath(path) {
-    return this.isString(path) ? path.match(/\w+/g) : path;
-  },
 
   matches(src) {
     return obj => this.isMatch(obj, src);
@@ -1331,7 +1342,6 @@ var liushuaimaya = {
       .reduce((res, i) => [...array.splice(i, 1), ...res], []),
 
   flip: f => (...args) => f(...args.reverse()),
-
 
   keyBy(collection, func = this.identity) {
     return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
