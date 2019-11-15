@@ -1314,6 +1314,13 @@ var liushuaimaya = {
     return res;
   },
   identity: (...args) => args[0],
+  concat(arr, ...vals){
+    return [...arr, ...vals.flat()];
+  },
+  pullAt: (array, indexes) =>
+  indexes
+    .sort((a, b) => b - a)
+    .reduce((res, i) => [...array.splice(i, 1), ...res], []),
   matches(src) {
     return obj => this.isMatch(obj, src);
   },
@@ -1369,10 +1376,7 @@ var liushuaimaya = {
     if (this.isObject(func)) return this.matches(func);
   },
 
-  pullAt: (array, indexes) =>
-    indexes
-      .sort((a, b) => b - a)
-      .reduce((res, i) => [...array.splice(i, 1), ...res], []),
+
 
   flip: f => (...args) => f(...args.reverse()),
 
