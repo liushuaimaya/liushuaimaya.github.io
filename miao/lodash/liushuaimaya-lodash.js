@@ -1212,6 +1212,9 @@ var liushuaimaya = {
     if (!op.length) op.length = 30;
     if (!op.omission) op.omission = "...";
     str = str.slice(0, op.length - op.omission.length);
+    if (this.isRegExp(op.separator) && !op.separator.global)
+      op.separator = new RegExp(op.separator, op.separator.flags + "g");
+    console.log([...str.matchAll(op.separator)]);
     const index = [...str.matchAll(op.separator)].pop().index;
     return str.slice(0, index) + op.omission;
   },
