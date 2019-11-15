@@ -1350,11 +1350,9 @@ var liushuaimaya = {
   spread: f => args => f(...args),
   curry(func, arity = func.length) {
     return (...args) => {
-      if (args.length >= arity) {
-        return func(...args);
-      }else {
-        return this.curry(func.bind(null, ...args), arity - args.length);
-      }
+      return args.length >= arity
+        ? func(...args)
+        : this.curry(func.bind(null, ...args), arity - args.length);
     };
   },
   getTag: tag => value =>
