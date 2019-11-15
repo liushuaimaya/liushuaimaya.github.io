@@ -1257,7 +1257,7 @@ var liushuaimaya = {
       .toUpperCase();
   },
   bindAll(object, methodNames) {
-    methodNames.forEach(m => (object[m] = object[m].bind(object)));
+    methodNames.forEach(m => {object[m] = object[m].bind(object)});
     return object;
   },
   defaultTo(val, defaultVal) {
@@ -1298,7 +1298,7 @@ var liushuaimaya = {
   toPath(path) {
     return this.isString(path) ? path.match(/\w+/g) : path;
   },
-  _base: 103,
+  _base: 2,
   uniqueId(prefix = "") {
     this._base++;
     return prefix + this._base;
@@ -1336,7 +1336,7 @@ var liushuaimaya = {
     };
   },
   spread: f => args => f(...args),
-  
+
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
