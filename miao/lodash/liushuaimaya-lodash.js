@@ -1348,7 +1348,16 @@ var liushuaimaya = {
     };
   },
   spread: f => args => f(...args),
-
+  curry(func, arity = func.length) {
+    if (!this.curry.placeholder) {
+      this.curry.placeholder = this;
+    }
+    let storeArgs = [];
+    return (...args) => {
+      storeArgs.push(...args);
+      if(storeArgs.length === arity) return func()
+    };
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
