@@ -1349,11 +1349,13 @@ var liushuaimaya = {
   },
   spread: f => args => f(...args),
   curry(func, arity = func.length) {
-    // if (!this.curry.placeholder) {
-    //   this.curry.placeholder = this;
-    // }
-    const storeArgs = [];
-    return curry;
+    return (...args) => {
+      if (args.length >= arity) {
+        return func(args);
+      }else {
+        return this.curry(func.bind(null, ...args), arity - args.length);
+      }
+    };
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
