@@ -1257,7 +1257,9 @@ var liushuaimaya = {
       .toUpperCase();
   },
   bindAll(object, methodNames) {
-    methodNames.forEach(m => {object[m] = object[m].bind(object)});
+    methodNames.forEach(m => {
+      object[m] = object[m].bind(object);
+    });
     return object;
   },
   defaultTo(val, defaultVal) {
@@ -1304,39 +1306,35 @@ var liushuaimaya = {
     return prefix + this._base;
   },
   cloneDeep(value) {
-    if(typeof value !== "object" || typeof value === null || this.isRegExp(value)) {
+    if (
+      typeof value !== "object" ||
+      typeof value === null ||
+      this.isRegExp(value)
+    ) {
       return value;
     }
     const res = Array.isArray(value) ? [] : {};
-    for(const key in value) {
+    for (const key in value) {
       res[key] = this.cloneDeep(value[key]);
     }
     return res;
   },
   identity: (...args) => args[0],
-  concat(arr, ...vals){
+  concat(arr, ...vals) {
     return [...arr, ...vals.flat()];
   },
   pullAt: (array, indexes) =>
-  indexes
-    .sort((a, b) => b - a)
-    .reduce((res, i) => [...array.splice(i, 1), ...res], []),
+    indexes
+      .sort((a, b) => b - a)
+      .reduce((res, i) => [...array.splice(i, 1), ...res], []),
   matches(src) {
     return obj => this.isMatch(obj, src);
   },
   property(path) {
     return obj => this.toPath(path).reduce((res, it) => res[it], obj);
   },
-  ary(func, n = func.length) {
-    return function(...args) {
-      return func.apply(this, args.slice(0, n));
-    };
-  },
-  unary(func) {
-    return function(...args) {
-      return func.apply(this, args[0]);
-    };
-  },
+  ary: (func, n = func.length) => (...args) => func(...args.slice(0, n)),
+  unary: func => (...args) => func(args[0]),
   negate: f => (...args) => !f(...args),
   once(func) {
     let res;
@@ -1376,8 +1374,6 @@ var liushuaimaya = {
     if (this.isObject(func)) return this.matches(func);
   },
 
-
-
   flip: f => (...args) => f(...args.reverse()),
 
   keyBy(collection, func = this.identity) {
@@ -1388,7 +1384,7 @@ var liushuaimaya = {
   //   (memo = {}),
   //   (...args) => (args in memo ? memo[args] : (memo[args] = f(...args))
   // ,
-  
+
   any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
   bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
 };
