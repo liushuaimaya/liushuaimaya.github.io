@@ -1240,9 +1240,14 @@ var liushuaimaya = {
       .join(" ")
       .toUpperCase();
   },
-  bindAll(object, methodNames){
+  bindAll(object, methodNames) {
     Object.keys().forEach(m => object[m].bind(object));
     return object;
+  },
+  defaultTo(val, defaultVal) {
+    return Number.isNaN(val) || val === undefined || val === null
+      ? defaultVal
+      : val;
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
