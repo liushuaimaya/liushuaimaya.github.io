@@ -1208,6 +1208,13 @@ var liushuaimaya = {
     }
     return str;
   },
+  truncate(str = "", op = {}) {
+    if (!op.length) op.length = 30;
+    if (!op.omission) op.omission = "...";
+    str = str.slice(0, op.length - op.omission.length);
+    const index = [...str.matchAll(op.separator)].pop().index;
+    return str.slice(0, index) + op.omission;
+  },
   parseInt(string, radix) {
     if (!radix && string.slice(0, 2) === "0x") radix = 16;
     else if (arguments.length === 3 || !radix) radix = 10;
