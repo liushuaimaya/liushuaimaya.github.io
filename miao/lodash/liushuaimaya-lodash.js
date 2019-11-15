@@ -1303,7 +1303,7 @@ var liushuaimaya = {
     this._base++;
     return prefix + this._base;
   },
-  cloneDeep(value){
+  cloneDeep(value) {
     return JSON.parse(JSON.stringify(value));
   },
   identity: (...args) => args[0],
@@ -1313,25 +1313,30 @@ var liushuaimaya = {
   property(path) {
     return obj => this.toPath(path).reduce((res, it) => res[it], obj);
   },
-  ary(func, n=func.length){
-    return (...args) => func.apply(this, args.slice(0, n));
+  ary(func, n = func.length) {
+    return function(...args) {
+      func.apply(this, args.slice(0, n));
+    };
   },
-  unary(func){
-    return function(...args){
+  unary(func) {
+    return function(...args) {
       func.apply(this, args[0]);
-    }
+    };
   },
-  once(func){
+  negate: f => (...args) => !f(...args),
+  once(func) {
     let res;
     let isExecuted = false;
-    return function(...args){
-      if(!isExecuted) {
+    return function(...args) {
+      if (!isExecuted) {
         res = func.apply(this, args);
         isExecuted = true;
       }
       return res;
-    }
+    };
   },
+  spread: f => args => f(...args),
+  
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1345,8 +1350,6 @@ var liushuaimaya = {
     }
     return x === y;
   },
-
-
 
   matchesProperty(path, srcValue) {
     return obj => this.isMatch(this.property(path)(obj), srcValue);
@@ -1374,10 +1377,9 @@ var liushuaimaya = {
   //   (memo = {}),
   //   (...args) => (args in memo ? memo[args] : (memo[args] = f(...args))
   // ,
-  spread: f => args => f(...args),
+  
   any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
   bind: (f, ...args1) => (...args2) => f(...args1, ...args2),
-  negate: f => (...args) => !f(...args),
 };
 
 // 将所有函数的this绑定到liushuaimaya对象
