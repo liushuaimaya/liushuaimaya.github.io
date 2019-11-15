@@ -1218,6 +1218,16 @@ var liushuaimaya = {
     const index = [...str.matchAll(op.separator)].pop().index;
     return str.slice(0, index) + op.omission;
   },
+  unescape(str = "") {
+    const entities = [
+      ["amp", "&"],
+      ["lt", "<"],
+      ["gt", ">"],
+      ["quot", '"'],
+      ["apos", '"'],
+    ];
+    return entities.reduce((res, [en, c]) => res.replace(`&${en};`, c), str);
+  },
   parseInt(string, radix) {
     if (!radix && string.slice(0, 2) === "0x") radix = 16;
     else if (arguments.length === 3 || !radix) radix = 10;
