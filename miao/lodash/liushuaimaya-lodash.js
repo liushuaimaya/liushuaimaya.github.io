@@ -1241,13 +1241,29 @@ var liushuaimaya = {
       .toUpperCase();
   },
   bindAll(object, methodNames) {
-    methodNames.forEach(m => object[m].bind(object));
+    methodNames.forEach(m => object[m] = object[m].bind(object));
     return object;
   },
   defaultTo(val, defaultVal) {
     return Number.isNaN(val) || val === undefined || val === null
       ? defaultVal
       : val;
+  },
+  range(start = 0, end, step){
+    if(end === undefined) {
+      end = start; start = 0;
+    }
+    if(step === undefined) {
+      step = end < 0 ? -1 : 1
+    }
+    if(step === 0) {
+      return Array(Math.ceil(end - start)).fill(start);
+    }
+    const res = [];
+    for(let i = start; (i - start) * (end - i) >= 0 && i !== end; i += step) {
+      res.push(i);
+    }
+    return res;
   },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
