@@ -1266,6 +1266,9 @@ var liushuaimaya = {
     }
     return res;
   },
+  rangeRight(...args){
+    return this.range(...args).reverse();
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
