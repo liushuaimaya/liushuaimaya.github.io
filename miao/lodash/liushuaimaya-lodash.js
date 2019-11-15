@@ -1351,7 +1351,7 @@ var liushuaimaya = {
   curry(func, arity = func.length) {
     return (...args) => {
       if (args.length >= arity) {
-        return func(args);
+        return func(...args);
       }else {
         return this.curry(func.bind(null, ...args), arity - args.length);
       }
