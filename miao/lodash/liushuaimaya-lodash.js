@@ -1304,7 +1304,14 @@ var liushuaimaya = {
     return prefix + this._base;
   },
   cloneDeep(value) {
-    return JSON.parse(JSON.stringify(value));
+    if(typeof value !== "object" || typeof value === null || this.isRegExp(value)) {
+      return value;
+    }
+    let res = Array.isArray(value) ? [] : {};
+    for(const key in value) {
+      res[key] = this.cloneDeep(value[key]);
+    }
+    return res;
   },
   identity: (...args) => args[0],
   matches(src) {
