@@ -1303,6 +1303,9 @@ var liushuaimaya = {
     this._base++;
     return prefix + this._base;
   },
+  cloneDeep(value){
+    return JSON.parse(JSON.stringify(value));
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
