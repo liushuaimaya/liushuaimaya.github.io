@@ -1306,6 +1306,32 @@ var liushuaimaya = {
   cloneDeep(value){
     return JSON.parse(JSON.stringify(value));
   },
+  identity: (...args) => args[0],
+  matches(src) {
+    return obj => this.isMatch(obj, src);
+  },
+  property(path) {
+    return obj => this.toPath(path).reduce((res, it) => res[it], obj);
+  },
+  ary(func, n=func.length){
+    return (...args) => func.apply(this, args.slice(0, n));
+  },
+  unary(func){
+    return function(...args){
+      func.apply(this, args[0]);
+    }
+  },
+  once(func){
+    let res;
+    let isExecuted = false;
+    return function(...args){
+      if(!isExecuted) {
+        res = func.apply(this, args);
+        isExecuted = true;
+      }
+      return res;
+    }
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1320,14 +1346,8 @@ var liushuaimaya = {
     return x === y;
   },
 
-  identity: (...args) => args[0],
 
-  matches(src) {
-    return obj => this.isMatch(obj, src);
-  },
-  property(path) {
-    return obj => this.toPath(path).reduce((res, it) => res[it], obj);
-  },
+
   matchesProperty(path, srcValue) {
     return obj => this.isMatch(this.property(path)(obj), srcValue);
   },
