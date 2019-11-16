@@ -1358,8 +1358,8 @@ var liushuaimaya = {
     const cache = new Map();
     return (...args) => {
       const key  = resolver(...args)
-      if(cache.has(key)) {
-        return cache.get(key);
+      if(!cache.has(key)) {
+        cache.set(key, func(...args));
       }
       return func(...args);
     }
