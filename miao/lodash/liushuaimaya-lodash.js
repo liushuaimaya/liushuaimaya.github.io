@@ -1354,6 +1354,16 @@ var liushuaimaya = {
         : this.curry(func.bind(null, ...args), arity - args.length);
     };
   },
+  memoize(func, resolver=this.identity) {
+    const cache = new Map();
+    return (...args) => {
+      const key  = resolver(...args)
+      if(cache.has(key)) {
+        return cache.get(key);
+      }
+      return func(...args);
+    }
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1392,18 +1402,17 @@ var liushuaimaya = {
 
   any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
   bind(func, thisArg, ...fixedArgs) {
-    return(...args) => {
-      const realArgs = fixedArgs.map(it => it === _ ? args.shift() : it);
+    return (...args) => {
+      const realArgs = fixedArgs.map(it => (it === _ ? args.shift() : it));
       return func.call(thisArg, ...realArgs, ...args);
     };
-  }
+  },
 };
 // 将所有函数的this绑定到liushuaimaya对象
 // (() =>
 //   Object.keys(liushuaimaya).forEach(
 //     key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
 //   ))();
-
 
 ((...funcs) => {
   funcs.forEach(f => (liushuaimaya[f] = liushuaimaya[f].bind(liushuaimaya)));
