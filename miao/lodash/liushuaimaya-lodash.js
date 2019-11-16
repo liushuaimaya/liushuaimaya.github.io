@@ -1293,7 +1293,7 @@ var liushuaimaya = {
   mixin(obj, src) {
     if(!src) {
       src = obj;
-      obj = liushuaimaya;
+      obj = _;
     }
     for(const key in src) {
       if(typeof src[key] === 'function') {
