@@ -1298,7 +1298,7 @@ var liushuaimaya = {
     return res;
   },
   toPath(path) {
-    return Array.isArray(path) ?  path : String(path).match(/\w+/g);
+    return Array.isArray(path) ? path : String(path).match(/\w+/g);
   },
   uniqueId(prefix = "") {
     this._base++;
@@ -1367,11 +1367,17 @@ var liushuaimaya = {
   flip: f => (...args) => f(...args.reverse()),
   conforms: src => obj => Object.keys(src).every(key => src[key](obj[key])),
   constant: value => () => value,
-  method(path, ...args){
-    return obj => this.toPath(path).reduce((res, p) => obj[p],obj).apply(obj, args);
+  method(path, ...args) {
+    return obj =>
+      this.toPath(path)
+        .reduce((res, p) => res[p], obj)
+        .apply(obj, args);
   },
-  methodOf(object, args){
-
+  methodOf(obj, ...args) {
+    return path =>
+      this.toPath(path)
+        .reduce((res, p) => res[p], obj)
+        .apply(obj, args);
   },
   nthArg: (n = 0) => (...args) => args[n < 0 ? args.length - n : n],
   propertyOf(obj) {
