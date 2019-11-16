@@ -1392,19 +1392,13 @@ var liushuaimaya = {
   // ,
 
   any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
-  bind: (func, thisArg, ...partials) => {
-    return (...args) => {
-      const realArgs = [...partials];
-      partials.forEach((arg, i) => {
-        if (arg === _) {
-          realArgs[i] = args.shift();
-        }
-      });
-      realArgs.push(...args);
-      return func.apply(thisArg, realArgs);
+  bind(func, thisArg, ...fixedArgs) {
+    return(...args) => {
+      const realArgs = fixedArgs.map(it => it === _ ? args.shift() : it);
+      return func.call(thisArg, ...realArgs, ...args);
     };
-  },
-};
+  }
+}
 
 // 将所有函数的this绑定到liushuaimaya对象
 // (() =>
@@ -1415,3 +1409,6 @@ var liushuaimaya = {
   funcs.forEach(f => (liushuaimaya[f] = liushuaimaya[f].bind(liushuaimaya)));
   liushuaimaya.bind.placeholder = liushuaimaya;
 })("trim");
+
+
+
