@@ -335,7 +335,7 @@ var liushuaimaya = {
         )
       : Object.keys(collection).reduce(
           (res, key) =>
-            predicate(collection[key], key, collection) ? [...res, value] : res,
+            predicate(collection[key], key, collection) ? [...res, collection[key]] : res,
           [],
         );
   },
@@ -1290,12 +1290,15 @@ var liushuaimaya = {
   rangeRight(...args) {
     return this.range(...args).reverse();
   },
-  mixin(obj = liushuaimaya, src, op = {}) {
-    if (op.chain === undefined) op.chain = true;
+  mixin(obj, src) {
+    if(!src) {
+      src = obj;
+      obj = liushuaimaya;
+    }
     for(const key in src) {
       if(typeof src[key] === 'function') {
         obj[key] = src[key];
-        if(typeof obj === 'funciton') {
+        if(typeof obj === 'funcition') {
           obj.prototype[key] = src[key];
         }
       }
