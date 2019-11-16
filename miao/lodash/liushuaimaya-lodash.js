@@ -1367,8 +1367,8 @@ var liushuaimaya = {
   flip: f => (...args) => f(...args.reverse()),
   conforms: src => obj => Object.keys(src).every(key => src[key](obj[key])),
   constant: value => () => value,
-  method(path, args){
-
+  method(path, ...args){
+    return obj => this.toPath(path).reduce((res, p) => obj[p],obj).apply(obj, args);
   },
   methodOf(object, args){
 
