@@ -1364,6 +1364,10 @@ var liushuaimaya = {
       return func(...args);
     }
   },
+  flip: f => (...args) => f(...args.reverse()),
+  conforms(){
+
+  },
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1389,7 +1393,6 @@ var liushuaimaya = {
     if (this.isObject(func)) return this.matches(func);
   },
 
-  flip: f => (...args) => f(...args.reverse()),
 
   keyBy(collection, func = this.identity) {
     return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
