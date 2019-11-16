@@ -335,7 +335,9 @@ var liushuaimaya = {
         )
       : Object.keys(collection).reduce(
           (res, key) =>
-            predicate(collection[key], key, collection) ? [...res, collection[key]] : res,
+            predicate(collection[key], key, collection)
+              ? [...res, collection[key]]
+              : res,
           [],
         );
   },
@@ -1220,20 +1222,18 @@ var liushuaimaya = {
   trimEnd(str = "", chars = "  ") {
     for (let i = str.length - 1; i >= 0; i--) {
       if (!chars.includes(str[i])) {
-        str = str.slice(0, i + 1);
-        break;
+        return str.slice(0, i + 1);
       }
     }
-    return str;
+    return "";
   },
   trimStart(str = "", chars = "  ") {
     for (let i = 0; i < str.length; i++) {
       if (!chars.includes(str[i])) {
-        str = str.slice(i);
-        break;
+        return str.slice(i);
       }
     }
-    return str;
+    return "";
   },
   truncate(str = "", op = {}) {
     if (!op.length) op.length = 30;
@@ -1291,14 +1291,14 @@ var liushuaimaya = {
     return this.range(...args).reverse();
   },
   mixin(obj, src) {
-    if(!src) {
+    if (!src) {
       src = obj;
       obj = _;
     }
-    for(const key in src) {
-      if(typeof src[key] === 'function') {
+    for (const key in src) {
+      if (typeof src[key] === "function") {
         obj[key] = src[key];
-        if(typeof obj === 'funcition') {
+        if (typeof obj === "funcition") {
           obj.prototype[key] = src[key];
         }
       }
