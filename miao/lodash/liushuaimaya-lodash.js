@@ -38,7 +38,7 @@ var liushuaimaya = {
   drop: (arr, n = 1) => arr.slice(n),
   dropRight: (arr, n = 1) => arr.slice(0, n ? -n : arr.length),
   dropRightWhile(array, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (let i = array.length - 1; i < array.length; i--) {
       if (!predicate(array[i], i, array)) {
         return array.slice(0, i + 1);
@@ -46,7 +46,7 @@ var liushuaimaya = {
     }
   },
   dropWhile(array, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (let i = 0; i < array.length; i++) {
       if (!predicate(array[i], i, array)) {
         return array.slice(i);
@@ -60,7 +60,7 @@ var liushuaimaya = {
     return array;
   },
   findIndex(array, predicate = this.identity, fromIndex = 0) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (let i = fromIndex; i < array.length; i++) {
       if (predicate(array[i])) {
         return i;
@@ -73,7 +73,7 @@ var liushuaimaya = {
     predicate = this.identity,
     fromIndex = array.length - 1,
   ) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (let i = fromIndex; i >= 0; i--) {
       if (predicate(array[i])) {
         return i;
@@ -96,7 +96,7 @@ var liushuaimaya = {
   indexOf(array, value, fromIndex = 0) {
     fromIndex += fromIndex < 0 ? array.length : 0;
     for (let i = fromIndex; i < array.length; i++) {
-      if (this.sameValueZero(value, array[i])) {
+      if (this._sameValueZero(value, array[i])) {
         return i;
       }
     }
@@ -106,7 +106,7 @@ var liushuaimaya = {
   intersection: (...arrays) =>
     arrays[0].filter(it => arrays.slice(1).every(array => array.includes(it))),
   intersectionBy(...args) {
-    const transform = this.iteratee(args.pop());
+    const transform = this._iteratee(args.pop());
     return args[0].filter(it =>
       args
         .slice(1)
@@ -114,7 +114,7 @@ var liushuaimaya = {
     );
   },
   intersectionWith(...args) {
-    const comparator = this.iteratee(args.pop());
+    const comparator = this._iteratee(args.pop());
     return args[0].filter(arrVal =>
       args
         .slice(1)
@@ -126,7 +126,7 @@ var liushuaimaya = {
   last: array => array[array.length - 1],
   lastIndexOf(array, value, fromIndex = array.length - 1) {
     for (let i = fromIndex; i >= 0; i--) {
-      if (this.sameValueZero(value, array[i])) {
+      if (this._sameValueZero(value, array[i])) {
         return i;
       }
     }
@@ -143,7 +143,7 @@ var liushuaimaya = {
     return this.pull(array, ...values);
   },
   pullAllBy(array, values, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     values = values.map(func);
     for (let i = 0; i < array.length; ) {
       values.includes(func(array[i])) ? array.splice(i, 1) : i++;
@@ -169,7 +169,7 @@ var liushuaimaya = {
     return l;
   },
   sortedIndexBy(array, value, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return this.sortedIndex(array.map(func), func(value));
   },
   sortedIndexOf(array, value) {
@@ -187,7 +187,7 @@ var liushuaimaya = {
     return l;
   },
   sortedLastIndexBy(array, value, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return this.sortedLastIndex(array.map(func), func(value));
   },
   sortedLastIndexOf(array, value) {
@@ -197,7 +197,7 @@ var liushuaimaya = {
   },
   sortedUniq: array => [...new Set(array)],
   sortedUniqBy(array, func) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return array.reduce(
       (res, it) =>
         func(it) !== func(res[res.length - 1]) ? [...res, it] : res,
@@ -208,7 +208,7 @@ var liushuaimaya = {
   take: (array, n = 1) => array.slice(0, n),
   takeRight: (array, n = 1) => array.slice(n ? -n : array.length),
   takeRightWhile(array, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (let i = array.length - 1; i >= 0; i--) {
       if (!predicate(array[i], i, array)) {
         return array.slice(i + 1);
@@ -216,7 +216,7 @@ var liushuaimaya = {
     }
   },
   takeWhile(array, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (let i = 0; i < array.length; i++) {
       if (!predicate(array[i], i, array)) {
         return array.slice(0, i);
@@ -225,7 +225,7 @@ var liushuaimaya = {
   },
   union: (...arrays) => [...new Set(arrays.flat())],
   unionBy(...arrays) {
-    func = this.iteratee(arrays.pop());
+    func = this._iteratee(arrays.pop());
     const transformed = arrays.flat().map(func);
     return arrays
       .flat()
@@ -241,7 +241,7 @@ var liushuaimaya = {
   },
   uniq: array => [...new Set(array)],
   uniqBy(array, func) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     const transformed = array.map(func);
     return array.filter((_, i) => transformed.indexOf(transformed[i]) == i);
   },
@@ -254,7 +254,7 @@ var liushuaimaya = {
     return this.zip(...array);
   },
   unzipWith(array, func) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return array[0].map((_, i) => func(...array.map(it => it[i])));
   },
   without: (array, ...values) => array.filter(it => !values.includes(it)),
@@ -264,7 +264,7 @@ var liushuaimaya = {
       .filter((it, _, arr) => arr.indexOf(it) == arr.lastIndexOf(it)),
   xorBy(...args) {
     const arr = args.flat();
-    predicate = this.iteratee(arr.pop());
+    predicate = this._iteratee(arr.pop());
     const transformed = arr.map(predicate);
     return arr.filter(
       (_, i) =>
@@ -304,17 +304,17 @@ var liushuaimaya = {
     return res;
   },
   zipWith(...args) {
-    const func = this.iteratee(args.pop());
+    const func = this._iteratee(args.pop());
     return args[0].map((_, i) => func(...args.map(it => it[i])));
   },
   countBy(collection, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return Object.values(collection)
       .map(func)
       .reduce((res, it) => (it in res ? res[it]++ : (res[it] = 1), res), {});
   },
   every(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     return this.isArrayLikeObject(collection)
       ? collection.reduce(
           (res, value, index) => res && predicate(value, index, collection),
@@ -326,7 +326,7 @@ var liushuaimaya = {
         );
   },
   filter(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     return this.isArrayLikeObject(collection)
       ? collection.reduce(
           (res, value, index) =>
@@ -340,7 +340,7 @@ var liushuaimaya = {
         );
   },
   find(collection, predicate = this.identity, fromIndex = 0) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     if (Array.isArray(collection)) {
       for (let index = fromIndex; index < collection.length; index++) {
         if (predicate(collection[index], index, collection)) {
@@ -357,7 +357,7 @@ var liushuaimaya = {
     return undefined;
   },
   findLast(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     const arr = Array.from(collection.entries()).reverse();
     return arr[
       arr.findIndex(pair => predicate(pair[1], pair[0], collection))
@@ -373,7 +373,7 @@ var liushuaimaya = {
     return this.flattenDepth(this.map(collection, func), n);
   },
   forEach(collection, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
         if (func(collection[i], i, collection) === false) break;
@@ -384,7 +384,7 @@ var liushuaimaya = {
     return collection;
   },
   forEachRight(collection, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     if (Array.isArray(collection)) {
       for (let index = collection.length - 1; index >= 0; index--) {
         if (func(collection[index], index, collection) === false) break;
@@ -398,7 +398,7 @@ var liushuaimaya = {
   },
   groupBy(collection, func = this.identity) {
     const res = {};
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     if (Array.isArray(collection)) {
       collection.forEach(val => {
         const by = func(val);
@@ -418,7 +418,7 @@ var liushuaimaya = {
     if (Array.isArray(collection)) {
       return collection
         .slice(fromIndex)
-        .some(item => this.sameValueZero(item, value));
+        .some(item => this._sameValueZero(item, value));
     } else if (this.isString(collection)) {
       return collection.slice(fromIndex).includes(value);
     } else {
@@ -435,7 +435,7 @@ var liushuaimaya = {
     }
   },
   map(collection, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     if (Array.isArray(collection)) {
       return collection.map((value, index) => func(value, index, collection));
     } else {
@@ -445,7 +445,7 @@ var liushuaimaya = {
     }
   },
   orderBy(collection, funcs = [this.identity], orders) {
-    funcs = funcs.map(it => this.iteratee(it));
+    funcs = funcs.map(it => this._iteratee(it));
     const compare = (a, b, funcs, orders) => {
       for (let i = 0; i < funcs.length; i++) {
         const flag = orders[i] === "asc" ? 1 : -1;
@@ -457,7 +457,7 @@ var liushuaimaya = {
     return collection.sort((a, b) => compare(a, b, funcs, orders));
   },
   partition(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     return collection.reduce(
       (res, it) => {
         res[predicate(it) ? 0 : 1].push(it);
@@ -467,7 +467,7 @@ var liushuaimaya = {
     );
   },
   reduce(collection, func = this.identity, accumulator) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
         i == 0 && accumulator == undefined
@@ -482,14 +482,14 @@ var liushuaimaya = {
     return accumulator;
   },
   reduceRight(collection, func = this.identity, accumulator) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     for (let i = collection.length - 1; i >= 0; i--) {
       accumulator = func(accumulator, collection[i], i, collection);
     }
     return accumulator;
   },
   reject(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     return collection.filter((it, i, arr) => !predicate(it, i, arr));
   },
   sample(collection) {
@@ -503,7 +503,7 @@ var liushuaimaya = {
   },
   size: collection => collection.length || Object.keys(collection).length,
   some(collection, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     return this.isArrayLikeObject(collection)
       ? collection.reduce(
           (res, value, index) => res || predicate(value, index, collection),
@@ -515,7 +515,7 @@ var liushuaimaya = {
         );
   },
   sortBy(collection, funcs = [this.identity]) {
-    funcs = funcs.map(it => this.iteratee(it));
+    funcs = funcs.map(it => this._iteratee(it));
     const compare = (a, b, funcs) => {
       for (let i = 0; i < funcs.length; i++) {
         if (funcs[i](a) < funcs[i](b)) return -1;
@@ -533,16 +533,16 @@ var liushuaimaya = {
       func(object[Object.keys(source)[i]]),
     ),
   eq(a, b) {
-    return this.sameValueZero(a, b);
+    return this._sameValueZero(a, b);
   },
   gt: (value, other) => value > other,
   gte: (value, other) => value >= other,
   isArguments(value) {
-    return this.getTag("Arguments")(value);
+    return this._getTag("Arguments")(value);
   },
   isArray: Array.isArray,
   isArrayBuffer(value) {
-    return this.getTag("ArrayBuffer")(value);
+    return this._getTag("ArrayBuffer")(value);
   },
   isArrayLike(value) {
     return (
@@ -558,10 +558,10 @@ var liushuaimaya = {
     return this.isArrayLike(value) && this.isObject(value);
   },
   isBoolean(value) {
-    return this.getTag("Boolean")(value);
+    return this._getTag("Boolean")(value);
   },
   isDate(value) {
-    return this.getTag("Date")(value);
+    return this._getTag("Date")(value);
   },
   isElement: value => value instanceof Element,
   isEmpty(value) {
@@ -609,18 +609,18 @@ var liushuaimaya = {
     return true;
   },
   isError(value) {
-    return this.getTag("Error")(value);
+    return this._getTag("Error")(value);
   },
   isFinite: Number.isFinite,
   isFunction(value) {
-    return this.getTag("Function")(value);
+    return this._getTag("Function")(value);
   },
   isInteger: Number.isInteger,
   isLength(value) {
     return value === this.toLength(value);
   },
   isMap(value) {
-    return this.getTag("Map")(value);
+    return this._getTag("Map")(value);
   },
   isMatch(obj, src) {
     if (obj === src) return true;
@@ -657,7 +657,7 @@ var liushuaimaya = {
   isNil: value => value === undefined || value === null,
   isNull: value => value === null,
   isNumber(value) {
-    return this.getTag("Number")(value);
+    return this._getTag("Number")(value);
   },
   isObject: value => value instanceof Object,
   isObjectLike: value => typeof value === "object" && value !== null,
@@ -665,14 +665,14 @@ var liushuaimaya = {
     Object.getPrototypeOf(value) === Object.prototype ||
     Object.getPrototypeOf(value) === null,
   isRegExp(value) {
-    return this.getTag("RegExp")(value);
+    return this._getTag("RegExp")(value);
   },
   isSafeInteger: Number.isSafeInteger,
   isSet(value) {
-    return this.getTag("Set")(value);
+    return this._getTag("Set")(value);
   },
   isString(value) {
-    return this.getTag("String")(value);
+    return this._getTag("String")(value);
   },
   isSymbol: value => typeof value === "symbol",
   isTypedArray(value) {
@@ -681,13 +681,13 @@ var liushuaimaya = {
     );
   },
   isUndefined(value) {
-    return this.getTag("Undefined")(value);
+    return this._getTag("Undefined")(value);
   },
   isWeakMap(value) {
-    return this.getTag("WeakMap")(value);
+    return this._getTag("WeakMap")(value);
   },
   isWeakSet(value) {
-    return this.getTag("WeakSet")(value);
+    return this._getTag("WeakSet")(value);
   },
   lt: (value, other) => value < other,
   lte: (value, other) => value <= other,
@@ -731,17 +731,17 @@ var liushuaimaya = {
   floor: (value, p = 0) => Math.floor(value * 10 ** p) / 10 ** p,
   max: array => (array && array.length ? Math.max(...array) : undefined),
   maxBy(array, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return array.map(it => [func(it), it]).sort((a, b) => b[0] - a[0])[0][1];
   },
   mean: array => array.reduce((a, b) => a + b) / array.length,
   meanBy(array, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return this.mean(array.map(func));
   },
   min: array => (array && array.length ? Math.min(...array) : undefined),
   minBy(array, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return array.map(it => [func(it), it]).sort((a, b) => a[0] - b[0])[0][1];
   },
   multiply: (multiplier, multiplicand) => multiplier * multiplicand,
@@ -749,7 +749,7 @@ var liushuaimaya = {
   subtract: (minuend, subtrahend) => minuend - subtrahend,
   sum: array => array.reduce((a, b) => a + b),
   sumBy(array, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return array.map(func).reduce((a, b) => a + b);
   },
   clamp: (number, ...args) => {
@@ -827,7 +827,7 @@ var liushuaimaya = {
     return object;
   },
   findKey(object, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (const key in object) {
       if (predicate(object[key], key, object)) {
         return key;
@@ -835,7 +835,7 @@ var liushuaimaya = {
     }
   },
   findLastKey(object, predicate = this.identity) {
-    predicate = this.iteratee(predicate);
+    predicate = this._iteratee(predicate);
     for (const key of Object.keys(object).reverse()) {
       if (predicate(object[key], key, object)) {
         return key;
@@ -843,7 +843,7 @@ var liushuaimaya = {
     }
   },
   forIn(obj, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     for (const key in obj) {
       if (func(obj[key], key, obj) === false) {
         break;
@@ -852,7 +852,7 @@ var liushuaimaya = {
     return obj;
   },
   forInRight(obj, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     const keys = [];
     for (const key in obj) {
       keys.push(key);
@@ -865,12 +865,12 @@ var liushuaimaya = {
     return obj;
   },
   forOwn(object, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     Object.keys(object).forEach(key => func(object[key], key, object));
     return object;
   },
   forOwnRight(object, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     Object.keys(object)
       .reverse()
       .forEach(key => func(object[key], key, object));
@@ -938,14 +938,14 @@ var liushuaimaya = {
     return res;
   },
   mapKeys(object, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return Object.entries(object).reduce((res, [key, value]) => {
       res[func(value, key, object)] = value;
       return res;
     }, {});
   },
   mapValues(object, func = this.identity) {
-    func = this.iteratee(func);
+    func = this._iteratee(func);
     return Object.entries(object).reduce((res, [key, value]) => {
       res[key] = func(value, key, object);
       return res;
@@ -1298,7 +1298,7 @@ var liushuaimaya = {
     return res;
   },
   toPath(path) {
-    return this.isString(path) ? path.match(/\w+/g) : path;
+    return Array.isArray(path) ?  path : String(path).match(/\w+/g);
   },
   uniqueId(prefix = "") {
     this._base++;
@@ -1366,16 +1366,23 @@ var liushuaimaya = {
   },
   flip: f => (...args) => f(...args.reverse()),
   conforms: src => obj => Object.keys(src).every(key => src[key](obj[key])),
+  constant: value => () => value,
+  method(path, args){
+
+  },
+  methodOf(object, args){
+
+  },
   nthArg: (n = 0) => (...args) => args[n < 0 ? args.length - n : n],
   propertyOf(obj) {
     return path => this.toPath(path).reduce((res, it) => res[it], obj);
   },
   stringifyJson: JSON.stringify,
   parseJson: JSON.parse,
-  getTag: tag => value =>
+
+  _getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
-  constant: value => () => value,
-  sameValueZero(x, y) {
+  _sameValueZero(x, y) {
     if (typeof x != typeof y) return false;
     if (this.isNumber(x)) {
       if (isNaN(x) && isNaN(y)) return true;
@@ -1385,29 +1392,21 @@ var liushuaimaya = {
     }
     return x === y;
   },
-
-  matchesProperty(path, srcValue) {
+  _matchesProperty(path, srcValue) {
     return obj => this.isMatch(this.property(path)(obj), srcValue);
   },
-  iteratee(func = this.identity) {
+  _iteratee(func = this.identity) {
     if (this.isRegExp(func)) return str => func.test(str);
     if (this.isFunction(func)) return func;
-    if (this.isArray(func)) return this.matchesProperty(func[0], func[1]);
+    if (this.isArray(func)) return this._matchesProperty(func[0], func[1]);
     if (this.isString(func)) return this.property(func);
     if (this.isObject(func)) return this.matches(func);
   },
-
-  keyBy(collection, func = this.identity) {
+  _keyBy(collection, func = this.identity) {
     return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
   },
-
-  // memoize: f => (
-  //   (memo = {}),
-  //   (...args) => (args in memo ? memo[args] : (memo[args] = f(...args))
-  // ,
-
-  any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
-  bind(func, thisArg, ...fixedArgs) {
+  _any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
+  _bind(func, thisArg, ...fixedArgs) {
     return (...args) => {
       const realArgs = fixedArgs.map(it => (it === _ ? args.shift() : it));
       return func.call(thisArg, ...realArgs, ...args);
