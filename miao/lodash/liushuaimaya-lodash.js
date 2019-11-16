@@ -1422,5 +1422,5 @@ var liushuaimaya = {
 ((...funcs) => {
   funcs.forEach(f => (liushuaimaya[f] = liushuaimaya[f].bind(liushuaimaya)));
   liushuaimaya._base = 2;
-  liushuaimaya.bind.placeholder = liushuaimaya;
+  liushuaimaya._bind.placeholder = liushuaimaya;
 })("trim");
