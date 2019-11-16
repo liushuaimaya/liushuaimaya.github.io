@@ -1369,7 +1369,7 @@ var liushuaimaya = {
   constant: value => () => value,
   flow(funcs) {
     return (...args) =>
-      funcs.reduce((res, f, i) => f.apply(f, i ? [res] : res), args);
+      funcs.reduce((res, f, i) => f.apply(this, i ? [res] : res), args);
   },
   method(path, ...args) {
     return obj =>
