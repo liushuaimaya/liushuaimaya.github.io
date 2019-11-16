@@ -1365,7 +1365,7 @@ var liushuaimaya = {
     };
   },
   flip: f => (...args) => f(...args.reverse()),
-  conforms() {},
+  conforms: src => obj =>Object.keys(src).every(key => src[key](obj[key])),
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
