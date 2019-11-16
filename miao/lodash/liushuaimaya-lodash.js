@@ -1354,20 +1354,18 @@ var liushuaimaya = {
         : this.curry(func.bind(null, ...args), arity - args.length);
     };
   },
-  memoize(func, resolver=this.identity) {
+  memoize(func, resolver = this.identity) {
     const cache = new Map();
     return (...args) => {
-      const key  = resolver(...args)
-      if(!cache.has(key)) {
+      const key = resolver(...args);
+      if (!cache.has(key)) {
         cache.set(key, func(...args));
       }
       return func(...args);
-    }
+    };
   },
   flip: f => (...args) => f(...args.reverse()),
-  conforms(){
-
-  },
+  conforms() {},
   getTag: tag => value =>
     Object.prototype.toString.call(value).slice(8, -1) === tag,
   constant: value => () => value,
@@ -1392,7 +1390,6 @@ var liushuaimaya = {
     if (this.isString(func)) return this.property(func);
     if (this.isObject(func)) return this.matches(func);
   },
-
 
   keyBy(collection, func = this.identity) {
     return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
