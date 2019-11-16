@@ -1367,8 +1367,9 @@ var liushuaimaya = {
   flip: f => (...args) => f(...args.reverse()),
   conforms: src => obj => Object.keys(src).every(key => src[key](obj[key])),
   constant: value => () => value,
-  flow(...funcs){
-    return (...args) => funcs.reduce((res, f) => f.apply(f, [res]), args);
+  flow(funcs) {
+    return (...args) =>
+      funcs.reduce((res, f, i) => f.apply(f, i ? [res] : res), args);
   },
   method(path, ...args) {
     return obj =>
