@@ -1366,6 +1366,9 @@ var liushuaimaya = {
   },
   flip: f => (...args) => f(...args.reverse()),
   conforms: src => obj => Object.keys(src).every(key => src[key](obj[key])),
+  propertyOf(obj) {
+    return path => this.toPath(path).reduce((res, it) => res[it], obj);
+  },
   stringifyJson: JSON.stringify,
   parseJson: JSON.parse,
   getTag: tag => value =>
