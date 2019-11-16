@@ -1361,7 +1361,7 @@ var liushuaimaya = {
       if (!cache.has(key)) {
         cache.set(key, func(...args));
       }
-      return func(...args);
+      return cache.get(key);
     };
   },
   flip: f => (...args) => f(...args.reverse()),
