@@ -1261,7 +1261,7 @@ var liushuaimaya = {
   },
   bindAll(object, methodNames) {
     methodNames.forEach(m => {
-      object[m] = object[m].bind(object);
+      object[m] = _.bind(object[m], object);
     });
     return object;
   },
