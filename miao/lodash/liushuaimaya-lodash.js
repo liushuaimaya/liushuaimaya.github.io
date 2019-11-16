@@ -1292,6 +1292,15 @@ var liushuaimaya = {
   },
   mixin(obj = liushuaimaya, src, op = {}) {
     if (op.chain === undefined) op.chain = true;
+    for(const key in src) {
+      if(typeof src[key] === 'function') {
+        obj[key] = src[key];
+        if(typeof obj === 'funciton') {
+          obj.prototype[key] = src[key];
+        }
+      }
+    }
+    return obj;
   },
   times(n, func = this.identity) {
     const res = [];
