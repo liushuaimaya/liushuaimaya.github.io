@@ -1300,7 +1300,6 @@ var liushuaimaya = {
   toPath(path) {
     return this.isString(path) ? path.match(/\w+/g) : path;
   },
-  _base: 2,
   uniqueId(prefix = "") {
     this._base++;
     return prefix + this._base;
@@ -1398,17 +1397,16 @@ var liushuaimaya = {
       return func.call(thisArg, ...realArgs, ...args);
     };
   }
-}
-
+};
 // 将所有函数的this绑定到liushuaimaya对象
 // (() =>
 //   Object.keys(liushuaimaya).forEach(
 //     key => (liushuaimaya[key] = liushuaimaya[key].bind(liushuaimaya)),
 //   ))();
+
+
 ((...funcs) => {
   funcs.forEach(f => (liushuaimaya[f] = liushuaimaya[f].bind(liushuaimaya)));
+  liushuaimaya._base = 2;
   liushuaimaya.bind.placeholder = liushuaimaya;
 })("trim");
-
-
-
