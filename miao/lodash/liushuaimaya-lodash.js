@@ -434,6 +434,9 @@ var liushuaimaya = {
       return collection.map(it => this.property(path)(it).apply(it, args));
     }
   },
+  keyBy(collection, func = this.identity) {
+    return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
+  },
   map(collection, func = this.identity) {
     func = this._iteratee(func);
     if (Array.isArray(collection)) {
@@ -1411,9 +1414,6 @@ var liushuaimaya = {
     if (this.isArray(func)) return this._matchesProperty(func[0], func[1]);
     if (this.isString(func)) return this.property(func);
     if (this.isObject(func)) return this.matches(func);
-  },
-  _keyBy(collection, func = this.identity) {
-    return collection.reduce((res, obj) => (res[func(obj)] = obj && res), {});
   },
   _any: (f, n = f.length) => (...args) => f(...args.slice(0, n)),
   _bind(func, thisArg, ...fixedArgs) {
