@@ -1276,7 +1276,7 @@ var liushuaimaya = {
       start = 0;
     }
     if (step === undefined) {
-      step = end < 0 ? -1 : 1;
+      step = end < start ? -1 : 1;
     }
     if (step === 0) {
       return Array(Math.ceil(end - start)).fill(start);
