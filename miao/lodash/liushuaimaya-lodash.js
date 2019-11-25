@@ -1321,8 +1321,8 @@ var liushuaimaya = {
   },
   cloneDeep(value) {
     if (
-      typeof value === "object" ||
-      typeof value !== null ||
+      typeof value !== "object" ||
+      typeof value === null ||
       this.isRegExp(value)
     )
       return value;
@@ -1440,6 +1440,6 @@ var liushuaimaya = {
 
 ((...funcs) => {
   funcs.forEach(f => (liushuaimaya[f] = liushuaimaya[f].bind(liushuaimaya)));
-  liushuaimaya._base = 2;
+  liushuaimaya._base = 1;
   liushuaimaya._bind.placeholder = liushuaimaya;
 })("trim");
