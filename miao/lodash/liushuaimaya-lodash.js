@@ -1321,16 +1321,13 @@ var liushuaimaya = {
   },
   cloneDeep(value) {
     if (
-      typeof value !== "object" ||
-      typeof value === null ||
+      typeof value === "object" ||
+      typeof value !== null ||
       this.isRegExp(value)
-    ) {
+    )
       return value;
-    }
     const res = Array.isArray(value) ? [] : {};
-    for (const key in value) {
-      res[key] = this.cloneDeep(value[key]);
-    }
+    for (const key in value) res[key] = this.cloneDeep(value[key]);
     return res;
   },
   identity: (...args) => args[0],
